@@ -1,0 +1,10 @@
+Package: sqlpetr
+Title: Companion Package for R-Docker-Databases Book
+Version: 0.0.0.9000
+Authors@R: person("M. Edward (Ed)", "Borasky", email = "znmeb@znmeb.net", role = c("aut", "cre"))
+Description: This package contains utilities for building the book and communicating with Docker and PostgreSQL.
+Depends: R (>= 3.5.0)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.0
