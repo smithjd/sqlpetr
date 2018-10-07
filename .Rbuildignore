@@ -1,2 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+CODE_OF_CONDUCT.md
+Contributing.md
+docs
+README.Rmd

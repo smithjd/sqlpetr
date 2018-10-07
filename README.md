@@ -1,20 +1,42 @@
-# SQL Pet R project
+sqlpetr
+================
 
-This project contains functions to accompany the 
-[R, Databases and Docker](https://smithjd.github.io/sql-pet/) book.
+## Introduction
 
-## How to contribute
-If you'd like to contribute to this project, start by searching through the [issues](https://github.com/smithjd/sqlpetr/issues) and [pull requests](https://github.com/smithjd/sqlpetr/pulls) to see whether someone else has already raised a similar idea or question.
+This is the companion R package for the database tutorial we are writing
+at <https://github.com/smithjd/sql-pet>. The plan is to have two classes
+of functions:
 
-If you don't see your idea listed, and you think it fits into the goals of this project, do one of the following:
+1.  Functions to install the dependencies needed to build the book and
+    perform the operations covered in the tutorial, and
+2.  Provide some useful utilities for dealing with Docker in general and
+    the PostgreSQL Docker image we are using.
 
-* If your contribution is minor, such as a typo fix, open a pull request.
-* If your contribution is major, such as a new learning module or a significant restructuring of current code and training material, start by opening an issue first. That way, before you do any work, other people can weigh in on the discussion to make sure that your goals are aligned with the direction of the project.
+## Installing
 
-We provide more guidelines for coding style and developer's workflow in the [Contributing](https://github.com/smithjd/sqlpetr/blob/master/Contributing.md) document. The [SQL Pet Tutorial](https://github.com/smithjd/sql-pet/) [project wiki](https://github.com/smithjd/sql-pet/wiki) is also a good source of information for developers.
+You will need `devtools` to install this package. If you want to work on
+it, you will need RStudio 1.2.1015 (currently in preview) or later,
+`devtools`, `roxygen2` and `pkgdown`.
 
-## Code of Conduct
-If you plan to participate in the project in any way, such as a developer, reviewer, contributor, committer, or student, you are expected to follow the project's [Code of Conduct](https://github.com/smithjd/sqlpetr/blob/master/CODE_OF_CONDUCT.md). Please review those guidelines before choosing to participate in the project.
+To install, clone this repository, `cd` into it and type
+`devtools::install()`.
 
-## License
-Software in this project is licensed under the [MIT License](https://github.com/smithjd/sqlpetr/blob/master/LICENSE).
+## Developer workflow
+
+See [R Packages](http://r-pkgs.had.co.nz/) for the details, but briefly;
+
+1.  Code a function with `roxygen2` comments in it. Test it.
+2.  When the function does what it’s supposed to do, go to the RStudio
+    `Build` tab. Press the `Check` button. This will run `R CMD check`.
+3.  Fix any errors, then when the check passes, press the “Install and
+    Restart” button.
+
+## Pkgdown
+
+This package uses `pkgdown` to build a package documentation site on
+GitHub Pages. The site is hosted at <https://smithjd.github.io/sqlpetr>.
+Once you’ve added a function, go to the RStudio Addins dropdown and
+select “Build pkgdown”. This will render the site and open it in your
+browser.
+
+For more detail on `pkgdown`, see <https://pkgdown.r-lib.org/>.
