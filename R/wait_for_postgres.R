@@ -1,9 +1,10 @@
 library(RPostgres)
 library(DBI)
 
-#' Connect to Postgres, waiting if it is not ready
+#' Connect to a PostgreSQL database, waiting if it is not ready
 #'
-#' Assumptions: host = "localhost" and port = "5432".
+#' This function is used during development to connect to an instance of PostgreSQL that is running on the developer's local machine, such as in a Docker container.
+#'    Assumptions: host = "localhost" and port = "5432".
 #' @param user Username for connecting to the database
 #' @param password Password that corresponds to the username
 #' @param dbname the name of the database within the database server
