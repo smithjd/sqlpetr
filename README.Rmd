@@ -13,6 +13,8 @@ This is the companion R package for the database tutorial we are writing at <htt
 1. Functions to install the dependencies needed to build the book and perform the operations covered in the tutorial, and
 2. Provide some useful utilities for dealing with Docker in general and the PostgreSQL Docker image we are using.
 
+This package has a `pkgdown` site at <https://smithjd.github.io/sqlpetr/>,
+
 ## Installing
 You will need `devtools` to install this package. If you want to work on it, you will need RStudio 1.2.1015 (currently in preview) or later, `devtools`, `roxygen2` and `pkgdown`.
 

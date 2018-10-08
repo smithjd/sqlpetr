@@ -12,6 +12,9 @@ of functions:
 2.  Provide some useful utilities for dealing with Docker in general and
     the PostgreSQL Docker image we are using.
 
+This package has a `pkgdown` site at
+<https://smithjd.github.io/sqlpetr/>,
+
 ## Installing
 
 You will need `devtools` to install this package. If you want to work on
