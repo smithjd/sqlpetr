@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connect to Postgres, waiting if it is not ready — wait_for_postgres • sqlpetr</title>
+<title>Connect to a PostgreSQL database, waiting if it is not ready — wait_for_postgres • sqlpetr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Connect to Postgres, waiting if it is not ready — wait_for_postgres" />
+<meta property="og:title" content="Connect to a PostgreSQL database, waiting if it is not ready — wait_for_postgres" />
 
-<meta property="og:description" content="Assumptions: host = &quot;localhost&quot; and port = &quot;5432&quot;." />
+<meta property="og:description" content="This function is used during development to connect to an instance of PostgreSQL that is running on the developer's local machine, such as in a Docker container.
+   Assumptions: host = &quot;localhost&quot; and port = &quot;5432&quot;." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -97,14 +98,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Connect to Postgres, waiting if it is not ready</h1>
+    <h1>Connect to a PostgreSQL database, waiting if it is not ready</h1>
     <small class="dont-index">Source: <a href='https://github.com/smithjd/sqlpetr/blob/master/R/wait_for_postgres.R'><code>R/wait_for_postgres.R</code></a></small>
     <div class="hidden name"><code>wait_for_postgres.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Assumptions: host = "localhost" and port = "5432".</p>
+    <p>This function is used during development to connect to an instance of PostgreSQL that is running on the developer's local machine, such as in a Docker container.
+   Assumptions: host = "localhost" and port = "5432".</p>
     
     </div>
 

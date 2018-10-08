@@ -2,7 +2,7 @@
 % Please edit documentation in R/wait_for_postgres.R
 \name{wait_for_postgres}
 \alias{wait_for_postgres}
-\title{Connect to Postgres, waiting if it is not ready}
+\title{Connect to a PostgreSQL database, waiting if it is not ready}
 \usage{
 wait_for_postgres(user, password, dbname, seconds_to_test = 10)
 }
@@ -19,5 +19,6 @@ wait_for_postgres(user, password, dbname, seconds_to_test = 10)
 When successful: a connection object, which is an S4 object that inherits from DBIConnection used to communicate with the database engine; Otherwise, an error string.
 }
 \description{
-Assumptions: host = "localhost" and port = "5432".
+This function is used during development to connect to an instance of PostgreSQL that is running on the developer's local machine, such as in a Docker container.
+   Assumptions: host = "localhost" and port = "5432".
 }
