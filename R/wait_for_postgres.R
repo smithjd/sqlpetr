@@ -14,7 +14,9 @@ wait_for_postgres <-
   function(user, password, dbname, seconds_to_test = 10) {
     conn <- NULL
     db_ready <- FALSE
-    for (i in 1:abs(seconds_to_test)) {
+    n_iterations <- abs(seconds_to_test)
+    i <- 1
+    while (i <= n_iterations & is.null(conn)) {
       db_ready <- DBI::dbCanConnect(
         RPostgres::Postgres(),
         host = "localhost",
@@ -36,8 +38,9 @@ wait_for_postgres <-
           dbname = dbname
         )
       }
+      i <- i + 1
     }
-    if (!db_ready) {
+    if (is.null(conn)) {
       conn <- "There is no connection"
     }
     conn
