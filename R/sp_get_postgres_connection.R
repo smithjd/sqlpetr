@@ -11,7 +11,7 @@ library(DBI)
 #' @param seconds_to_test the number of iterations to try while waiting for PostgreSQL service to be ready.
 #' @return When successful: a connection object, which is an S4 object that inherits from DBIConnection used to communicate with the database engine; Otherwise, an error string.
 #' @export
-wait_for_postgres <-
+sp_get_postgres_connection <-
   function(user, password, dbname, seconds_to_test = 10) {
     conn <- NULL
     db_ready <- FALSE
