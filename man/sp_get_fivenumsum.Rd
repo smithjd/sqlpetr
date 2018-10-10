@@ -2,7 +2,7 @@
 % Please edit documentation in R/sp_get_fivenumsum.R
 \name{sp_get_fivenumsum}
 \alias{sp_get_fivenumsum}
-\title{Calcualte a 5 number summary (for all types of variables)}
+\title{Calculate a 5 number summary (for all types of variables)}
 \usage{
 sp_get_fivenumsum(var, character_truncate_length = 60)
 }
@@ -15,7 +15,7 @@ sp_get_fivenumsum(var, character_truncate_length = 60)
 The min, max, median, and 25th and 75th percentiles
 }
 \description{
-Calcualte a 5 number summary (for all types of variables)
+Calculate a 5 number summary (for all types of variables)
 }
 \examples{
 summary_vector <- sp_get_fivenumsum(mtcars$mpg)

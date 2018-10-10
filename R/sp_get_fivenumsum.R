@@ -1,4 +1,4 @@
-#' Calcualte a 5 number summary (for all types of variables)
+#' Calculate a 5 number summary (for all types of variables)
 #'
 #' @param var The variable to be summarized
 #' @param character_truncate_length the length of output character summaries (for )
