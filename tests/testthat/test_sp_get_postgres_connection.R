@@ -4,7 +4,7 @@ context("Connecting to a PostgreSQL instance")
 EXPECTED_ERROR_MESSAGE = "There is no connection"
 
 test_that("Expects error message when unable to connect", {
-  conn <- wait_for_postgres(
+  conn <- sp_get_postgres_connection(
     user = "unknown_user",
     password = "some_password",
     dbname = "unknown_database",
@@ -14,7 +14,7 @@ test_that("Expects error message when unable to connect", {
 })
 
 test_that("Expects negative 'seconds_to_test' is ignored", {
-  conn <- wait_for_postgres(
+  conn <- sp_get_postgres_connection(
     user = "unknown_user",
     password = "some_password",
     dbname = "unknown_database",
@@ -24,7 +24,7 @@ test_that("Expects negative 'seconds_to_test' is ignored", {
 })
 
 test_that("Handles 0 seconds_to_test", {
-  conn <- wait_for_postgres(
+  conn <- sp_get_postgres_connection(
     user = "unknown_user",
     password = "some_password",
     dbname = "unknown_database",
