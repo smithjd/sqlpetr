@@ -35,3 +35,5 @@ vignettes/*.pdf
 # Mac OS X system files
 .DS_Store
 
+# github specific directories
+.github
