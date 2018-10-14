@@ -17,12 +17,13 @@ This package has a `pkgdown` site at
 
 ## Installing
 
-You will need `devtools` to install this package. If you want to work on
-it, you will need RStudio 1.2.1015 (currently in preview) or later,
-`devtools`, `roxygen2` and `pkgdown`.
+You will need `devtools` to install this package. 
 
-To install, clone this repository, `cd` into it and type
+If you want to work on it, you will need RStudio 1.2.1015 (currently in preview) or later,
+`devtools`, `roxygen2` and `pkgdown`. To install, clone this repository, `cd` into it and type
 `devtools::install()`.
+
+To just use the package, you need `devtools` and use `devtools::install_github("smithjd/sqlpetr")`.
 
 ## Developer workflow
 
