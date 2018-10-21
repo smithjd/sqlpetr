@@ -31,7 +31,8 @@ Imports:
     utils (>= 3.5.1),
     tibble (>= 1.4.2),
     here (>= 0.1),
-    skimr (>= 1.0.3)
+    skimr (>= 1.0.3),
+    tidyverse (>= 1.2.1)
 Suggests: 
     testthat (>= 2.0.0),
     devtools (>= 2.0.0),
