@@ -32,7 +32,8 @@ Imports:
     tibble (>= 1.4.2),
     here (>= 0.1),
     skimr (>= 1.0.3),
-    tidyverse (>= 1.2.1)
+    tidyverse (>= 1.2.1),
+    DiagrammeR (>= 1.0.0)
 Suggests: 
     testthat (>= 2.0.0),
     devtools (>= 2.0.0),
