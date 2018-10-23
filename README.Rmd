@@ -16,9 +16,9 @@ This is the companion R package for the database tutorial we are writing at <htt
 This package has a `pkgdown` site at <https://smithjd.github.io/sqlpetr/>,
 
 ## Installing
-You will need `devtools` to install this package. If you want to work on it, you will need RStudio 1.2.1015 (currently in preview) or later, `devtools`, `roxygen2` and `pkgdown`.
+You will need `devtools` to install this package. To install, clone this repository, `cd` into it and type `devtools::install()`. This will install all the packages required to build the book. 
 
-To install, clone this repository, `cd` into it and type `devtools::install()`.
+If you want to work on this package, do `devtools::install(".", dependencies = TRUE)`. This will install all the packages required to build the book, plus the packages you need to work on the `sqlpetr` package: `testthat`, `roxygen2` and `pkgdown`.
 
 ## Developer workflow
 See [R Packages](http://r-pkgs.had.co.nz/) for the details, but briefly;
