@@ -80,8 +80,8 @@
 <div id="installing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installing" class="anchor"></a>Installing</h2>
-<p>You will need <code>devtools</code> to install this package. If you want to work on it, you will need RStudio 1.2.1015 (currently in preview) or later, <code>devtools</code>, <code>roxygen2</code> and <code>pkgdown</code>.</p>
-<p>To install, clone this repository, <code>cd</code> into it and type <code><a href="http://www.rdocumentation.org/packages/devtools/topics/install">devtools::install()</a></code>.</p>
+<p>You will need <code>devtools</code> to install this package. To install, clone this repository, <code>cd</code> into it and type <code><a href="http://www.rdocumentation.org/packages/devtools/topics/install">devtools::install()</a></code>. This will install all the packages required to build the book.</p>
+<p>If you want to work on this package, do <code><a href="http://www.rdocumentation.org/packages/devtools/topics/install">devtools::install(".", dependencies = TRUE)</a></code>. This will install all the packages required to build the book, plus the packages you need to work on the <code>sqlpetr</code> package: <code>testthat</code>, <code>roxygen2</code> and <code>pkgdown</code>.</p>
 </div>
 <div id="developer-workflow" class="section level2">
 <h2 class="hasAnchor">
