@@ -3,7 +3,7 @@ Title: Companion Package for R-Docker-Databases Book
 Version: 0.0.0.9000
 Authors@R: c(
   person("Dipti", "Muni", role = "aut"),
-  person("Maryanne", "Thygesen", role = "aut"),
+  person("Mary Anne", "Thygesen", role = "aut"),
   person("Sophie", "Yang", role = "aut"),
   person("Jim", "Tyhurst", role = "aut"),
   person("John David", "Smith", role = "aut", email = "john.smith@learningalliances.net"),
@@ -42,4 +42,6 @@ Suggests:
     testthat (>= 2.0.0),
     devtools (>= 2.0.0),
     pkgdown (>= 1.1.0),
-    roxygen2 (>= 6.1.0)
+    roxygen2 (>= 6.1.0),
+    rmarkdown
+VignetteBuilder: knitr
