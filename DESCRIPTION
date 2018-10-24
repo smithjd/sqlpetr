@@ -43,5 +43,6 @@ Suggests:
     devtools (>= 2.0.0),
     pkgdown (>= 1.1.0),
     roxygen2 (>= 6.1.0),
-    rmarkdown
+    rmarkdown (>= 1.10),
+    usethis (>= 1.4.0)
 VignetteBuilder: knitr
