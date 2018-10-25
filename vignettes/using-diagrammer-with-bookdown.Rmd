@@ -82,7 +82,7 @@ Since this vignette is HTML, you can see the diagram. But to make both HTML and 
 
 First, create a directory for the images:
 ```{r}
-dir.create("~/Pictures/diagrams", recursive = TRUE)
+dir.create("diagrams", recursive = TRUE)
 
 ```
 
@@ -114,7 +114,7 @@ a -> {b c d e f g h i j}
 ")
 widget %>% 
   DiagrammeRsvg::export_svg() %>% 
-  cat(file = "~/Pictures/diagrams/example.svg")
+  cat(file = "diagrams/example.svg")
 
 ```
 
@@ -123,13 +123,13 @@ If you have an SVG viewer, like `Inkscape`, you can open the file and see the di
 Now, create a `.png` for importing to HTML and a `.pdf` for importing into PDFs.
 
 ```{r}
-magick::image_read_svg("~/Pictures/diagrams/example.svg") %>% 
+magick::image_read_svg("diagrams/example.svg") %>% 
   magick::image_write(
-    path = "~/Pictures/diagrams/example.png", 
+    path = "diagrams/example.png", 
     format = "png")
-magick::image_read_svg("~/Pictures/diagrams/example.svg") %>% 
+magick::image_read_svg("diagrams/example.svg") %>% 
   magick::image_write(
-    path = "~/Pictures/diagrams/example.pdf", format = "pdf")
+    path = "diagrams/example.pdf", format = "pdf")
 
 ```
 
@@ -137,7 +137,7 @@ magick::image_read_svg("~/Pictures/diagrams/example.svg") %>%
 That was the hard part - it's downhill from here. A single `knitr` call is all we need to get the image displayed in our R Markdown either in an HTML or PDF document.
 
 ```{r}
-knitr::include_graphics("~/Pictures/diagrams/example.png", auto_pdf = TRUE)
+knitr::include_graphics("diagrams/example.png", auto_pdf = TRUE)
 
 ```
 
@@ -147,7 +147,7 @@ How does this work? We have both `.png` and `.pdf` files for the image. `knitr` 
 ```{r}
 make_image_files <- function(
   widget, 
-  directory = "~/Pictures/diagrams", 
+  directory = "diagrams", 
   filename = "example") {
   dir.create(directory, recursive = TRUE)
   svg_name <- paste(
@@ -172,12 +172,12 @@ make_image_files <- function(
 Test it!
 ```{r}
 file_to_include <- make_image_files(
-  widget, "~/Pictures/test_diagrams", "test_file"
+  widget, "test_diagrams", "test_file"
 )
 ```
 
 ```{r}
-knitr::include_graphics(file_to_include, auto_pdf = TRUE)
+knitr::include_graphics(path = file_to_include, auto_pdf = TRUE)
 
 ```
 

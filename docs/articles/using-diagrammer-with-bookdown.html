@@ -156,8 +156,8 @@
 <a class="sourceLine" id="cb1-21" data-line-number="21"><span class="st">[1]: 'top'</span></a>
 <a class="sourceLine" id="cb1-22" data-line-number="22"><span class="st">[2]: 10:20</span></a>
 <a class="sourceLine" id="cb1-23" data-line-number="23"><span class="st">"</span>)</a></code></pre></div>
-<div id="htmlwidget-062a59d1d33bd2b31eed" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-062a59d1d33bd2b31eed">{"x":{"diagram":"\ndigraph a_nice_graph {\n\n# node definitions with substituted label text\nnode [fontname = Helvetica]\na [label = \"top\"]\nb [label = \"10\"]\nc [label = \"11\"]\nd [label = \"12\"]\ne [label = \"13\"]\nf [label = \"14\"]\ng [label = \"15\"]\nh [label = \"16\"]\ni [label = \"17\"]\nj [label = \"18\"]\n\n# edge definitions with the node IDs\na -> {b c d e f g h i j}\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>Since this vignette is HTML, you can see the diagram. But to make both HTML and PDF, we need image files that <code>knitr</code> can import. For that, we’ll need two more packages: <code>DiagrammeRsvg</code> (<span class="citation">Iannone (2016)</span>) and <code>magick</code> (<span class="citation">Ooms (2018)</span>).</p>
+<div id="htmlwidget-f7a81c2d05e283775cac" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f7a81c2d05e283775cac">{"x":{"diagram":"\ndigraph a_nice_graph {\n\n# node definitions with substituted label text\nnode [fontname = Helvetica]\na [label = \"top\"]\nb [label = \"10\"]\nc [label = \"11\"]\nd [label = \"12\"]\ne [label = \"13\"]\nf [label = \"14\"]\ng [label = \"15\"]\nh [label = \"16\"]\ni [label = \"17\"]\nj [label = \"18\"]\n\n# edge definitions with the node IDs\na -> {b c d e f g h i j}\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>Since this vignette is HTML, you can see the diagram. But to make both HTML and PDF, we need image files that <code>knitr</code> can import. For that, we’ll need two more packages: <code>DiagrammeRsvg</code> (<span class="citation">Iannone (2016)</span>) and <code>magick</code> (<span class="citation">Ooms (2018)</span>).</p>
 <p>First, create a directory for the images:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">dir.create</span>(<span class="st">"diagrams"</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; Warning in dir.create("diagrams", recursive = TRUE): 'diagrams' already</span></a>
@@ -221,7 +221,7 @@
 <a href="#so-lets-make-this-into-a-function" class="anchor"></a>So let’s make this into a function!</h2>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">make_image_files &lt;-<span class="st"> </span><span class="cf">function</span>(</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  widget, </a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">directory =</span> <span class="st">"~/Pictures/diagrams"</span>, </a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">directory =</span> <span class="st">"diagrams"</span>, </a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="dt">filename =</span> <span class="st">"example"</span>) {</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">  <span class="kw">dir.create</span>(directory, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6">  svg_name &lt;-<span class="st"> </span><span class="kw">paste</span>(</a>
@@ -243,12 +243,12 @@
 <a class="sourceLine" id="cb6-22" data-line-number="22">}</a></code></pre></div>
 <p>Test it!</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">file_to_include &lt;-<span class="st"> </span><span class="kw">make_image_files</span>(</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  widget, <span class="st">"~/Pictures/test_diagrams"</span>, <span class="st">"test_file"</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  widget, <span class="st">"test_diagrams"</span>, <span class="st">"test_file"</span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">)</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; Warning in dir.create(directory, recursive = TRUE): '/home/znmeb/Pictures/</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; test_diagrams' already exists</span></a></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_to_include, <span class="dt">auto_pdf =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="../../../Pictures/test_diagrams/test_file.png"><!-- --></p>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; Warning in dir.create(directory, recursive = TRUE): 'test_diagrams' already</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; exists</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="dt">path =</span> file_to_include, <span class="dt">auto_pdf =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="test_diagrams/test_file.png"><!-- --></p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
