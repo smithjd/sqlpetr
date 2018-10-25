@@ -73,13 +73,14 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
+      </header><script src="using-diagrammer-with-bookdown_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="using-diagrammer-with-bookdown_files/viz-0.3/viz.js"></script><link href="using-diagrammer-with-bookdown_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="using-diagrammer-with-bookdown_files/grViz-binding-1.0.0/grViz.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Using DiagrammeR with Bookdown</h1>
                         <h4 class="author">M. Edward (Ed) Borasky</h4>
             
-            <h4 class="date">2018-10-24</h4>
+            <h4 class="date">2018-10-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/smithjd/sqlpetr/blob/master/vignettes/using-diagrammer-with-bookdown.Rmd"><code>vignettes/using-diagrammer-with-bookdown.Rmd</code></a></small>
       <div class="hidden name"><code>using-diagrammer-with-bookdown.Rmd</code></div>
@@ -120,32 +121,153 @@
 <a href="#making-a-diagram-with-diagrammer" class="anchor"></a>Making a diagram with DiagrammeR</h2>
 <p><code>DiagrammeR</code> <span class="citation">(Iannone 2018)</span> is a package for creating diagrams with R code. There are essentially two ways to create a diagram:</p>
 <ol style="list-style-type: decimal">
-<li>Manually, by editing a text file or text string and previewing it in RStudio.</li>
+<li>Manually, by editing a text file or text string and previewing it in RStudio, (<a href="http://rich-iannone.github.io/DiagrammeR/io.html" class="uri">http://rich-iannone.github.io/DiagrammeR/io.html</a>), or</li>
 <li>Programmatically, by writing R code that creates a graph object and then rendering it with <code>render_graph</code>.</li>
 </ol>
-<p>Both of these will work in an R Markdown document that’s intended for HTML only. The output objects in this case are HTML widgets. They <em>contain</em> the SVG code for the diagram, but they aren’t easily inserted in a PDF document via the <code>knitr-pandoc</code> toolchain.</p>
-<p>For the programmatic workflow, <code>DiagrammeR</code> can export the graph object to image files, which can be imported into both the HTML and PDF versions of a book. But there’s no easy way to go from the manual text description to image files. So we built one.</p>
+<p>Both of these will work in an R Markdown document that’s deployed to HTML. In fact, they also work in the HTML-based “GitBook” output from Bookdown. And in the first case, there’s no code required except the description of the diagram in the <code>DOT</code> language (<a href="http://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html" class="uri">http://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html</a>).</p>
+<p>For the <em>programmatic</em> workflow, <code>DiagrammeR</code> can export a graph object to image files, which <code>knitr</code> can import into both the HTML and PDF versions of a book. But there’s no easy way to go from the manual text description to image files. So we built one.</p>
 </div>
-<div id="exporting-a-diagram-to-image-files" class="section level2">
+<div id="exporting-a-grvis-object-to-image-files" class="section level2">
 <h2 class="hasAnchor">
-<a href="#exporting-a-diagram-to-image-files" class="anchor"></a>Exporting a diagram to image files</h2>
+<a href="#exporting-a-grvis-object-to-image-files" class="anchor"></a>Exporting a <code>grVis</code> object to image files</h2>
+<p>When you create a diagram manually, <code>DiagrammeR</code> returns a <code>grViz</code> object. The actual diagram is coded as a Scalable Vector Graphics (SVG) text string, and the rest of the object is metadata.</p>
+<p>When you create a diagram programmatically, <code>render_graph</code> returns a <code>grViz</code> object, given a (computed) graph object in an internal <code>DiagrammeR</code> format. So in either case, we have an <code>htmlwidget</code> object.</p>
+<p>Here’s an example (<a href="http://visualizers.co/diagrammer/articles/graphviz-mermaid.html" class="uri">http://visualizers.co/diagrammer/articles/graphviz-mermaid.html</a>):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">DiagrammeR<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DiagrammeR/topics/grViz">grViz</a></span>(<span class="st">"</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="st">digraph a_nice_graph {</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st"># node definitions with substituted label text</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">node [fontname = Helvetica]</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="st">a [label = '@@1']</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">b [label = '@@2-1']</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">c [label = '@@2-2']</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="st">d [label = '@@2-3']</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="st">e [label = '@@2-4']</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="st">f [label = '@@2-5']</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="st">g [label = '@@2-6']</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="st">h [label = '@@2-7']</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="st">i [label = '@@2-8']</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="st">j [label = '@@2-9']</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="st"># edge definitions with the node IDs</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="st">a -&gt; {b c d e f g h i j}</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="st">}</span></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="st">[1]: 'top'</span></a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="st">[2]: 10:20</span></a>
+<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="st">"</span>)</a></code></pre></div>
+<div id="htmlwidget-062a59d1d33bd2b31eed" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-062a59d1d33bd2b31eed">{"x":{"diagram":"\ndigraph a_nice_graph {\n\n# node definitions with substituted label text\nnode [fontname = Helvetica]\na [label = \"top\"]\nb [label = \"10\"]\nc [label = \"11\"]\nd [label = \"12\"]\ne [label = \"13\"]\nf [label = \"14\"]\ng [label = \"15\"]\nh [label = \"16\"]\ni [label = \"17\"]\nj [label = \"18\"]\n\n# edge definitions with the node IDs\na -> {b c d e f g h i j}\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>Since this vignette is HTML, you can see the diagram. But to make both HTML and PDF, we need image files that <code>knitr</code> can import. For that, we’ll need two more packages: <code>DiagrammeRsvg</code> (<span class="citation">Iannone (2016)</span>) and <code>magick</code> (<span class="citation">Ooms (2018)</span>).</p>
+<p>First, create a directory for the images:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">dir.create</span>(<span class="st">"diagrams"</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; Warning in dir.create("diagrams", recursive = TRUE): 'diagrams' already</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; exists</span></a></code></pre></div>
+<p>Next, extract the SVG code for the diagram and write it to a file:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(dplyr) <span class="co"># get the pipes</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; Attaching package: 'dplyr'</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; The following objects are masked from 'package:stats':</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;     filter, lag</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; The following objects are masked from 'package:base':</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;     intersect, setdiff, setequal, union</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">widget &lt;-<span class="st"> </span>DiagrammeR<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DiagrammeR/topics/grViz">grViz</a></span>(<span class="st">"</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="st">digraph a_nice_graph {</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st"># node definitions with substituted label text</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="st">node [fontname = Helvetica]</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="st">a [label = '@@1']</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="st">b [label = '@@2-1']</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="st">c [label = '@@2-2']</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="st">d [label = '@@2-3']</span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="st">e [label = '@@2-4']</span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="st">f [label = '@@2-5']</span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="st">g [label = '@@2-6']</span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="st">h [label = '@@2-7']</span></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="st">i [label = '@@2-8']</span></a>
+<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="st">j [label = '@@2-9']</span></a>
+<a class="sourceLine" id="cb3-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="st"># edge definitions with the node IDs</span></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="st">a -&gt; {b c d e f g h i j}</span></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="st">}</span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="st">[1]: 'top'</span></a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="st">[2]: 10:20</span></a>
+<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb3-33" data-line-number="33">widget <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="st">  </span>DiagrammeRsvg<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DiagrammeRsvg/topics/export_svg">export_svg</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="st">  </span><span class="kw">cat</span>(<span class="dt">file =</span> <span class="st">"diagrams/example.svg"</span>)</a></code></pre></div>
+<p>If you have an SVG viewer, like <code>Inkscape</code>, you can open the file and see the diagram!</p>
+<p>Now, create a <code>.png</code> for importing to HTML and a <code>.pdf</code> for importing into PDFs.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">magick<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/magick/topics/editing">image_read_svg</a></span>(<span class="st">"diagrams/example.svg"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span>magick<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/magick/topics/editing">image_write</a></span>(</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="dt">path =</span> <span class="st">"diagrams/example.png"</span>, </a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="dt">format =</span> <span class="st">"png"</span>)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">magick<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/magick/topics/editing">image_read_svg</a></span>(<span class="st">"diagrams/example.svg"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span>magick<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/magick/topics/editing">image_write</a></span>(</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">    <span class="dt">path =</span> <span class="st">"diagrams/example.pdf"</span>, <span class="dt">format =</span> <span class="st">"pdf"</span>)</a></code></pre></div>
 </div>
 <div id="including-the-image-in-the-book" class="section level2">
 <h2 class="hasAnchor">
 <a href="#including-the-image-in-the-book" class="anchor"></a>Including the image in the book</h2>
+<p>That was the hard part - it’s downhill from here. A single <code>knitr</code> call is all we need to get the image displayed in our R Markdown either in an HTML or PDF document.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="st">"diagrams/example.png"</span>, <span class="dt">auto_pdf =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="diagrams/example.png"><!-- --></p>
+<p>How does this work? We have both <code>.png</code> and <code>.pdf</code> files for the image. <code>knitr</code> sees the <code>auto_pdf</code> option and makes the choice accordingly. If it’s making an HTML file it uses the <code>.png</code> and if it’s making a PDF file it uses the <code>.pdf</code>.</p>
+</div>
+<div id="so-lets-make-this-into-a-function" class="section level2">
+<h2 class="hasAnchor">
+<a href="#so-lets-make-this-into-a-function" class="anchor"></a>So let’s make this into a function!</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">make_image_files &lt;-<span class="st"> </span><span class="cf">function</span>(</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  widget, </a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">directory =</span> <span class="st">"~/Pictures/diagrams"</span>, </a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="dt">filename =</span> <span class="st">"example"</span>) {</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">  <span class="kw">dir.create</span>(directory, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">  svg_name &lt;-<span class="st"> </span><span class="kw">paste</span>(</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">    directory, <span class="kw">paste</span>(filename, <span class="st">"svg"</span>, <span class="dt">sep =</span> <span class="st">"."</span>), <span class="dt">sep =</span> <span class="st">"/"</span>)</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">  png_name &lt;-<span class="st"> </span><span class="kw">paste</span>(</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">    directory, <span class="kw">paste</span>(filename, <span class="st">"png"</span>, <span class="dt">sep =</span> <span class="st">"."</span>), <span class="dt">sep =</span> <span class="st">"/"</span>)</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10">  pdf_name &lt;-<span class="st"> </span><span class="kw">paste</span>(</a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">    directory, <span class="kw">paste</span>(filename, <span class="st">"pdf"</span>, <span class="dt">sep =</span> <span class="st">"."</span>), <span class="dt">sep =</span> <span class="st">"/"</span>)</a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">  <span class="kw">require</span>(dplyr)</a>
+<a class="sourceLine" id="cb6-13" data-line-number="13">  widget <span class="op">%&gt;%</span><span class="st">  </span>DiagrammeRsvg<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DiagrammeRsvg/topics/export_svg">export_svg</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="st">    </span><span class="kw">cat</span>(<span class="dt">file =</span> svg_name)</a>
+<a class="sourceLine" id="cb6-15" data-line-number="15">  magick<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/magick/topics/editing">image_read_svg</a></span>(svg_name) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="st">    </span>magick<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/magick/topics/editing">image_write</a></span>(<span class="dt">path =</span> png_name, <span class="dt">format =</span> <span class="st">"png"</span>)</a>
+<a class="sourceLine" id="cb6-17" data-line-number="17">  magick<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/magick/topics/editing">image_read_svg</a></span>(svg_name) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="st">    </span>magick<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/magick/topics/editing">image_write</a></span>(<span class="dt">path =</span> pdf_name, <span class="dt">format =</span> <span class="st">"pdf"</span>)</a>
+<a class="sourceLine" id="cb6-19" data-line-number="19">  </a>
+<a class="sourceLine" id="cb6-20" data-line-number="20">  <span class="co"># return the PNG file name; it's an argument to `knitr::include_graphics`</span></a>
+<a class="sourceLine" id="cb6-21" data-line-number="21">  <span class="kw">return</span>(png_name)</a>
+<a class="sourceLine" id="cb6-22" data-line-number="22">}</a></code></pre></div>
+<p>Test it!</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">file_to_include &lt;-<span class="st"> </span><span class="kw">make_image_files</span>(</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  widget, <span class="st">"~/Pictures/test_diagrams"</span>, <span class="st">"test_file"</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">)</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; Warning in dir.create(directory, recursive = TRUE): '/home/znmeb/Pictures/</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; test_diagrams' already exists</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(file_to_include, <span class="dt">auto_pdf =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="../../../Pictures/test_diagrams/test_file.png"><!-- --></p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
 <div id="refs" class="references">
+<div id="ref-Iannone2016">
+<p>Iannone, Richard. 2016. <em>DiagrammeRsvg: Export Diagrammer Graphviz Graphs as Svg</em>. <a href="https://CRAN.R-project.org/package=DiagrammeRsvg">https://CRAN.R-project.org/package=DiagrammeRsvg</a>.</p>
+</div>
 <div id="ref-Iannone2018">
-<p>Iannone, Richard. 2018. <em>DiagrammeR: Graph/Network Visualization</em>. <a href="http://rich-iannone.github.io/DiagrammeR/index.html">http://rich-iannone.github.io/DiagrammeR/index.html</a>.</p>
+<p>———. 2018. <em>DiagrammeR: Graph/Network Visualization</em>. <a href="http://rich-iannone.github.io/DiagrammeR/index.html">http://rich-iannone.github.io/DiagrammeR/index.html</a>.</p>
 </div>
 <div id="ref-Muni2018a">
 <p>Muni, Dipti, Mary Anne Thygesen, Sophie Yang, Jim Tyhurst, John David Smith, and M. Edward (Ed) Borasky. 2018a. <em>R, Databases and Docker</em>. <a href="https://smithjd.github.io/sql-pet">https://smithjd.github.io/sql-pet</a>.</p>
 </div>
 <div id="ref-Muni2018b">
 <p>———. 2018b. <em>Sqlpetr: Companion Package for R-Docker-Databases Book</em>. <a href="https://github.com/smithjd/sqlpetr">https://github.com/smithjd/sqlpetr</a>.</p>
+</div>
+<div id="ref-Ooms2018">
+<p>Ooms, Jeroen. 2018. <em>Magick: Advanced Graphics and Image-Processing in R</em>. <a href="https://CRAN.R-project.org/package=magick">https://CRAN.R-project.org/package=magick</a>.</p>
 </div>
 <div id="ref-Xie2016">
 <p>Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
@@ -161,8 +283,9 @@
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
       <li><a href="#making-a-diagram-with-diagrammer">Making a diagram with DiagrammeR</a></li>
-      <li><a href="#exporting-a-diagram-to-image-files">Exporting a diagram to image files</a></li>
+      <li><a href="#exporting-a-grvis-object-to-image-files">Exporting a <code>grVis</code> object to image files</a></li>
       <li><a href="#including-the-image-in-the-book">Including the image in the book</a></li>
+      <li><a href="#so-lets-make-this-into-a-function">So let’s make this into a function!</a></li>
       <li><a href="#references">References</a></li>
       </ul>
 </div>

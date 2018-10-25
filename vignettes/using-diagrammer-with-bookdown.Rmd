@@ -82,13 +82,13 @@ Since this vignette is HTML, you can see the diagram. But to make both HTML and 
 
 First, create a directory for the images:
 ```{r}
-dir.create("diagrams", recursive = TRUE)
+dir.create("~/Pictures/diagrams", recursive = TRUE)
 
 ```
 
 Next, extract the SVG code for the diagram and write it to a file:
 ```{r}
-library(magrittr) # get the pipes
+library(dplyr) # get the pipes
 widget <- DiagrammeR::grViz("
 digraph a_nice_graph {
 
@@ -114,7 +114,7 @@ a -> {b c d e f g h i j}
 ")
 widget %>% 
   DiagrammeRsvg::export_svg() %>% 
-  cat(file = "diagrams/example.svg")
+  cat(file = "~/Pictures/diagrams/example.svg")
 
 ```
 
@@ -123,13 +123,13 @@ If you have an SVG viewer, like `Inkscape`, you can open the file and see the di
 Now, create a `.png` for importing to HTML and a `.pdf` for importing into PDFs.
 
 ```{r}
-magick::image_read_svg("diagrams/example.svg") %>% 
+magick::image_read_svg("~/Pictures/diagrams/example.svg") %>% 
   magick::image_write(
-    path = "diagrams/example.png", 
+    path = "~/Pictures/diagrams/example.png", 
     format = "png")
-magick::image_read_svg("diagrams/example.svg") %>% 
+magick::image_read_svg("~/Pictures/diagrams/example.svg") %>% 
   magick::image_write(
-    path = "diagrams/example.pdf", format = "pdf")
+    path = "~/Pictures/diagrams/example.pdf", format = "pdf")
 
 ```
 
@@ -137,12 +137,48 @@ magick::image_read_svg("diagrams/example.svg") %>%
 That was the hard part - it's downhill from here. A single `knitr` call is all we need to get the image displayed in our R Markdown either in an HTML or PDF document.
 
 ```{r}
-knitr::include_graphics("diagrams.png", auto_pdf = TRUE)
+knitr::include_graphics("~/Pictures/diagrams/example.png", auto_pdf = TRUE)
 
 ```
 
 How does this work? We have both `.png` and `.pdf` files for the image. `knitr` sees the `auto_pdf` option and makes the choice accordingly. If it's making an HTML file it uses the `.png` and if it's making a PDF file it uses the `.pdf`.
 
 ## So let's make this into a function!
+```{r}
+make_image_files <- function(
+  widget, 
+  directory = "~/Pictures/diagrams", 
+  filename = "example") {
+  dir.create(directory, recursive = TRUE)
+  svg_name <- paste(
+    directory, paste(filename, "svg", sep = "."), sep = "/")
+  png_name <- paste(
+    directory, paste(filename, "png", sep = "."), sep = "/")
+  pdf_name <- paste(
+    directory, paste(filename, "pdf", sep = "."), sep = "/")
+  require(dplyr)
+  widget %>%  DiagrammeRsvg::export_svg() %>% 
+    cat(file = svg_name)
+  magick::image_read_svg(svg_name) %>% 
+    magick::image_write(path = png_name, format = "png")
+  magick::image_read_svg(svg_name) %>% 
+    magick::image_write(path = pdf_name, format = "pdf")
+  
+  # return the PNG file name; it's an argument to `knitr::include_graphics`
+  return(png_name)
+}
+```
+
+Test it!
+```{r}
+file_to_include <- make_image_files(
+  widget, "~/Pictures/test_diagrams", "test_file"
+)
+```
+
+```{r}
+knitr::include_graphics(file_to_include, auto_pdf = TRUE)
+
+```
 
 ## References
