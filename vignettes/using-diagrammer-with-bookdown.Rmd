@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(dplyr)
 ```
 
 ## Introduction
@@ -88,7 +89,6 @@ dir.create("diagrams", recursive = TRUE)
 
 Next, extract the SVG code for the diagram and write it to a file:
 ```{r}
-library(dplyr) # get the pipes
 widget <- DiagrammeR::grViz("
 digraph a_nice_graph {
 
@@ -156,7 +156,6 @@ make_image_files <- function(
     directory, paste(filename, "png", sep = "."), sep = "/")
   pdf_name <- paste(
     directory, paste(filename, "pdf", sep = "."), sep = "/")
-  require(dplyr)
   widget %>%  DiagrammeRsvg::export_svg() %>% 
     cat(file = svg_name)
   magick::image_read_svg(svg_name) %>% 
