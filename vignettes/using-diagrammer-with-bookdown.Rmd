@@ -1,0 +1,52 @@
+---
+title: "Using DiagrammeR with Bookdown"
+author: "M. Edward (Ed) Borasky"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+vignette: >
+  %\VignetteIndexEntry{Using DiagrammeR with Bookdown}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+This project consists of two repositories:
+
+1. <https://github.com/smithjd/sql-pet> - an eBook [@Muni2018a] we are building using Bookdown [@Xie2016]
+2. <https://github.com/smithjd/sqlpetr> - an R package [@Muni2018b] containing two classes of functions:
+    1. Utilities for managing the subject matter of the book - Docker images and containers, and PostgreSQL databases running in the containers.
+    2. Utilities for building the book.
+
+Our workflow is:
+
+1. Clone the repositories.
+2. Install the `sqlpetr` package with `devtools::install(".", dependencies = TRUE)`. This installs the package, all the dependencies needed to work on the package, and all of the dependencies needed to build the book and run the code samples in the book.
+3. Edit the book using the Bookdown tools in RStudio. If we find an operation we perform repeatedly in the edit cycle, we'll often migrate that code into a function in `sqlpetr`. This vignette documents one such function.
+
+    We maintain the book in two forms - the Bookdown "GitBook" HTML format and as a PDF file. The HTML book is deployed to GitHub Pages at <https://smithjd.github.io/sql-pet> and the PDF is downloadable from a button at the top of the HTML book.
+
+To create some of the graphics in the book, we use the `DiagrammeR` package. The remainder of this vignette describes how we use it.
+
+## Making a diagram with DiagrammeR
+`DiagrammeR` [@Iannone2018] is a package for creating diagrams with R code. There are essentially two ways to create a diagram:
+
+1. Manually, by editing a text file or text string and previewing it in RStudio.
+2. Programmatically, by writing R code that creates a graph object and then rendering it with `render_graph`.
+
+Both of these will work in an R Markdown document that's intended for HTML only. The output objects in this case are HTML widgets. They *contain* the SVG code for the diagram, but they aren't easily inserted in a PDF document via the `knitr-pandoc` toolchain.
+
+For the programmatic workflow, `DiagrammeR` can export the graph object to image files, which can be imported into both the HTML and PDF versions of a book. But there's no easy way to go from the manual text description to image files. So we built one.
+
+## Exporting a diagram to image files
+
+## Including the image in the book
+
+## References
