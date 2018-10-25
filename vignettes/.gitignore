@@ -1,3 +1,5 @@
 *.html
 *.R
 *.bib.bak
+diagrams/*
+test_diagrams/*
