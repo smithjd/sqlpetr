@@ -38,15 +38,111 @@ To create some of the graphics in the book, we use the `DiagrammeR` package. The
 ## Making a diagram with DiagrammeR
 `DiagrammeR` [@Iannone2018] is a package for creating diagrams with R code. There are essentially two ways to create a diagram:
 
-1. Manually, by editing a text file or text string and previewing it in RStudio.
+1. Manually, by editing a text file or text string and previewing it in RStudio, (<http://rich-iannone.github.io/DiagrammeR/io.html>), or
 2. Programmatically, by writing R code that creates a graph object and then rendering it with `render_graph`.
 
-Both of these will work in an R Markdown document that's intended for HTML only. The output objects in this case are HTML widgets. They *contain* the SVG code for the diagram, but they aren't easily inserted in a PDF document via the `knitr-pandoc` toolchain.
+Both of these will work in an R Markdown document that's deployed to HTML. In fact, they also work in the HTML-based "GitBook" output from Bookdown. And in the first case, there's no code required except the description of the diagram in the `DOT` language (<http://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html>).
 
-For the programmatic workflow, `DiagrammeR` can export the graph object to image files, which can be imported into both the HTML and PDF versions of a book. But there's no easy way to go from the manual text description to image files. So we built one.
+For the _programmatic_ workflow, `DiagrammeR` can export a graph object to image files, which `knitr` can import into both the HTML and PDF versions of a book. But there's no easy way to go from the manual text description to image files. So we built one.
 
-## Exporting a diagram to image files
+## Exporting a `grVis` object to image files
+When you create a diagram manually, `DiagrammeR` returns a `grViz` object. The actual diagram is coded as a Scalable Vector Graphics (SVG) text string, and the rest of the object is metadata. 
+
+When you create a diagram programmatically, `render_graph` returns a `grViz` object, given a (computed) graph object in an internal `DiagrammeR` format. So in either case, we have an `htmlwidget` object.
+
+Here's an example (<http://visualizers.co/diagrammer/articles/graphviz-mermaid.html>):
+
+```{r}
+DiagrammeR::grViz("
+digraph a_nice_graph {
+
+# node definitions with substituted label text
+node [fontname = Helvetica]
+a [label = '@@1']
+b [label = '@@2-1']
+c [label = '@@2-2']
+d [label = '@@2-3']
+e [label = '@@2-4']
+f [label = '@@2-5']
+g [label = '@@2-6']
+h [label = '@@2-7']
+i [label = '@@2-8']
+j [label = '@@2-9']
+
+# edge definitions with the node IDs
+a -> {b c d e f g h i j}
+}
+
+[1]: 'top'
+[2]: 10:20
+")
+```
+
+Since this vignette is HTML, you can see the diagram. But to make both HTML and PDF, we need image files that `knitr` can import. For that, we'll need two more packages: `DiagrammeRsvg` (@Iannone2016) and `magick` (@Ooms2018). 
+
+First, create a directory for the images:
+```{r}
+dir.create("diagrams", recursive = TRUE)
+
+```
+
+Next, extract the SVG code for the diagram and write it to a file:
+```{r}
+library(magrittr) # get the pipes
+widget <- DiagrammeR::grViz("
+digraph a_nice_graph {
+
+# node definitions with substituted label text
+node [fontname = Helvetica]
+a [label = '@@1']
+b [label = '@@2-1']
+c [label = '@@2-2']
+d [label = '@@2-3']
+e [label = '@@2-4']
+f [label = '@@2-5']
+g [label = '@@2-6']
+h [label = '@@2-7']
+i [label = '@@2-8']
+j [label = '@@2-9']
+
+# edge definitions with the node IDs
+a -> {b c d e f g h i j}
+}
+
+[1]: 'top'
+[2]: 10:20
+")
+widget %>% 
+  DiagrammeRsvg::export_svg() %>% 
+  cat(file = "diagrams/example.svg")
+
+```
+
+If you have an SVG viewer, like `Inkscape`, you can open the file and see the diagram!
+
+Now, create a `.png` for importing to HTML and a `.pdf` for importing into PDFs.
+
+```{r}
+magick::image_read_svg("diagrams/example.svg") %>% 
+  magick::image_write(
+    path = "diagrams/example.png", 
+    format = "png")
+magick::image_read_svg("diagrams/example.svg") %>% 
+  magick::image_write(
+    path = "diagrams/example.pdf", format = "pdf")
+
+```
 
 ## Including the image in the book
+That was the hard part - it's downhill from here. A single `knitr` call is all we need to get the image displayed in our R Markdown either in an HTML or PDF document.
+
+```{r}
+knitr::include_graphics("diagrams.png", auto_pdf = TRUE)
+
+```
+
+How does this work? We have both `.png` and `.pdf` files for the image. `knitr` sees the `auto_pdf` option and makes the choice accordingly. If it's making an HTML file it uses the `.png` and if it's making a PDF file it uses the `.pdf`.
+
+## So let's make this into a function!
 
 ## References

@@ -8,7 +8,7 @@
   url    = {http://rich-iannone.github.io/DiagrammeR/index.html},
 }
 
-@Manual{Muni2018a,
+@Manual{Muni2018,
   title  = {sqlpetr: Companion Package for R-Docker-Databases Book},
   author = {Dipti Muni and Mary Anne Thygesen and Sophie Yang and Jim Tyhurst and John David Smith and M. Edward (Ed) Borasky},
   year   = {2018},
@@ -31,7 +31,7 @@
   url    = {https://CRAN.R-project.org/package=DiagrammeRsvg},
 }
 
-@Manual{Xie2018b,
+@Manual{Xie2018,
   title  = {knitr: A General-Purpose Package for Dynamic Report Generation in R},
   author = {Yihui Xie},
   year   = {2018},
