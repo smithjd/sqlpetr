@@ -39,7 +39,7 @@ Imports:
     tidyverse (>= 1.2.1),
     utils (>= 3.5.1)
 Suggests: 
-    devtools (>= 2.0.0),
+    devtools (>= 2.0.1),
     ggplot2 (>= 3.1.0),
     pkgdown (>= 1.1.0),
     rlang (>= 0.3.0.1),
