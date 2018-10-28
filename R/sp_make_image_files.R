@@ -25,7 +25,7 @@
 
 sp_make_image_files <- function(widget, directory, filename) {
 
-  dir.create(directory, recursive = TRUE)
+  dir.create(directory, recursive = TRUE, showWarnings = FALSE)
   svg_name <- paste(
     directory,
     paste(filename, "svg", sep = "."),
