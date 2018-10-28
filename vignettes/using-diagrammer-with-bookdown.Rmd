@@ -88,7 +88,7 @@ digraph nicegraph {
 }
 
 [1]: paste0(names(R.Version())[1:7], ':\\n ', R.Version()[1:7])
-[2]: paste0('Version 1.2.1062')
+[2]: paste0('RStudio version:\\n ', '1.2.1062')
 [3]: paste0('Current program mode:\\n ', rstudioapi::versionInfo()[[2]])
 
 ")
@@ -139,7 +139,7 @@ digraph nicegraph {
 }
 
 [1]: paste0(names(R.Version())[1:7], ':\\n ', R.Version()[1:7])
-[2]: paste0('Version 1.2.1062')
+[2]: paste0('RStudio version:\\n ', '1.2.1062')
 [3]: paste0('Current program mode:\\n ', rstudioapi::versionInfo()[[2]])
 
 ")
