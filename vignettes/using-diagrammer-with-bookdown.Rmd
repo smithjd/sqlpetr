@@ -174,7 +174,8 @@ magick::image_read_svg("diagrams/example.svg") %>%
 That was the hard part - it's downhill from here. A single `knitr` call is all we need to get the image displayed in our R Markdown either in an HTML or PDF document.
 
 ```{r}
-knitr::include_graphics("diagrams/example.png", auto_pdf = TRUE)
+dpi <- 96
+knitr::include_graphics("diagrams/example.png", auto_pdf = TRUE, dpi = dpi)
 
 ```
 
@@ -219,7 +220,7 @@ file_to_include <- sqlpetr::sp_make_image_files(widget, "diagrams", "example")
 ```
 
 ```{r}
-knitr::include_graphics(path = file_to_include, auto_pdf = TRUE)
+knitr::include_graphics(path = file_to_include, auto_pdf = TRUE, dpi = dpi)
 
 ```
 
