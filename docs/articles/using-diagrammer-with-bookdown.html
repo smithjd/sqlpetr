@@ -172,8 +172,8 @@
 <a class="sourceLine" id="cb1-37" data-line-number="37"><span class="st">[3]: paste0('Current program mode:</span><span class="ch">\\</span><span class="st">n ', 'desktop')</span></a>
 <a class="sourceLine" id="cb1-38" data-line-number="38"></a>
 <a class="sourceLine" id="cb1-39" data-line-number="39"><span class="st">"</span>)</a></code></pre></div>
-<div id="htmlwidget-9bc644bcba171352ec6d" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9bc644bcba171352ec6d">{"x":{"diagram":"\ndigraph nicegraph {\n\n  # graph, node, and edge definitions\n  graph [compound = true, nodesep = .5, ranksep = .25,\n         color = crimson]\n\n  node [fontname = Helvetica, fontcolor = darkslategray,\n        shape = rectangle, fixedsize = true, width = 1,\n        color = darkslategray]\n\n  edge [color = grey, arrowhead = none, arrowtail = none]\n\n  # subgraph for R information\n  subgraph cluster0 {\n    node [fixedsize = true, width = 3]\n    \"platform:\n x86_64-pc-linux-gnu\" -> \"arch:\n x86_64\" -> \"os:\n linux-gnu\" -> \"system:\n x86_64, linux-gnu\"\n    \"system:\n x86_64, linux-gnu\" -> \"status:\n \" -> \"major:\n 3\" -> \"minor:\n 5.1\"\n  }\n\n  # subgraph for RStudio information\n  subgraph cluster1 {\n    node [fixedsize = true, width = 3]\n    \"RStudio version:\n 1.2.1062\" -> \"Current program mode:\n desktop\"\n  }\n\n  Information             [width = 1.5]\n  Information -> R\n  Information -> RStudio\n  R -> \"platform:\n x86_64-pc-linux-gnu\"            [lhead = cluster0]\n  RStudio -> \"RStudio version:\n 1.2.1062\"        [lhead = cluster1]\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>Since this vignette is HTML, you can see the diagram. But to make both HTML and PDF, we need image files that <code>knitr</code> can import. For that, we’ll need two more packages: <code>DiagrammeRsvg</code> (<span class="citation">Iannone (2016)</span>) and <code>magick</code> (<span class="citation">Ooms (2018)</span>).</p>
+<div id="htmlwidget-836977ad5dc34652f24e" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-836977ad5dc34652f24e">{"x":{"diagram":"\ndigraph nicegraph {\n\n  # graph, node, and edge definitions\n  graph [compound = true, nodesep = .5, ranksep = .25,\n         color = crimson]\n\n  node [fontname = Helvetica, fontcolor = darkslategray,\n        shape = rectangle, fixedsize = true, width = 1,\n        color = darkslategray]\n\n  edge [color = grey, arrowhead = none, arrowtail = none]\n\n  # subgraph for R information\n  subgraph cluster0 {\n    node [fixedsize = true, width = 3]\n    \"platform:\n x86_64-pc-linux-gnu\" -> \"arch:\n x86_64\" -> \"os:\n linux-gnu\" -> \"system:\n x86_64, linux-gnu\"\n    \"system:\n x86_64, linux-gnu\" -> \"status:\n \" -> \"major:\n 3\" -> \"minor:\n 5.1\"\n  }\n\n  # subgraph for RStudio information\n  subgraph cluster1 {\n    node [fixedsize = true, width = 3]\n    \"RStudio version:\n 1.2.1062\" -> \"Current program mode:\n desktop\"\n  }\n\n  Information             [width = 1.5]\n  Information -> R\n  Information -> RStudio\n  R -> \"platform:\n x86_64-pc-linux-gnu\"            [lhead = cluster0]\n  RStudio -> \"RStudio version:\n 1.2.1062\"        [lhead = cluster1]\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>Since this vignette is HTML, you can see the diagram. But to make both HTML and PDF, we need image files that <code>knitr</code> can import. For that, we’ll need two more packages: <code>DiagrammeRsvg</code> (<span class="citation">Iannone (2016)</span>) and <code>magick</code> (<span class="citation">Ooms (2018)</span>).</p>
 <p>First, create a directory for the images:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">dir.create</span>(<span class="st">"diagrams"</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; Warning in dir.create("diagrams", recursive = TRUE): 'diagrams' already</span></a>
@@ -245,47 +245,39 @@
 <h2 class="hasAnchor">
 <a href="#including-the-image-in-the-book" class="anchor"></a>Including the image in the book</h2>
 <p>That was the hard part - it’s downhill from here. A single <code>knitr</code> call is all we need to get the image displayed in our R Markdown either in an HTML or PDF document.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="st">"diagrams/example.png"</span>, <span class="dt">auto_pdf =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="diagrams/example.png" width="318"></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">dpi &lt;-<span class="st"> </span><span class="dv">96</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="st">"diagrams/example.png"</span>, <span class="dt">auto_pdf =</span> <span class="ot">TRUE</span>, <span class="dt">dpi =</span> dpi)</a></code></pre></div>
+<p><img src="diagrams/example.png" width="635"></p>
 <p>How does this work? We have both <code>.png</code> and <code>.pdf</code> files for the image. <code>knitr</code> sees the <code>auto_pdf</code> option and makes the choice accordingly. If it’s making an HTML file it uses the <code>.png</code> and if it’s making a PDF file it uses the <code>.pdf</code>.</p>
 </div>
 <div id="so-lets-make-this-into-a-function" class="section level2">
 <h2 class="hasAnchor">
 <a href="#so-lets-make-this-into-a-function" class="anchor"></a>So let’s make this into a function!</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">## Note: this code chunk is given with `eval=FALSE`! This is</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">## a copy of the actual function defined and exported by the</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">## package.</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">sp_make_image_files &lt;-<span class="st"> </span><span class="cf">function</span>(widget, directory, filename) {</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">  <span class="kw">dir.create</span>(directory, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">  svg_name &lt;-<span class="st"> </span><span class="kw">paste</span>(</a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">    directory,</a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">    <span class="kw">paste</span>(filename, <span class="st">"svg"</span>, <span class="dt">sep =</span> <span class="st">"."</span>),</a>
-<a class="sourceLine" id="cb7-10" data-line-number="10">  <span class="dt">sep =</span> <span class="st">"/"</span>)</a>
-<a class="sourceLine" id="cb7-11" data-line-number="11">  png_name &lt;-<span class="st"> </span><span class="kw">paste</span>(</a>
-<a class="sourceLine" id="cb7-12" data-line-number="12">    directory,</a>
-<a class="sourceLine" id="cb7-13" data-line-number="13">    <span class="kw">paste</span>(filename, <span class="st">"png"</span>, <span class="dt">sep =</span> <span class="st">"."</span>),</a>
-<a class="sourceLine" id="cb7-14" data-line-number="14">  <span class="dt">sep =</span> <span class="st">"/"</span>)</a>
-<a class="sourceLine" id="cb7-15" data-line-number="15">  pdf_name &lt;-<span class="st"> </span><span class="kw">paste</span>(</a>
-<a class="sourceLine" id="cb7-16" data-line-number="16">    directory,</a>
-<a class="sourceLine" id="cb7-17" data-line-number="17">    <span class="kw">paste</span>(filename, <span class="st">"pdf"</span>, <span class="dt">sep =</span> <span class="st">"."</span>),</a>
-<a class="sourceLine" id="cb7-18" data-line-number="18">  <span class="dt">sep =</span> <span class="st">"/"</span>)</a>
-<a class="sourceLine" id="cb7-19" data-line-number="19">  widget <span class="op">%&gt;%</span><span class="st">  </span>DiagrammeRsvg<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DiagrammeRsvg/topics/export_svg">export_svg</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cat</span>(<span class="dt">file =</span> svg_name)</a>
-<a class="sourceLine" id="cb7-20" data-line-number="20">  magick<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/magick/topics/editing">image_read_svg</a></span>(svg_name) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="st">    </span>magick<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/magick/topics/editing">image_write</a></span>(<span class="dt">path =</span> png_name, <span class="dt">format =</span> <span class="st">"png"</span>)</a>
-<a class="sourceLine" id="cb7-22" data-line-number="22">  magick<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/magick/topics/editing">image_read_svg</a></span>(svg_name) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="st">    </span>magick<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/magick/topics/editing">image_write</a></span>(<span class="dt">path =</span> pdf_name, <span class="dt">format =</span> <span class="st">"pdf"</span>)</a>
-<a class="sourceLine" id="cb7-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb7-25" data-line-number="25">  <span class="co"># return the PNG file name; it's an argument to `knitr::include_graphics`</span></a>
-<a class="sourceLine" id="cb7-26" data-line-number="26">  <span class="kw">return</span>(png_name)</a>
-<a class="sourceLine" id="cb7-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb7-28" data-line-number="28">}</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">sqlpetr<span class="op">::</span>sp_make_image_files</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; function (widget, directory, filename) </span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; {</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;     dir.create(directory, recursive = TRUE)</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;     svg_name &lt;- paste(directory, paste(filename, "svg", sep = "."), </span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;         sep = "/")</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;     png_name &lt;- paste(directory, paste(filename, "png", sep = "."), </span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;         sep = "/")</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;     pdf_name &lt;- paste(directory, paste(filename, "pdf", sep = "."), </span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;         sep = "/")</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;     widget %&gt;% DiagrammeRsvg::export_svg() %&gt;% cat(file = svg_name)</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;     magick::image_read_svg(svg_name) %&gt;% magick::image_write(path = png_name, </span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;         format = "png")</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;     magick::image_read_svg(svg_name) %&gt;% magick::image_write(path = pdf_name, </span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;         format = "pdf")</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt;     return(png_name)</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; }</span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; &lt;bytecode: 0x55b042a65f28&gt;</span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; &lt;environment: namespace:sqlpetr&gt;</span></a></code></pre></div>
 <p>Test it!</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">file_to_include &lt;-<span class="st"> </span>sqlpetr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/sqlpetr/topics/sp_make_image_files">sp_make_image_files</a></span>(widget, <span class="st">"diagrams"</span>, <span class="st">"example"</span>)</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; Warning in dir.create(directory, recursive = TRUE): 'diagrams' already</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; exists</span></a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="dt">path =</span> file_to_include, <span class="dt">auto_pdf =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="diagrams/example.png" width="318"></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">include_graphics</a></span>(<span class="dt">path =</span> file_to_include, <span class="dt">auto_pdf =</span> <span class="ot">TRUE</span>, <span class="dt">dpi =</span> dpi)</a></code></pre></div>
+<p><img src="diagrams/example.png" width="635"></p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
