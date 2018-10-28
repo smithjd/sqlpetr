@@ -182,6 +182,9 @@ How does this work? We have both `.png` and `.pdf` files for the image. `knitr` 
 
 ## So let's make this into a function!
 ```{r echo=TRUE, eval=FALSE}
+## Note: this code chunk is given with `eval=FALSE`! This is
+## a copy of the actual function defined and exported by the
+## package.
 sp_make_image_files <- function(widget, directory, filename) {
 
   dir.create(directory, recursive = TRUE)
