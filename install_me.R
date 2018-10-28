@@ -1,3 +1,6 @@
 #! /usr/bin/env Rscript
 
-devtools::install(".", build_vignettes = TRUE, dependencies = TRUE, quiet = TRUE)
+devtools::install(
+  ".", dependencies = TRUE, quiet = TRUE, build_vignettes = TRUE)
+pkgdown::clean_site()
+pkgdown::build_site(lazy = FALSE)
