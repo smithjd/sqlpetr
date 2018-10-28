@@ -181,35 +181,38 @@ knitr::include_graphics("diagrams/example.png", auto_pdf = TRUE)
 How does this work? We have both `.png` and `.pdf` files for the image. `knitr` sees the `auto_pdf` option and makes the choice accordingly. If it's making an HTML file it uses the `.png` and if it's making a PDF file it uses the `.pdf`.
 
 ## So let's make this into a function!
-```{r}
-sp_make_image_files <- function(
-  widget, 
-  directory = "diagrams", 
-  filename = "example") {
+```{r echo=TRUE, eval=FALSE}
+sp_make_image_files <- function(widget, directory, filename) {
+
   dir.create(directory, recursive = TRUE)
   svg_name <- paste(
-    directory, paste(filename, "svg", sep = "."), sep = "/")
+    directory,
+    paste(filename, "svg", sep = "."),
+  sep = "/")
   png_name <- paste(
-    directory, paste(filename, "png", sep = "."), sep = "/")
+    directory,
+    paste(filename, "png", sep = "."),
+  sep = "/")
   pdf_name <- paste(
-    directory, paste(filename, "pdf", sep = "."), sep = "/")
-  widget %>%  DiagrammeRsvg::export_svg() %>% 
-    cat(file = svg_name)
-  magick::image_read_svg(svg_name) %>% 
+    directory,
+    paste(filename, "pdf", sep = "."),
+  sep = "/")
+  widget %>%  DiagrammeRsvg::export_svg() %>% cat(file = svg_name)
+  magick::image_read_svg(svg_name) %>%
     magick::image_write(path = png_name, format = "png")
-  magick::image_read_svg(svg_name) %>% 
+  magick::image_read_svg(svg_name) %>%
     magick::image_write(path = pdf_name, format = "pdf")
-  
+
   # return the PNG file name; it's an argument to `knitr::include_graphics`
   return(png_name)
+
 }
+
 ```
 
 Test it!
 ```{r}
-file_to_include <- sp_make_image_files(
-  widget, "test_diagrams", "test_file"
-)
+file_to_include <- sqlpetr::sp_make_image_files(widget, "diagrams", "example")
 ```
 
 ```{r}
