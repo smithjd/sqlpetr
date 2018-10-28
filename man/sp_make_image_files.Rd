@@ -4,18 +4,18 @@
 \alias{sp_make_image_files}
 \title{Make Image Files}
 \usage{
-sp_make_image_files(widget, directory = "diagrams",
-  filename = "example")
+sp_make_image_files(widget, directory, filename)
 }
 \arguments{
-\item{widget}{an `htmlwidget` object returned from DiagrammeR, usually from
-`grViz` or `render_graph`}
+\item{widget}{an \code{htmlwidget} object returned from DiagrammeR, usually
+from \code{grViz} or \code{render_graph}. Note that this does \emph{not}
+work for \code{mermaid.js} widgets!}
 
-\item{directory}{(character) a valid file path. Default is ".". If it does not
-exist it will be created.}
+\item{directory}{(character) a valid directory name. It will be created if
+it does not exist.}
 
-\item{filename}{(character) a valid file name (stem only). Three files will be
-overwritten if they exist and created if they don't:
+\item{filename}{(character) a valid file name (stem only). Three files will
+be overwritten if they exist and created if they don't:
 \itemize{
 \item <directory>/<filename>.svg
 \item <directory>/<filename>.png
@@ -24,12 +24,12 @@ overwritten if they exist and created if they don't:
 }
 \value{
 png_name (character) the name of the PNG file. This is the path you
-give to `knitr::include_graphics` for the `auto_pdf` option.
+give to \code{knitr::include_graphics} for the \code{auto_pdf} option.
 }
 \description{
-Creates image files from a DiagrammeR `htmlwidget` object
+Creates image files from a DiagrammeR \code{htmlwidget} object
 }
 \details{
-See the vignette "Using DiagrammeR with Bookdown" for the derivation
-and some examples.
+See the vignette "Using DiagrammeR with Bookdown" for the
+derivation and some examples.
 }

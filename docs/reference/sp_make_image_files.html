@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="Make Image Files — sp_make_image_files" />
 
-<meta property="og:description" content="Creates image files from a DiagrammeR `htmlwidget` object" />
+<meta property="og:description" content="Creates image files from a DiagrammeR htmlwidget object" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -116,30 +116,30 @@
 
     <div class="ref-description">
     
-    <p>Creates image files from a DiagrammeR `htmlwidget` object</p>
+    <p>Creates image files from a DiagrammeR <code>htmlwidget</code> object</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sp_make_image_files</span>(<span class='no'>widget</span>, <span class='kw'>directory</span> <span class='kw'>=</span> <span class='st'>"diagrams"</span>,
-  <span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"example"</span>)</pre>
+    <pre class="usage"><span class='fu'>sp_make_image_files</span>(<span class='no'>widget</span>, <span class='no'>directory</span>, <span class='no'>filename</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>widget</th>
-      <td><p>an `htmlwidget` object returned from DiagrammeR, usually from
-`grViz` or `render_graph`</p></td>
+      <td><p>an <code>htmlwidget</code> object returned from DiagrammeR, usually
+from <code>grViz</code> or <code>render_graph</code>. Note that this does <em>not</em>
+work for <code>mermaid.js</code> widgets!</p></td>
     </tr>
     <tr>
       <th>directory</th>
-      <td><p>(character) a valid file path. Default is ".". If it does not
-exist it will be created.</p></td>
+      <td><p>(character) a valid directory name. It will be created if
+it does not exist.</p></td>
     </tr>
     <tr>
       <th>filename</th>
-      <td><p>(character) a valid file name (stem only). Three files will be
-overwritten if they exist and created if they don't:</p><ul>
+      <td><p>(character) a valid file name (stem only). Three files will
+be overwritten if they exist and created if they don't:</p><ul>
 <li><p>&lt;directory&gt;/&lt;filename&gt;.svg</p></li>
 <li><p>&lt;directory&gt;/&lt;filename&gt;.png</p></li>
 <li><p>&lt;directory&gt;/&lt;filename&gt;.pdf</p></li>
@@ -150,12 +150,12 @@ overwritten if they exist and created if they don't:</p><ul>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>png_name (character) the name of the PNG file. This is the path you
-give to `knitr::include_graphics` for the `auto_pdf` option.</p>
+give to <code><a href='http://www.rdocumentation.org/packages/knitr/topics/include_graphics'>knitr::include_graphics</a></code> for the <code>auto_pdf</code> option.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>See the vignette "Using DiagrammeR with Bookdown" for the derivation
-and some examples.</p>
+    <p>See the vignette "Using DiagrammeR with Bookdown" for the
+derivation and some examples.</p>
     
 
   </div>
