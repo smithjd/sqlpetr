@@ -28,10 +28,10 @@ This project consists of two repositories:
 Our workflow is:
 
 1. Clone the repositories.
-2. Install the `sqlpetr` package with `devtools::install(".", dependencies = TRUE)`. This installs the package, all the dependencies needed to work on the package, and all of the dependencies needed to build the book and run the code samples in the book.
+2. Install the `sqlpetr` package by sourcing the file `install_me.R`. This installs the package, all the dependencies needed to work on the package, and all of the dependencies needed to build the book and run the code samples in the book. It also rebuilds the `pkgdown` site for `sqlpetr`.
 3. Edit the book using the Bookdown tools in RStudio. If we find an operation we perform repeatedly in the edit cycle, we'll often migrate that code into a function in `sqlpetr`. This vignette documents one such function.
 
-    We maintain the book in two forms - the Bookdown "GitBook" HTML format and as a PDF file. The HTML book is deployed to GitHub Pages at <https://smithjd.github.io/sql-pet> and the PDF is downloadable from a button at the top of the HTML book.
+We maintain the book in two forms - the Bookdown "GitBook" HTML format and as a PDF file. The HTML book is deployed to GitHub Pages at <https://smithjd.github.io/sql-pet> and the PDF is downloadable from a button at the top of the HTML book.
 
 To create some of the graphics in the book, we use the `DiagrammeR` package. The remainder of this vignette describes how we use it.
 
