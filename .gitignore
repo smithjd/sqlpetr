@@ -1,39 +1,32 @@
+Meta
+doc
+inst/doc
 # This file is slightly modified from a GitHub template:
 #   https://github.com/github/gitignore/blob/master/R.gitignore
 
 # History files
 .Rhistory
 .Rapp.history
-
 # Session Data files
 .RData
-
 # Example code in package build process
 *-Ex.R
-
 # Output files from R CMD build
 /*.tar.gz
-
 # Output files from R CMD check
 /*.Rcheck/
-
 # RStudio files
 .Rproj.user
-
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
-
 # knitr and R markdown default cache directories
 /*_cache/
 /cache/
-
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
-
 # Mac OS X system files
 .DS_Store
-
 # github specific directories
 .github

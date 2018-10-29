@@ -1,2 +1,5 @@
 * text=auto
 *.html binary
+*.png binary
+*.pdf binary
+*.svg binary
