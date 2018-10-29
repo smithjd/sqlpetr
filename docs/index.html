@@ -44,6 +44,18 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/using-diagrammer-with-bookdown.html">Using DiagrammeR with Bookdown</a>
+    </li>
+  </ul>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -70,18 +82,21 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>This is the companion R package for the database tutorial we are writing at <a href="https://github.com/smithjd/sql-pet" class="uri">https://github.com/smithjd/sql-pet</a>. The plan is to have two classes of functions:</p>
+<p><code>sqlpetr</code> is the companion R package for the database tutorial eBook at <a href="https://github.com/smithjd/sql-pet" class="uri">https://github.com/smithjd/sql-pet</a>. It has two classes of functions:</p>
 <ol style="list-style-type: decimal">
 <li>Functions to install the dependencies needed to build the book and perform the operations covered in the tutorial, and</li>
-<li>Provide some useful utilities for dealing with Docker in general and the PostgreSQL Docker image we are using.</li>
+<li>Utilities for dealing with Docker and the PostgreSQL Docker image we use.</li>
 </ol>
-<p>This package has a <code>pkgdown</code> site at <a href="https://smithjd.github.io/sqlpetr/" class="uri">https://smithjd.github.io/sqlpetr/</a>,</p>
+<p>If you are working on the book, you will need to install this package first. <code>sqlpetr</code> has a <code>pkgdown</code> site at <a href="https://smithjd.github.io/sqlpetr/" class="uri">https://smithjd.github.io/sqlpetr/</a>,</p>
 </div>
 <div id="installing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installing" class="anchor"></a>Installing</h2>
-<p>You will need <code>devtools</code> to install this package. To install, clone this repository, <code>cd</code> into it and type <code><a href="http://www.rdocumentation.org/packages/devtools/topics/install">devtools::install()</a></code>. This will install all the packages required to build the book.</p>
-<p>If you want to work on this package, do <code><a href="http://www.rdocumentation.org/packages/devtools/topics/install">devtools::install(".", dependencies = TRUE)</a></code>. This will install all the packages required to build the book, plus the packages you need to work on the <code>sqlpetr</code> package: <code>testthat</code>, <code>roxygen2</code> and <code>pkgdown</code>.</p>
+<ol style="list-style-type: decimal">
+<li>Install <code>devtools</code> if you haven’t already; you’ll need it to install this package.</li>
+<li>Clone this repository and open it with RStudio.</li>
+<li>Source the file <code>install_me.R</code>. The script will install the package and rebuild the <code>pkgdown</code> site.</li>
+</ol>
 </div>
 <div id="developer-workflow" class="section level2">
 <h2 class="hasAnchor">
@@ -96,7 +111,7 @@
 <div id="pkgdown" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pkgdown" class="anchor"></a>Pkgdown</h2>
-<p>This package uses <code>pkgdown</code> to build a package documentation site on GitHub Pages. The site is hosted at <a href="https://smithjd.github.io/sqlpetr" class="uri">https://smithjd.github.io/sqlpetr</a>. Once you’ve added a function, go to the RStudio Addins dropdown and select “Build pkgdown”. This will render the site and open it in your browser.</p>
+<p>This package uses <code>pkgdown</code> to build a package documentation site on GitHub Pages. The site is hosted at <a href="https://smithjd.github.io/sqlpetr" class="uri">https://smithjd.github.io/sqlpetr</a>. Once you’ve added a function, go to the RStudio Addins dropdown and select “Build pkgdown”. This will render the site and open it in your browser. The <code>install_me.R</code> script rebuilds the site after installing.</p>
 <p>For more detail on <code>pkgdown</code>, see <a href="https://pkgdown.r-lib.org/" class="uri">https://pkgdown.r-lib.org/</a>.</p>
 </div>
   </div>
@@ -123,7 +138,7 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Dipti Muni <br><small class="roles"> Author </small>  </li>
-<li>Maryanne Thygesen <br><small class="roles"> Author </small>  </li>
+<li>Mary Anne Thygesen <br><small class="roles"> Author </small>  </li>
 <li>Sophie Yang <br><small class="roles"> Author </small>  </li>
 <li>Jim Tyhurst <br><small class="roles"> Author </small>  </li>
 <li>John David Smith <br><small class="roles"> Author </small>  </li>
@@ -137,7 +152,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dipti Muni, Maryanne Thygesen, Sophie Yang, Jim Tyhurst, John David Smith, M. Edward (Ed) Borasky.</p>
+  <p>Developed by Dipti Muni, Mary Anne Thygesen, Sophie Yang, Jim Tyhurst, John David Smith, M. Edward (Ed) Borasky.</p>
 </div>
 
 <div class="pkgdown">
