@@ -6,6 +6,8 @@ Authors@R: c(
   person("Mary Anne", "Thygesen", role = "aut"),
   person("Sophie", "Yang", role = "aut"),
   person("Jim", "Tyhurst", role = "aut"),
+  person("Ian", "Frantz", role = "aut"),
+  person("Scott", "Came", role = "aut"),
   person("John David", "Smith", role = "aut", email = "john.smith@learningalliances.net"),
   person("M. Edward (Ed)", "Borasky", role = c("aut", "cre"), email = "znmeb@znmeb.net"))
 Description: This package contains utilities for building the book and communicating with Docker and PostgreSQL.
@@ -31,7 +33,6 @@ Imports:
     magick (>= 2.0),
     pdftools (>= 1.8),
     purrr (>= 0.2.5),
-    rlang (>= 0.3.0.1),
     rsvg (>= 1.3),
     skimr (>= 1.0.3),
     stringr (>= 1.3.1),
@@ -44,6 +45,7 @@ Suggests:
     ggplot2 (>= 3.1.0),
     miniUI (>= 0.1.1.1),
     pkgdown (>= 1.1.0),
+    rlang (>= 0.3.0.1),
     rmarkdown (>= 1.10),
     roxygen2 (>= 6.1.0),
     testthat (>= 2.0.1),
