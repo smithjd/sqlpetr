@@ -87,32 +87,60 @@
 <li>Functions to install the dependencies needed to build the book and perform the operations covered in the tutorial, and</li>
 <li>Utilities for dealing with Docker and the PostgreSQL Docker image we use.</li>
 </ol>
-<p>If you are working on the book, you will need to install this package first. <code>sqlpetr</code> has a <code>pkgdown</code> site at <a href="https://smithjd.github.io/sqlpetr/" class="uri">https://smithjd.github.io/sqlpetr/</a>,</p>
+<p><code>sqlpetr</code> has a <code>pkgdown</code> site at <a href="https://smithjd.github.io/sqlpetr/" class="uri">https://smithjd.github.io/sqlpetr/</a>.</p>
 </div>
-<div id="installing" class="section level2">
+<div id="installing-for-users-of-httpssmithjd-github-iosql-pet" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installing" class="anchor"></a>Installing</h2>
+<a href="#installing-for-users-of-httpssmithjd-github-iosql-pet" class="anchor"></a>Installing for users of <a href="https://smithjd.github.io/sql-pet" class="uri">https://smithjd.github.io/sql-pet</a>
+</h2>
+<p>If you are working through the code in the book, you will need to install this package first. Note that these instructions assume Windows or MacOS. For Linux, you will need to install some Linux packages and edit a configuration file. See below for the details on Ubuntu “Bionic Beaver”.</p>
 <ol style="list-style-type: decimal">
 <li>Install <code>devtools</code> if you haven’t already; you’ll need it to install this package.</li>
-<li>Clone this repository and open it with RStudio.</li>
-<li>Source the file <code>install_me.R</code>. The script will install the package and rebuild the <code>pkgdown</code> site.</li>
+<li>In an R console, type <code><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github("smithjd/sqlpetr", force = TRUE, build_vignettes = TRUE)</a></code>.</li>
 </ol>
 </div>
 <div id="developer-workflow" class="section level2">
 <h2 class="hasAnchor">
 <a href="#developer-workflow" class="anchor"></a>Developer workflow</h2>
-<p>See <a href="http://r-pkgs.had.co.nz/">R Packages</a> for the details, but briefly;</p>
+<p>If you’re working as a developer of this package or the book, you’ll need to install more dependencies. To do that:</p>
 <ol style="list-style-type: decimal">
-<li>Code a function with <code>roxygen2</code> comments in it. Test it.</li>
-<li>When the function does what it’s supposed to do, go to the RStudio <code>Build</code> tab. Press the <code>Check</code> button. This will run <code>R CMD check</code>.</li>
-<li>Fix any errors, then when the check passes, press the “Install and Restart” button.</li>
+<li>Clone this repository and open the project file <code>sqlpetr.Rproj</code> in RStudio.</li>
+<li>Open the file <code>install_me.R</code> and <code>source</code> it. This will install all the dependencies and rebuild the <code>pkgdown</code> site for the package.</li>
 </ol>
+<p>For more details on R package development, see <a href="http://r-pkgs.had.co.nz/">R Packages</a>.</p>
 </div>
 <div id="pkgdown" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pkgdown" class="anchor"></a>Pkgdown</h2>
 <p>This package uses <code>pkgdown</code> to build a package documentation site on GitHub Pages. The site is hosted at <a href="https://smithjd.github.io/sqlpetr" class="uri">https://smithjd.github.io/sqlpetr</a>. Once you’ve added a function, go to the RStudio Addins dropdown and select “Build pkgdown”. This will render the site and open it in your browser. The <code>install_me.R</code> script rebuilds the site after installing.</p>
 <p>For more detail on <code>pkgdown</code>, see <a href="https://pkgdown.r-lib.org/" class="uri">https://pkgdown.r-lib.org/</a>.</p>
+</div>
+<div id="installing-on-ubuntu-bionic-beaver" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installing-on-ubuntu-bionic-beaver" class="anchor"></a>Installing on Ubuntu “Bionic Beaver”</h2>
+<div id="ubuntu-packages-you-need-to-install" class="section level3">
+<h3 class="hasAnchor">
+<a href="#ubuntu-packages-you-need-to-install" class="anchor"></a>Ubuntu packages you need to install</h3>
+<p>R packages are usually built from source on Linux. Before you can build this package and its dependencies from source, you will need to install the following Ubuntu packages with <code>sudo apt-get install</code>:</p>
+<pre><code>sudo apt-get install \
+  libssl-dev \
+  libcurl4-openssl-dev \
+  libmagick++-dev \
+  libpoppler-cpp-dev \
+  libv8-3.14-dev \
+  libpq-dev</code></pre>
+</div>
+<div id="fixing-the-imagemagick-policy-file" class="section level3">
+<h3 class="hasAnchor">
+<a href="#fixing-the-imagemagick-policy-file" class="anchor"></a>Fixing the ImageMagick policy file</h3>
+<p>A recent security update to the library we use to write images to PDF files has caused errors trying to write PDFs. You will see the error</p>
+<pre><code>&lt;Magick::ErrorPolicy in magick_image_write(image, format, quality, depth, density, comment): Magick: not authorized `PDF:/tmp/RtmpMHXxNk/magick-12720uFi-fA7hwBIB' @ error/constitute.c/WriteImage/1037&gt;
+Error in magick_image_write(image, format, quality, depth, density, comment) : 
+  Magick: not authorized `PDF:/tmp/RtmpMHXxNk/magick-12720uFi-fA7hwBIB' @ error/constitute.c/WriteImage/1037</code></pre>
+<p>To fix this, you need to become <code>root</code> and edit the file <code>/etc/ImageMagick-6/policy.xml</code>. Find the line</p>
+<pre><code>&lt;policy domain="coder" rights="none" pattern="PDF" /&gt;</code></pre>
+<p>and change <code>none</code> to <code>all</code>.</p>
+</div>
 </div>
   </div>
 
@@ -141,6 +169,8 @@
 <li>Mary Anne Thygesen <br><small class="roles"> Author </small>  </li>
 <li>Sophie Yang <br><small class="roles"> Author </small>  </li>
 <li>Jim Tyhurst <br><small class="roles"> Author </small>  </li>
+<li>Ian Frantz <br><small class="roles"> Author </small>  </li>
+<li>Scott Came <br><small class="roles"> Author </small>  </li>
 <li>John David Smith <br><small class="roles"> Author </small>  </li>
 <li>M. Edward (Ed) Borasky <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
@@ -152,7 +182,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dipti Muni, Mary Anne Thygesen, Sophie Yang, Jim Tyhurst, John David Smith, M. Edward (Ed) Borasky.</p>
+  <p>Developed by Dipti Muni, Mary Anne Thygesen, Sophie Yang, Jim Tyhurst, Ian Frantz, Scott Came, John David Smith, M. Edward (Ed) Borasky.</p>
 </div>
 
 <div class="pkgdown">

@@ -128,8 +128,9 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sp_show_all_docker_containers</span>()</div><div class='output co'>#&gt; [1] "CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMES"   
-#&gt; [2] "3730254b22e7        postgres:10         \"docker-entrypoint.s…\"   About a minute ago   Up About a minute   0.0.0.0:5432-&gt;5432/tcp   cattle"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>sp_show_all_docker_containers</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: running command ''docker' ps -a 2&gt;&amp;1' had status 1</span></div><div class='output co'>#&gt; [1] "Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.38/containers/json?all=1: dial unix /var/run/docker.sock: connect: permission denied"
+#&gt; attr(,"status")
+#&gt; [1] 1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -145,7 +146,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Dipti Muni, Mary Anne Thygesen, Sophie Yang, Jim Tyhurst, John David Smith, M. Edward (Ed) Borasky.</p>
+  <p>Developed by Dipti Muni, Mary Anne Thygesen, Sophie Yang, Jim Tyhurst, Ian Frantz, Scott Came, John David Smith, M. Edward (Ed) Borasky.</p>
 </div>
 
 <div class="pkgdown">
