@@ -2,7 +2,7 @@
 % Please edit documentation in R/sp_print_df.R
 \name{sp_print_df}
 \alias{sp_print_df}
-\title{Show (print) a data frame depending on appropriate to output type}
+\title{Show (print) a data frame depending on appropriate output type}
 \usage{
 sp_print_df(df)
 }
@@ -10,10 +10,10 @@ sp_print_df(df)
 \item{df}{the data frame to be shown}
 }
 \value{
-either kable (in PDF) or datatable (in HTML) output or View when executing chunks in an .Rmd file
+either kable (in PDF) or datatable (in HTML) output
 }
 \description{
-Show (print) a data frame depending on appropriate to output type
+Show (print) a data frame depending on appropriate output type
 }
 \examples{
 # sp_print_df(df)
