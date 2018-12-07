@@ -1,5 +1,5 @@
 update.packages(ask = FALSE)
-install.packages("devtools", quiet = TRUE)
+install.packages("devtools")
 devtools::install(dependencies = TRUE, build_vignettes = TRUE)
 pkgdown::clean_site()
 pkgdown::build_site(lazy = FALSE)
