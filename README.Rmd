@@ -63,33 +63,18 @@ This package uses `pkgdown` to build a package documentation site on GitHub Page
 
 For more detail on `pkgdown`, see <https://pkgdown.r-lib.org/>.
 
-## Installing on Ubuntu "Bionic Beaver"
+## Developing and testing on Linux
+As with Windows and MacOS, you'll need
 
-### Ubuntu packages you need to install
-R packages are usually built from source on Linux. Before you can build this package and its dependencies from source, you will need to install the following Ubuntu packages with `sudo apt-get install`:
+* R 3.5.1 or later, including all the package development tools, 
+* RStudio Preview 1.2.1163 or later, 
+* `git`, and
+* Docker. You'll need to use Docker Community Edition (<https://store.docker.com/search?q=docker%20ce&type=edition&offering=community>) rather than the Docker that is packaged in the distro.
 
-```
-sudo apt-get install \
-  libssl-dev \
-  libcurl4-openssl-dev \
-  libmagick++-dev \
-  libpoppler-cpp-dev \
-  libv8-3.14-dev \
-  libpq-dev
-```
+Once you have the prerequisites installed, make sure your user ID is allowed to execute the `sudo` operation. Then, clone this repo, `cd` into it, and type
 
-### Fixing the ImageMagick policy file
-A recent security update to the library we use to write images to PDF files has caused errors trying to write PDFs. You will see the error
-
-```
-<Magick::ErrorPolicy in magick_image_write(image, format, quality, depth, density, comment): Magick: not authorized `PDF:/tmp/RtmpMHXxNk/magick-12720uFi-fA7hwBIB' @ error/constitute.c/WriteImage/1037>
-Error in magick_image_write(image, format, quality, depth, density, comment) : 
-  Magick: not authorized `PDF:/tmp/RtmpMHXxNk/magick-12720uFi-fA7hwBIB' @ error/constitute.c/WriteImage/1037
-```
-  
-To fix this, you need to become `root` and edit the file `/etc/ImageMagick-6/policy.xml`. Find the line
-
-    <policy domain="coder" rights="none" pattern="PDF" />
-
-and change `none` to `all`.
-
+* Ubuntu 18.04 LTS "Bionic Beaver": `./ubuntu_bionic_install.bash`,
+* Debian 9.6 "stretch": `./debian_stretch_install.bash`, or
+* Arch Linux (requires Arch User Repository and `yaourt`): `./arch_install.bash`.
+    
+If you want to use another distro (supported by Docker CE, please - we don't have the bandwidth to support other Docker versions) open an issue at <https://github.com/smithjd/sqlpetr/issues/new>.
