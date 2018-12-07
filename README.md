@@ -13,33 +13,60 @@ sqlpetr
 
 `sqlpetr` has a `pkgdown` site at <https://smithjd.github.io/sqlpetr/>.
 
-## Installing for users of <https://smithjd.github.io/sql-pet>
+## Prerequisites
+
+You will need the following software:
+
+1.  R 3.5.1 or later:
+      - For Windows, go to <https://cran.rstudio.com/bin/windows/base/>.
+      - For MacOS, go to <https://cran.rstudio.com/bin/macosx/>.
+2.  R source package development tools:
+      - For Windows, go to
+        <https://cran.rstudio.com/bin/windows/Rtools/> and install
+        `Rtools35.exe`.
+      - For MacOS, go to <https://cran.rstudio.com/bin/macosx/tools/>
+        and install the packages for your MacOS version.
+3.  Git:
+      - For Windows, use Git for Windows
+        (<https://git-scm.com/download/win>).
+      - For MacOS, see
+        <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>
+        for the options.
+4.  RStudio Preview 1.2.1163 or later
+    (<https://www.rstudio.com/products/rstudio/download/preview/>).
+5.  Docker:
+      - For Windows 10 Pro, use Docker for Windows
+        (<https://docs.docker.com/docker-for-windows/install/>).
+      - For other versions of Windows, use Docker Toolbox
+        (<https://docs.docker.com/toolbox/overview/>).
+      - For MacOS El Capitan 10.11 or newer macOS release running on a
+        2010 or newer Mac, with Intel’s hardware support for MMU
+        virtualization, use Docker for Mac
+        (<https://docs.docker.com/v17.12/docker-for-mac/install/>).
+      - For other versions of MacOS, use Docker Toolbox
+        (<https://docs.docker.com/toolbox/overview/>).
+
+See below for the details if you’re a Linux desktop
+user.
+
+## Installing this package for users of <https://smithjd.github.io/sql-pet>
 
 If you are working through the code in the book, you will need to
 install this package first. Note that these instructions assume Windows
 or MacOS. For Linux, you will need to install some Linux packages and
 edit a configuration file. See below for the details on Ubuntu “Bionic
-Beaver”.
+Beaver”, Debian “stretch” or Arch Linux.
 
-1.  You will need the following software:
-      - R 3.5.1 or later. For Windows, go to
-        <https://cran.rstudio.com/bin/windows/base/>. For MacOS, go to
-        <https://cran.rstudio.com/bin/macosx/>.
-      - R source package development tools. For Windows, go to
-        <https://cran.rstudio.com/bin/windows/Rtools/> and install
-        `Rtools35.exe`. For MacOS, go to
-        <https://cran.rstudio.com/bin/macosx/tools/> and install the
-        packages for your MacOS version.
-      - Git. On Windows, use Git for Windows
-        (<https://git-scm.com/download/win>). On MacOS, see
-        <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>
-        for the options.
-      - RStudio Preview 1.2.1163 or later
-        (<https://www.rstudio.com/products/rstudio/download/preview/>).
-2.  Install `devtools` if you haven’t already; you’ll need it to install
-    this package.
-3.  In an R console, type `devtools::install_github("smithjd/sqlpetr",
-    force = TRUE, build_vignettes = TRUE)`.
+1.  Make sure you have a writeable personal library.
+
+2.  Update all your packages with `update.packages()`.
+
+3.  Install `devtools` if you haven’t already.
+
+4.  In an R console,
+        type
+    
+        devtools::install_github("smithjd/sqlpetr", force = TRUE, build_vignettes = TRUE)
 
 ## Developer workflow
 
