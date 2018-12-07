@@ -9,4 +9,4 @@ yaourt --aur --sync --noconfirm --needed \
   qpdf \
   v8-3.14
 sudo sed -i.bak 's/,PDF,/,/' /etc/ImageMagick-7/policy.xml
-./install_me.R
+R -e "source('install_me_linux.R')"

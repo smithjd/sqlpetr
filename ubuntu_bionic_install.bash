@@ -8,4 +8,4 @@ sudo apt-get install -qqy --no-install-recommends \
   libv8-3.14-dev \
   qpdf
 sudo sed -i.bak '/<policy domain="coder" rights="none" pattern="PDF" \/>/d' /etc/ImageMagick-6/policy.xml
-./install_me.R
+R -e "source('install_me_linux.R')"

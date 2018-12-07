@@ -7,4 +7,4 @@ sudo apt-get install -qqy --no-install-recommends \
   libpqxx-dev \
   libv8-3.14-dev \
   qpdf
-./install_me.R
+R -e "source('install_me_linux.R')"
