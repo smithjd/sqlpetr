@@ -1,5 +1,3 @@
-#! /usr/bin/env Rscript
-
 CRAN <- "https://cloud.r-project.org/" # CRAN URL
 LIB <- Sys.getenv("R_LIBS_USER") # library path
 
@@ -12,7 +10,8 @@ if (!dir.exists(LIB)) {
 update.packages(ask = FALSE, lib = LIB, repos = CRAN, quiet = TRUE)
 install.packages("devtools", lib = LIB, repos = CRAN, quiet = TRUE)
 devtools::install(
-  ".", dependencies = TRUE, quiet = TRUE, build_vignettes = TRUE)
+  dependencies = TRUE, quiet = TRUE, build_vignettes = TRUE
+)
 pkgdown::clean_site()
 pkgdown::build_site(lazy = FALSE)
 
