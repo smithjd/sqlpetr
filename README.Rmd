@@ -18,8 +18,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Installing for users of <https://smithjd.github.io/sql-pet>
 If you are working through the code in the book, you will need to install this package first. Note that these instructions assume Windows or MacOS. For Linux, you will need to install some Linux packages and edit a configuration file. See below for the details on Ubuntu "Bionic Beaver".
 
-1. Install `devtools` if you haven't already; you'll need it to install this package. 
-2. In an R console, type 
+1. You will need the following software:
+    * R 3.5.1 or later. For Windows, go to <https://cran.rstudio.com/bin/windows/base/>. For MacOS, go to <https://cran.rstudio.com/bin/macosx/>.
+    * R source package development tools. For Windows, go to <https://cran.rstudio.com/bin/windows/Rtools/> and install `Rtools35.exe`. For MacOS, go to <https://cran.rstudio.com/bin/macosx/tools/> and install the packages for your MacOS version.
+    * Git. On Windows, use Git for Windows (https://git-scm.com/download/win). On MacOS, see <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git> for the options.
+    * RStudio Preview 1.2.1163 or later (<https://www.rstudio.com/products/rstudio/download/preview/>).
+2. Install `devtools` if you haven't already; you'll need it to install this package. 
+3. In an R console, type 
 `devtools::install_github("smithjd/sqlpetr", force = TRUE, build_vignettes = TRUE)`.
 
 ## Developer workflow
@@ -27,6 +32,8 @@ If you're working as a developer of this package or the book, you'll need to ins
 
 1. Clone this repository and open the project file `sqlpetr.Rproj` in RStudio.
 2. Open the file `install_me.R` and `source` it. This will install all the dependencies and rebuild the `pkgdown` site for the package.
+
+    On Windows, you may get a dialog box asking you if you want to install source packages. If you do, press the `Yes` button.
 
 For more details on R package development, see [R Packages](http://r-pkgs.had.co.nz/).
 
