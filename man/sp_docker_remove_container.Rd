@@ -15,6 +15,11 @@ sp_docker_remove_container(docker_container)
 \description{
 Removes the specified docker container
 }
+\details{
+`sp_docker_remove_container` will forcibly remove the specified
+container. If it did not exist, no errors or warnings will be given.
+}
 \examples{
 sp_docker_remove_container("sql-pet")
+
 }
