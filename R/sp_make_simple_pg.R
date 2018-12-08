@@ -15,6 +15,10 @@ sp_make_simple_pg <- function(container_name) {
     " --publish 5432:5432 ", # Exposes the default Postgres port
     " postgres:10 "  # Docker the image to be run (after downloading if necessary)
   )
-  system2("docker", docker_cmd, stdout = TRUE, stderr = TRUE)
-  0
+  result <- system2("docker", docker_cmd, stdout = TRUE, stderr = TRUE)
+  status <- attr(result, "status")
+  if (length(status) > 0) {
+    print(result)
+    stop(paste("Docker command failed with status", status))
+  }
 }
