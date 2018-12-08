@@ -12,7 +12,7 @@ sp_get_dbms_data_dictionary(table_name, con = con)
 \item{con}{A DBI connection object for obtaining the local copy to be processed}
 }
 \value{
-a data frame `table_dd`
+a data frame \code{table_dd}
 }
 \description{
 Download a table from the dbms and create a data dictionary data frame

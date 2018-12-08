@@ -142,25 +142,32 @@
     </tr>
     <tr>
       <th>host</th>
-      <td><p>The IP address or host where postgreSQL is located, defaults to "localhost"</p></td>
+      <td><p>The IP address or host where postgreSQL is located,
+defaults to "localhost"</p></td>
     </tr>
     <tr>
       <th>port</th>
-      <td><p>The port on the host that postgreSQL listens to, defaults to "5432"</p></td>
+      <td><p>The port on the host that postgreSQL listens to, defaults
+to "5432"</p></td>
     </tr>
     <tr>
       <th>seconds_to_test</th>
-      <td><p>The number of iterations to try while waiting for PostgreSQL service to be ready.</p></td>
+      <td><p>The number of iterations to try while waiting
+for PostgreSQL service to be ready.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>When successful: a connection object, which is an S4 object that inherits from DBIConnection used to communicate with the database engine; Otherwise, an error string.</p>
+    <p>If successful: a connection object, which is an S4 object
+that inherits from DBIConnection, used to communicate with the
+database engine. If unsuccessful, the function terminates with an
+error message.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>con</span> <span class='kw'>&lt;-</span> <span class='fu'>sp_get_postgres_connection</span>(<span class='st'>"postgres"</span>, <span class='st'>"postgres"</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>con</span> <span class='kw'>&lt;-</span> <span class='fu'>sp_get_postgres_connection</span>(<span class='st'>"postgres"</span>, <span class='st'>"postgres"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in sp_get_postgres_connection("postgres", "postgres"): Database is not ready - reason: argument "dbname" is missing, with no default</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
