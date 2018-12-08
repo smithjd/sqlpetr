@@ -1,4 +1,3 @@
-update.packages(ask = FALSE)
 install.packages("devtools")
 devtools::install(dependencies = TRUE, build_vignettes = TRUE)
 pkgdown::clean_site()
