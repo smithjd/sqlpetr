@@ -16,7 +16,7 @@ sp_docker_remove_container(docker_container)
 Removes the specified docker container
 }
 \details{
-`sp_docker_remove_container` will forcibly remove the specified
+\code{sp_docker_remove_container} will forcibly remove the specified
 container. If it did not exist, no errors or warnings will be given.
 }
 \examples{
