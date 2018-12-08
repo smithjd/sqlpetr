@@ -11,6 +11,6 @@
 #' @export
 sp_docker_remove_container <- function(docker_container) {
   docker_command <- paste0("rm -f ", docker_container)
-  result <- system2("docker", docker_command, stdout = TRUE, stderr = TRUE)
+  result <- system2("docker", docker_command, stdout = FALSE, stderr = FALSE)
   return(0)
 }
