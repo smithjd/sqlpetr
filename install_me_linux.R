@@ -8,6 +8,7 @@ if (!dir.exists(LIB)) {
 }
 .libPaths(LIB) # add to search path
 
+cat("\nUpdating packages into user library\n")
 update.packages(ask = FALSE, instlib = LIB, repos = CRAN, quiet = TRUE)
 install.packages("devtools", lib = LIB, repos = CRAN, quiet = TRUE)
 devtools::install(dependencies = TRUE, quiet = TRUE)
