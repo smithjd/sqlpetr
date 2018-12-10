@@ -6,7 +6,6 @@ yaourt --aur --sync --noconfirm --needed \
   libpqxx \
   poppler \
   postgresql-libs \
-  qpdf \
-  v8-3.14
+  qpdf
 sudo sed -i.bak 's/,PDF,/,/' /etc/ImageMagick-7/policy.xml
 ./install_me_linux.R
