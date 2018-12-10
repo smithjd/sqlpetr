@@ -10,9 +10,7 @@ if (!dir.exists(LIB)) {
 
 update.packages(ask = FALSE, instlib = LIB, repos = CRAN, quiet = TRUE)
 install.packages("devtools", lib = LIB, repos = CRAN, quiet = TRUE)
-devtools::install(
-  dependencies = TRUE, quiet = TRUE, build_vignettes = TRUE
-)
+devtools::install(dependencies = TRUE, quiet = TRUE)
 pkgdown::clean_site()
 pkgdown::build_site(lazy = FALSE)
 
