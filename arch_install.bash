@@ -5,5 +5,4 @@ yaourt --aur --sync --noconfirm --needed \
   libpqxx \
   postgresql-libs \
   qpdf
-sudo sed -i.bak 's/,PDF,/,/' /etc/ImageMagick-7/policy.xml
 ./install_me_linux.R
