@@ -27,7 +27,7 @@ You will need the following software:
 3. Git:
     * For Windows, use Git for Windows (https://git-scm.com/download/win).
     * For MacOS, see <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git> for the options.
-4. RStudio Preview 1.2.1163 or later (<https://www.rstudio.com/products/rstudio/download/preview/>).
+4. RStudio Preview 1.2.1186 or later (<https://www.rstudio.com/products/rstudio/download/preview/>).
 5. Docker:
     * For Windows 10 Pro, use Docker for Windows (<https://docs.docker.com/docker-for-windows/install/>).
     * For other versions of Windows, use Docker Toolbox (<https://docs.docker.com/toolbox/overview/>).

@@ -32,7 +32,7 @@ You will need the following software:
       - For MacOS, see
         <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>
         for the options.
-4.  RStudio Preview 1.2.1163 or later
+4.  RStudio Preview 1.2.1186 or later
     (<https://www.rstudio.com/products/rstudio/download/preview/>).
 5.  Docker:
       - For Windows 10 Pro, use Docker for Windows
