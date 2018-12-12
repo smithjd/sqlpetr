@@ -53,9 +53,9 @@ user.
 
 If you are working through the code in the book, you will need to
 install this package first. Note that these instructions assume Windows
-or MacOS. For Linux, you will need to install some Linux packages and
-edit a configuration file. See below for the details on Ubuntu “Bionic
-Beaver”, Debian “stretch” or Arch Linux.
+or MacOS. For Linux, you will need to install some Linux packages. See
+below for the details on Ubuntu “Bionic Beaver”, Debian “stretch” or
+Arch Linux.
 
 1.  Make sure you have a writeable personal library.
 
@@ -63,10 +63,9 @@ Beaver”, Debian “stretch” or Arch Linux.
 
 3.  Install `devtools` if you haven’t already.
 
-4.  In an R console,
-        type
+4.  In an R console, type
     
-        devtools::install_github("smithjd/sqlpetr", force = TRUE, build_vignettes = TRUE)
+        devtools::install_github("smithjd/sqlpetr", force = TRUE)
 
 ## Developer workflow
 
@@ -76,8 +75,9 @@ need to install more dependencies. To do that:
 1.  Clone this repository and open the project file `sqlpetr.Rproj` in
     RStudio.
 
-2.  Open the file `install_me.R` and `source` it. This will install all
-    the dependencies and rebuild the `pkgdown` site for the package.
+2.  On Windows or MacOS, open the file `install_me.R` and `source` it.
+    This will install all the dependencies and rebuild the `pkgdown`
+    site for the package.
     
     On Windows, you may get a dialog box asking you if you want to use a
     personal library. If you do, press the `Yes` button. If you get a
@@ -97,12 +97,28 @@ browser. The `install_me.R` script rebuilds the site after installing.
 
 For more detail on `pkgdown`, see <https://pkgdown.r-lib.org/>.
 
+## `webshot` and `phantomjs`
+
+The `webshot` CRAN package converts `htmlwidgets` widgets to HTML or PDF
+in the `bookdown` rendering process. See
+<https://bookdown.org/yihui/bookdown/html-widgets.html>. `webshot` uses
+the “headless browser” `phantomjs` to do this. You do not need to do
+anything; they’re installed when you run `install_me.R`.
+
+## `TinyTex`
+
+CRAN package `tinytex` (<https://yihui.name/tinytex/>) is a relatively
+new tool for dealing with LaTeX packages. It is a standard package in
+the Tidyverse, so if you have the Tidyverse, you have `tinytex`.
+`install_me.R` will install the run-time components via
+`tinytex::install_tinytex()` if you haven’t installed it already.
+
 ## Developing and testing on Linux
 
 As with Windows and MacOS, you’ll need
 
   - R 3.5.1 or later, including all the package development tools,
-  - RStudio Preview 1.2.1163 or later,
+  - RStudio Preview 1.2.1186 or later,
   - `git`, and
   - Docker. You’ll need to use Docker Community Edition
     (<https://store.docker.com/search?q=docker%20ce&type=edition&offering=community>)
@@ -112,8 +128,8 @@ Once you have the prerequisites installed, make sure your user ID is
 allowed to execute the `sudo` operation. Then, clone this repo, `cd`
 into it, and type
 
-  - Ubuntu 18.04 LTS “Bionic Beaver”: `./ubuntu_bionic_install.bash`,
-  - Debian 9.6 “stretch”: `./debian_stretch_install.bash`, or
+  - Debian 9.6 “stretch” or Ubuntu 18.04 LTS “Bionic Beaver”:
+    `./debian_ubuntu_install.bash`,
   - Arch Linux (requires Arch User Repository and `yaourt`):
     `./arch_install.bash`.
 
