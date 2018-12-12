@@ -118,8 +118,12 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sp_show_all_docker_containers</span>()</div><div class='output co'>#&gt; [1] "CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                  PORTS                    NAMES"     
-#&gt; [2] "d970e8e99175        postgres:10         \"docker-entrypoint.sâ\200¦\"   3 seconds ago       Up Less than a second   0.0.0.0:5432-&gt;5432/tcp   cattle"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>sp_show_all_docker_containers</span>()</div><div class='output co'>#&gt; [1] "CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS                     PORTS                    NAMES"                  
+#&gt; [2] "e6fe972552e2        postgres:10         \"docker-entrypoint.s…\"   About a minute ago   Up About a minute          0.0.0.0:5432-&gt;5432/tcp   cattle"               
+#&gt; [3] "fb7180d2bb14        postgis             \"docker-entrypoint.s…\"   10 days ago          Exited (0) 10 days ago                              containers_postgis_1" 
+#&gt; [4] "2d8ce8d3319a        rstats              \"/init\"                  10 days ago          Exited (137) 10 days ago                            containers_rstats_1"  
+#&gt; [5] "06f5fa95d0bf        dpage/pgadmin4      \"/entrypoint.sh\"         10 days ago          Exited (0) 10 days ago                              containers_pgadmin4_1"
+#&gt; [6] "882be71114a7        c4bbe78d415b        \"/bin/sh -c 'apt-get…\"   12 days ago          Exited (100) 12 days ago                            brave_mcnulty"        </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
