@@ -26,6 +26,8 @@ cat("\nInstalling `devtools`\n")
 install.packages("devtools", lib = LIB, repos = CRAN, quiet = TRUE)
 cat("\nInstalling `sqlpetr` with all dependencies\n")
 devtools::install(dependencies = TRUE, quiet = TRUE)
+tinytex::install_tinytex()
+webshot::install_phantomjs()
 pkgdown::clean_site()
 pkgdown::build_site(lazy = FALSE)
 
