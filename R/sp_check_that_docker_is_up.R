@@ -6,8 +6,7 @@
 #'
 #' @examples sp_check_that_docker_is_up()
 sp_check_that_docker_is_up <- function() {
-  response <- system2("docker", "ps ",
-                      stdout = TRUE, stderr = TRUE)
+  response <- system2("docker", "ps ", stdout = TRUE, stderr = TRUE)
   if (length(response) == 1) {
     message <- ifelse(str_detect(response[[1]],"CONTAINER.+CREATED.+NAMES"),
            "Docker is up but running no containers",
