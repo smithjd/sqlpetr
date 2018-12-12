@@ -4,7 +4,7 @@
 #
 # `install_me.R` is designed to work in RStudio, using the `Source` button
 # on the script development tab. RStudio provides some default environment
-# settings to make that possible,
+# settings to make that possible.
 #
 # This script is designed to run on a Linux system, called from a `bash` script
 # that installs the distro-specific Linux packages it needs. So it needs to
@@ -26,7 +26,10 @@ cat("\nInstalling `devtools`\n")
 install.packages("devtools", lib = LIB, repos = CRAN, quiet = TRUE)
 cat("\nInstalling `sqlpetr` with all dependencies\n")
 devtools::install(dependencies = TRUE, quiet = TRUE)
-if (tinytex::tinytex_root() == "") tinytex::install_tinytex()
+if (tinytex::tinytex_root() == "") {
+  cat("\nInstalling `tinytex`\n"
+  tinytex::install_tinytex()
+}
 webshot::install_phantomjs()
 pkgdown::clean_site()
 pkgdown::build_site(lazy = FALSE)
