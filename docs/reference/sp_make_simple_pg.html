@@ -127,7 +127,7 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sp_make_simple_pg</span>(<span class='st'>"cattle"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: running command ''docker' run --detach --name cattle --publish 5432:5432  postgres:10  2&gt;&amp;1' had status 125</span></div><div class='output co'>#&gt; [1] "docker: Error response from daemon: Conflict. The container name \"/cattle\" is already in use by container \"e6fe972552e2db92fdbc5d55c261720759024736fcad557c68d2a3d167b53f5d\". You have to remove (or rename) that container to be able to reuse that name."
+    <pre class="examples"><div class='input'><span class='fu'>sp_make_simple_pg</span>(<span class='st'>"cattle"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: running command ''docker' run --detach --name cattle --publish 5432:5432  postgres:10  2&gt;&amp;1' had status 125</span></div><div class='output co'>#&gt; [1] "docker: Error response from daemon: Conflict. The container name \"/cattle\" is already in use by container \"ac8c593e9b91058ea2a7b7b308d03725c1957f973ce87c2a7d7c84a291afa0d4\". You have to remove (or rename) that container to be able to reuse that name."
 #&gt; [2] "See 'docker run --help'."                                                                                                                                                                                                                                      
 #&gt; attr(,"status")
 #&gt; [1] 125</div><div class='output co'>#&gt; <span class='error'>Error in sp_make_simple_pg("cattle"): Docker command failed with status 125</span></div></pre>
