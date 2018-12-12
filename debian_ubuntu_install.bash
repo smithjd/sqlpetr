@@ -6,6 +6,7 @@ sudo apt-get install -qqy --no-install-recommends \
   libpq-dev \
   libpqxx-dev \
   libxml2-dev \
+  postgresql-client \
   qpdf \
   wget \
   zlib1g-dev
