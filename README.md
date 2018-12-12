@@ -79,8 +79,10 @@ need to install more dependencies. To do that:
 2.  Open the file `install_me.R` and `source` it. This will install all
     the dependencies and rebuild the `pkgdown` site for the package.
     
-    On Windows, you may get a dialog box asking you if you want to
-    install source packages. If you do, press the `Yes` button.
+    On Windows, you may get a dialog box asking you if you want to use a
+    personal library. If you do, press the `Yes` button. If you get a
+    dialog box asking if you want to install source packages, press the
+    `Yes` button.
 
 For more details on R package development, see [R
 Packages](http://r-pkgs.had.co.nz/).
