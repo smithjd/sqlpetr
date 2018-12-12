@@ -14,14 +14,20 @@ sp_get_postgres_connection(user, password, dbname, host = "localhost",
 
 \item{dbname}{The name of the database within the database server}
 
-\item{host}{The IP address or host where postgreSQL is located, defaults to "localhost"}
+\item{host}{The IP address or host where postgreSQL is located,
+defaults to "localhost"}
 
-\item{port}{The port on the host that postgreSQL listens to, defaults to "5432"}
+\item{port}{The port on the host that postgreSQL listens to, defaults
+to "5432"}
 
-\item{seconds_to_test}{The number of iterations to try while waiting for PostgreSQL service to be ready.}
+\item{seconds_to_test}{The number of iterations to try while waiting
+for PostgreSQL service to be ready.}
 }
 \value{
-When successful: a connection object, which is an S4 object that inherits from DBIConnection used to communicate with the database engine; Otherwise, an error string.
+If successful: a connection object, which is an S4 object
+that inherits from DBIConnection, used to communicate with the
+database engine. If unsuccessful, the function terminates with an
+error message.
 }
 \description{
 This function connects to an instance of PostgreSQL.
