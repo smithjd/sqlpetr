@@ -7,7 +7,7 @@ Introduction
 `sqlpetr` is the companion R package for the database tutorial eBook at <https://github.com/smithjd/sql-pet>. It has two classes of functions:
 
 1.  Functions to install the dependencies needed to build the book and perform the operations covered in the tutorial, and
-2.  Utilities for dealing with Docker and the PostgreSQL Docker image we use.
+2.  Utilities for dealing with Docker and the PostgreSQL Docker image we use.  These are typically `system2` calls which have two parts:; the first is the command stub (e.g., "docker") and the second contains the parameters (e.g., send "ps -a" to `docker`).
 
 `sqlpetr` has a `pkgdown` site at <https://smithjd.github.io/sqlpetr/>.
 

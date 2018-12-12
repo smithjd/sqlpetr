@@ -8,5 +8,5 @@
 #' @examples sp_docker_remove_container("sql-pet")
 sp_docker_remove_container <- function(docker_container) {
   docker_command <- paste0("rm -f ", docker_container)
-  system2("docker", docker_command, stdout = TRUE, stderr = TRUE)
+  system2("docker", docker_command)
 }
