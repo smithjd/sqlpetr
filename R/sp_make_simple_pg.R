@@ -18,8 +18,8 @@ sp_make_simple_pg <- function(container_name) {
   result <- system2("docker", docker_cmd, stdout = TRUE, stderr = TRUE)
   status <- attr(result, "status")
   if (length(status) > 0) {
-    print(paste("command:", docker_cmd))
-    print(paste("return:", result))
+    message(paste("command:", docker_cmd))
+    message(paste("return:", result))
     stop(paste("Docker command failed with status", status))
   }
   return(0)
