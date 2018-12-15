@@ -22,4 +22,5 @@ sp_make_simple_pg <- function(container_name) {
     print(paste("return:", result))
     stop(paste("Docker command failed with status", status))
   }
+  return(0)
 }
