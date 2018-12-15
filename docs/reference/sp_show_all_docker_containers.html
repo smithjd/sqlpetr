@@ -118,9 +118,13 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sp_show_all_docker_containers</span>()</div><div class='output co'>#&gt; [1] "CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                  PORTS                    NAMES"             
-#&gt; [2] "7dc44c4c6f73        postgres:10         \"docker-entrypoint.s…\"   1 second ago        Up Less than a second   0.0.0.0:5432-&gt;5432/tcp   cattle"          
-#&gt; [3] "81a5fdbd6042        rocker/geospatial   \"/init\"                  2 hours ago         Up 2 hours              0.0.0.0:8787-&gt;8787/tcp   blissful_greider"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>sp_show_all_docker_containers</span>()</div><div class='output co'>#&gt; CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                  PORTS               NAMES
+#&gt; 26d3ca9c7327        postgres:10         "docker-entrypoint.sâ€¦"   18 minutes ago      Up 18 minutes           5432/tcp            vigorous_curran
+#&gt; 5f3d0f64bda8        postgres:10         "docker-entrypoint.sâ€¦"   34 minutes ago      Created                                     cattle
+#&gt; d1aeae48e3bb        rstats              "/init"                  2 hours ago         Created                                     containers_rstats_1
+#&gt; 361499f111e3        postgis             "docker-entrypoint.sâ€¦"   2 hours ago         Up 2 hours              5432/tcp            containers_postgis_1
+#&gt; 15cb89e7e66e        dpage/pgadmin4      "/entrypoint.sh"         2 hours ago         Created                                     containers_pgadmin4_1
+#&gt; 01d41ff87604        postgres:10         "docker-entrypoint.sâ€¦"   3 days ago          Exited (0) 3 days ago                       eloquent_lumiere</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
