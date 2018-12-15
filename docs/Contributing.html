@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">sqlpetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -125,28 +125,28 @@
 </li>
 <li><a href="#references">References</a></li>
 </ol>
-<div id="1-introduction" class="section level2">
+<div id="introduction" class="section level2">
 <h2 class="hasAnchor">
-<a href="#1-introduction" class="anchor"></a><a name="introduction">1. Introduction</a>
+<a href="#introduction" class="anchor"></a><a name="introduction">1. Introduction</a>
 </h2>
 <p>The purpose of this document is to help you get started as a contributor for the <a href="https://github.com/smithjd/sqlpetr/">sqlpetr</a> project. “Contributor” often means one who writes code, but technical writers and instructional analysts may also be contributing documents, so “contributor” is more general and more appropriate in this case than “software developer” or “programmer”. Team membership is always in a state of flux with people coming and going, each with their own unique history of development experience. We hope this documentation will provide consistency over time as team membership changes. Another benefit for those of you with little development experience is that this process is widely used by other developers on open source projects and on commercial software projects. So developing with this team will prepare you to work on other teams in the future. We did not make this process up, so we are going to point you off to documents that have already been written by other teams that follow this process.</p>
 </div>
-<div id="2-motivation" class="section level2">
+<div id="motivation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#2-motivation" class="anchor"></a><a name="motivation">2. Motivation</a>
+<a href="#motivation" class="anchor"></a><a name="motivation">2. Motivation</a>
 </h2>
 <p>You might be wondering why it has to be so complicated to contribute code. There would be a lot less overhead if you could just clone the repository, make changes, and then push the changes to the <em>origin</em> repository. That works great when you are working by yourself or with only a couple of other people with whom you have a close relationship. However, working on a big team with the team membership changing frequently requires a different process, in order to assure a quality process for maintaining the code.</p>
 </div>
-<div id="3-work-flow" class="section level2">
+<div id="work-flow" class="section level2">
 <h2 class="hasAnchor">
-<a href="#3-work-flow" class="anchor"></a><a name="workflow">3. Work flow</a>
+<a href="#work-flow" class="anchor"></a><a name="workflow">3. Work flow</a>
 </h2>
 <p>There are two independent aspects to the workflow we follow for contributing code to the project. The first part is the branching policy, which gives guidelines for when to make new branches and when to merge branches. The blog post by Vincent Driessen, <a href="http://nvie.com/posts/a-successful-git-branching-model/">A successful Git branching model</a>, provides good diagrams that exemplify the process for branching and merging. Atlassian documentation of <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow">Gitflow Workflow</a> is also quite good.</p>
-<p>The second part of the process is the steps that are necessary because we use GitHub for our central repository. There is no standard “pull request” in Git, so each of the major repository hosting vendors, e.g. <a href="https://github.com/">GitHub</a>, <a href="https://bitbucket.org/">Bitbucket</a>, and others have their own way of implementing pull requests. In the steps below, we refer to GitHub documentation for managing workflow within a team.</p>
+<p>The second part of the process is the steps that are necessary because we use GitHub for our central repository. There is no standard “pull request” in Git, so each of the major repository hosting vendors, e.g. <a href="https://github.com/">GitHub</a>, <a href="https://bitbucket.org/">Bitbucket</a>, and others have their own way of implementing pull requests. In the steps below, we refer to GitHub documentation for managing workflow within a team.</p>
 </div>
-<div id="4-process-description" class="section level2">
+<div id="process-description" class="section level2">
 <h2 class="hasAnchor">
-<a href="#4-process-description" class="anchor"></a><a name="process">4. Process description</a>
+<a href="#process-description" class="anchor"></a><a name="process">4. Process description</a>
 </h2>
 <p>Read “<a href="https://guides.github.com/introduction/flow/">Understanding the GitHub Flow</a>” as an introduction. Those few pages provide an excellent overview to the process followed by developers on this project. Read that document first. Then come back here if you still need more explanation, especially if you are new to Git and/or GitHub.</p>
 <p>Follow the links to articles that describe each step in detail. See the Glossary for definitions of italicized words and phrases.</p>
@@ -157,15 +157,15 @@
 <li><p>Configure your <em>local repository</em> to reference the <a href="https://github.com/smithjd/sqlpetr/">sqlpetr</a> <em>project repository</em> as your <code>upstream</code> remote repository. See the explanation in the GitHub Guide <a href="https://help.github.com/articles/fork-a-repo/">“Fork a repo”</a>. [<code>TODO</code>: Insert a diagram here showing the relationship of the three repositories: local, origin, upstream. For example, see Jenny Bryan’s diagram in <a href="http://happygitwithr.com/fork.html">Section 25.2</a> of her guide.]</p></li>
 <li><p>Starting from the <code>master</code> branch in your <em>local repository</em>, create a new branch when you are ready to make changes to existing files or create new material. Name that new branch something descriptive for the feature you are adding, such as “read_config_files”. Do <em>not</em> do work on the <code>master</code> branch. You should only change files in a feature branch that is created in your <em>local repository</em>.</p></li>
 <li><p>Commit your changes on that branch as often as necessary until you have completed your unit of work.</p></li>
-<li><p><a href="https://help.github.com/articles/syncing-a-fork/">Synchronize your <em>local repository</em></a> with the <a href="https://github.com/smithjd/sqlpetr/">sqlpetr</a> (i.e. <code>upstream</code>) repository. Other development may have been committed to the <em>project repository</em> while you have been working on your branch, so you will want to merge from the <em>project repository</em> <code>master</code> to your branch, in order to keep in-sync. [<code>TODO</code>: Explain how to <code>pull</code> from <code>upstream master</code> into local <code>master</code> and then <code>merge</code> from local <code>master</code> to local feature branch.]</p></li>
+<li><p><a href="https://help.github.com/articles/syncing-a-fork/">Synchronize your <em>local repository</em></a> with the <a href="https://github.com/smithjd/sqlpetr/">sqlpetr</a> (i.e. <code>upstream</code>) repository. Other development may have been committed to the <em>project repository</em> while you have been working on your branch, so you will want to merge from the <em>project repository</em> <code>master</code> to your branch, in order to keep in-sync. [<code>TODO</code>: Explain how to <code>pull</code> from <code>upstream master</code> into local <code>master</code> and then <code>merge</code> from local <code>master</code> to local feature branch.]</p></li>
 <li><p>Push the branch from your <em>local repository</em> to <code>origin</code>, which is your <em>personal GitHub repository</em>.</p></li>
 <li><p><a href="https://help.github.com/articles/using-pull-requests/">Create a pull request</a> from the branch in your <em>personal GitHub repository</em> to the <code>master</code> branch in the <em>project repository</em>.</p></li>
 <li><p>Someone in the project with “committer” privileges will review your pull request. They may merge it as-is or they may suggest changes to you. If necessary, return to step 6 to keep improving your contribution and update your pull request.</p></li>
 </ol>
 </div>
-<div id="5-glossary" class="section level2">
+<div id="glossary" class="section level2">
 <h2 class="hasAnchor">
-<a href="#5-glossary" class="anchor"></a><a name="glossary">5. Glossary</a>
+<a href="#glossary" class="anchor"></a><a name="glossary">5. Glossary</a>
 </h2>
 <p>A <em><a href="https://help.github.com/articles/using-pull-requests/">pull request</a></em> is a process where you request another developer to review a branch of your code to be merged into the ‘master’ branch of the central repository for your project.</p>
 <p>A <em>repository</em> holds code as it is developed. There are three interconnected repositories as you contribute to the <a href="https://github.com/smithjd/sqlpetr/">sqlpetr</a> project: your local repository, <code>origin</code> (your GitHub repository, created by forking the project repository), and <code>upstream</code> (the <a href="https://github.com/smithjd/sqlpetr/">sqlpetr</a> project repository)</p>
@@ -175,9 +175,9 @@
 <li><p><em>project repository</em> is the repository that holds the history of all work that has been done. Git conventions are to call this the <code>upstream</code> repository of your <em>local repository</em>. Code from this repository is deployed to the different deployment environments, such as testing, staging, and production.</p></li>
 </ul>
 </div>
-<div id="6-references" class="section level2">
+<div id="references" class="section level2">
 <h2 class="hasAnchor">
-<a href="#6-references" class="anchor"></a><a name="references">6. References</a>
+<a href="#references" class="anchor"></a><a name="references">6. References</a>
 </h2>
 <div id="gitflow-references" class="section level3">
 <h3 class="hasAnchor">

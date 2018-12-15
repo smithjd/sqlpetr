@@ -113,6 +113,10 @@ the Tidyverse, so if you have the Tidyverse, you have `tinytex`.
 `install_me.R` will install the run-time components via
 `tinytex::install_tinytex()` if you haven’t installed it already.
 
+Note that if you already have a system-wide LaTeX install, `tinytex`
+will not override it by default. You’ll see an error message if that
+happens, but your system will still work.
+
 ## Developing and testing on Linux
 
 As with Windows and MacOS, you’ll need

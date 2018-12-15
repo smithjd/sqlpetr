@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sqlpetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -127,9 +127,7 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sp_make_simple_pg</span>(<span class='st'>"cattle"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: running command '"docker" run --detach --name cattle --publish 5432:5432  postgres:10 ' had status 125</span></div><div class='output co'>#&gt; [1] "command: run --detach --name cattle --publish 5432:5432  postgres:10 "
-#&gt; [1] "return: C:\\PROGRA~1\\Docker\\Docker\\RESOUR~1\\bin\\docker.exe: Error response from daemon: Conflict. The container name \"/cattle\" is already in use by container \"5f3d0f64bda8d1fe094d174eac0d5092bea871c8b823342ae3b5d9ba469112d9\". You have to remove (or rename) that container to be able to reuse that name."
-#&gt; [2] "return: See 'C:\\PROGRA~1\\Docker\\Docker\\RESOUR~1\\bin\\docker.exe run --help'."                                                                                                                                                                                                                                      </div><div class='output co'>#&gt; <span class='error'>Error in sp_make_simple_pg("cattle"): Docker command failed with status 125</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>sp_make_simple_pg</span>(<span class='st'>"cattle"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: running command ''docker' run --detach --name cattle --publish 5432:5432  postgres:10  2&gt;&amp;1' had status 125</span></div><div class='output co'>#&gt; <span class='message'>command: run --detach --name cattle --publish 5432:5432  postgres:10 </span></div><div class='output co'>#&gt; <span class='message'>return: /usr/bin/docker-current: Error response from daemon: Conflict. The container name "/cattle" is already in use by container 86fb98ce25d775683637c01072e43523000beae71c5f8a6826e6fd9c4cc61c05. You have to remove (or rename) that container to be able to reuse that name..return: See '/usr/bin/docker-current run --help'.</span></div><div class='output co'>#&gt; <span class='error'>Error in sp_make_simple_pg("cattle"): Docker command failed with status 125</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
