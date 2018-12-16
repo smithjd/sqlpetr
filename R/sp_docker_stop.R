@@ -5,7 +5,8 @@
 #' @return 0
 #' @export
 #'
-#' @examples sp_docker_stop("sql-pet")
+#' @examples
+#' \dontrun{sp_docker_stop("sql-pet")}
 sp_docker_stop <- function(docker_container) {
   docker_command <- paste0("stop ", docker_container)
   system2("docker", docker_command)

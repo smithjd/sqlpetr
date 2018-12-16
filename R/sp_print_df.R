@@ -7,7 +7,8 @@
 #' @importFrom knitr kable
 #' @export
 #'
-#' @examples # sp_print_df(df)
+#' @examples
+#' \dontrun{sp_print_df(df)}
 sp_print_df <- function(df){
   if (knitr::is_latex_output()) {
     knitr::kable(df)

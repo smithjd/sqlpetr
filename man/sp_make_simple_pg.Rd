@@ -16,5 +16,5 @@ sp_make_simple_pg(container_name)
 Define and run a Docker container with PostgreSQL in it
 }
 \examples{
-sp_make_simple_pg("cattle")
+\dontrun{sp_make_simple_pg("cattle")}
 }

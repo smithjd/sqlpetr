@@ -4,7 +4,8 @@
 #' @importFrom stringr str_detect
 #' @export
 #'
-#' @examples sp_check_that_docker_is_up()
+#' @examples
+#' \dontrun{sp_check_that_docker_is_up()}
 sp_check_that_docker_is_up <- function() {
   response <- system2("docker", "ps ", stdout = TRUE, stderr = TRUE)
   if (length(response) == 1) {

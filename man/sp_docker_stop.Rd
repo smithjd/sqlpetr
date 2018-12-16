@@ -16,5 +16,5 @@ sp_docker_stop(docker_container)
 Stops the specified docker container
 }
 \examples{
-sp_docker_stop("sql-pet")
+\dontrun{sp_docker_stop("sql-pet")}
 }

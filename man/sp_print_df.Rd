@@ -16,5 +16,5 @@ either kable (in PDF) or datatable (in HTML) output
 Show (print) a data frame depending on appropriate output type
 }
 \examples{
-# sp_print_df(df)
+\dontrun{sp_print_df(df)}
 }

@@ -6,7 +6,8 @@
 #' @importFrom glue glue
 #' @export
 #'
-#' @examples sp_make_simple_pg("cattle")
+#' @examples
+#' \dontrun{sp_make_simple_pg("cattle")}
 sp_make_simple_pg <- function(container_name) {
   docker_cmd <- glue::glue(
     "run ", # Run is the Docker command.  Docker run parameters follow

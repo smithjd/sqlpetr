@@ -7,7 +7,8 @@
 #' @importFrom utils browseURL
 #' @export
 #'
-#' @examples # sp_preview_chapter("chapter_file.Rmd")
+#' @examples
+#' \dontrun{sp_preview_chapter("chapter_file.Rmd")}
 sp_preview_chapter <- function(chapter_file) {
     preview_url <- preview_chapter(chapter_file)
     browseURL(preview_url)

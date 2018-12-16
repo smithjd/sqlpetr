@@ -13,5 +13,5 @@ sp_show_all_docker_containers()
 Check that docker is running
 }
 \examples{
-sp_show_all_docker_containers()
+\dontrun{sp_show_all_docker_containers()}
 }

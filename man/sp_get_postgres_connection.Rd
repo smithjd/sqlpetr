@@ -33,6 +33,6 @@ error message.
 This function connects to an instance of PostgreSQL.
 }
 \examples{
-con <- sp_get_postgres_connection("postgres", "postgres")
+\dontrun{con <- sp_get_postgres_connection("postgres", "postgres")}
 
 }
