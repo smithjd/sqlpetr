@@ -20,6 +20,6 @@ Removes the specified docker container
 container. If it did not exist, no errors or warnings will be given.
 }
 \examples{
-sp_docker_remove_container("sql-pet")
+\dontrun{sp_docker_remove_container("sql-pet")}
 
 }

@@ -16,5 +16,5 @@ browse
 Compile and browse an individual chapter
 }
 \examples{
-# sp_preview_chapter("chapter_file.Rmd")
+\dontrun{sp_preview_chapter("chapter_file.Rmd")}
 }

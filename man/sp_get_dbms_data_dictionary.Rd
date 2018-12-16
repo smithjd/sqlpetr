@@ -18,5 +18,5 @@ a data frame \code{table_dd}
 Download a table from the dbms and create a data dictionary data frame
 }
 \examples{
-# all_meta <- sp_get_dbms_data_dictionary("rental")
+\dontrun{all_meta <- sp_get_dbms_data_dictionary("rental")}
 }

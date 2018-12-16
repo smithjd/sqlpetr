@@ -9,7 +9,8 @@
 #' @importFrom dplyr tbl
 #' @importFrom dplyr collect
 #'
-#' @examples # all_meta <- sp_get_dbms_data_dictionary("rental")
+#' @examples
+#' \dontrun{all_meta <- sp_get_dbms_data_dictionary("rental")}
 sp_get_dbms_data_dictionary <- function(table_name, con = con) {
   table_ptr <- tbl(con, table_name)
   local_df <- table_ptr %>% collect(n = Inf)

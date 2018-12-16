@@ -17,7 +17,8 @@
 #' database engine. If unsuccessful, the function terminates with an
 #' error message.
 #'
-#' @examples con <- sp_get_postgres_connection("postgres", "postgres")
+#' @examples
+#' \dontrun{con <- sp_get_postgres_connection("postgres", "postgres")}
 #'
 #' @export
 sp_get_postgres_connection <- function(user, password, dbname,

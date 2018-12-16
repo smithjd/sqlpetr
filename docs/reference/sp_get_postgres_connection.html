@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sqlpetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -154,7 +154,9 @@ error message.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>con</span> <span class='kw'>&lt;-</span> <span class='fu'>sp_get_postgres_connection</span>(<span class='st'>"postgres"</span>, <span class='st'>"postgres"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in sp_get_postgres_connection("postgres", "postgres"): Database is not ready - reason: argument "dbname" is missing, with no default</span></div><div class='input'>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>con</span> <span class='kw'>&lt;-</span> <span class='fu'>sp_get_postgres_connection</span>(<span class='st'>"postgres"</span>, <span class='st'>"postgres"</span>)
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

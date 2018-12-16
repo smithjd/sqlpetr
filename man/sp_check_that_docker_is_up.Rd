@@ -13,5 +13,5 @@ sp_check_that_docker_is_up()
 Check that docker is running
 }
 \examples{
-sp_check_that_docker_is_up()
+\dontrun{sp_check_that_docker_is_up()}
 }

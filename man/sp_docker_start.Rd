@@ -16,5 +16,5 @@ sp_docker_start(docker_container)
 Start the specified docker container
 }
 \examples{
-sp_docker_start("sql-pet")
+\dontrun{sp_docker_start("sql-pet")}
 }
