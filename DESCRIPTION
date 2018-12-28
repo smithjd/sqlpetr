@@ -2,11 +2,11 @@ Package: sqlpetr
 Title: Companion Package for R-Docker-Databases Book
 Version: 0.1.1
 Authors@R: c(
-  person("Dipti", "Muni", role = "aut"),
-  person("Mary Anne", "Thygesen", role = "aut"),
+  person("Dipti", "Muni", role = "ctb"),
+  person("Mary Anne", "Thygesen", role = "ctb"),
   person("Sophie", "Yang", role = "aut"),
   person("Jim", "Tyhurst", role = "aut"),
-  person("Ian", "Frantz", role = "aut"),
+  person("Ian", "Frantz", role = "ctb"),
   person("Scott", "Came", role = "aut"),
   person("John David", "Smith", role = "aut", email = "john.smith@learningalliances.net"),
   person("M. Edward (Ed)", "Borasky", role = c("aut", "cre"), email = "znmeb@znmeb.net"))
