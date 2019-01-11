@@ -10,7 +10,8 @@ sp_make_dvdrental_image(image_name)
 \item{image_name}{name for the docker image}
 }
 \value{
-0
+Result of Docker command if it succeeded. Stops with an error message
+if it failed.
 }
 \description{
 Create an image with PostgreSQL and the \code{dvdrental} database
