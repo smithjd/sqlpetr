@@ -1,0 +1,88 @@
+---
+title: "Building the `dvdrental` Docker Image"
+author: "M. Edward (Ed) Borasky, Ian Frantz"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: vignettes.bib
+vignette: >
+  %\VignetteIndexEntry{Building the `dvdrental` Docker Image}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+## Introduction
+In the _R, Databases and Docker_ eBook, we use Docker containers to provide PostgreSQL database services. There are two containers we use:
+
+1. `cattle`: A container with just PostgreSQL 10, and
+2. `sql-pet`: A container with PostgreSQL 10 and the `dvdrental` database [@PGTutorial2019a] pre-loaded.
+
+`cattle` is straightforward; we simply fetch the PostgreSQL 10 image [@Docker2018] and run it in a container. We do this in function `sqlpetr::sp_make_simple_pg`. However, the construction of the image used for `sql-pet` requires some more effort. The rest of this vignette describes the process.
+
+## Extending the base PostgreSQL image
+The PostgreSQL image we use has a number of features for extensions. The one we use is the `/docker-entrypoint-initdb.d` directory. This works as follows:
+
+When the container first starts up, it initializes the PostgreSQL database (`initdb` in PostgreSQL-speak). After the database is initialized, two things happen:
+
+1. Any `.sql` or `.sql.gz` database backups in `/docker-entrypoint-initdb.d` are restored to the database, and
+2. Any `.sh` scripts in `/docker-entrypoint-initdb.d` are "sourced" as the `postgres` Linux user.
+
+Since the `dvdrental` database is provided as a `zip` archive of a `tar` backup, we can't use option 1 - that only works for `.sql` backups. So we need to do three things:
+
+1. Get the `dvdrental` archive onto the image,
+2. Unzip it, and
+3. Write a script to restore the `tar` backup and place it in `/docker-entrypoint-initdb.d`. The script will execute the functions listed in [@PGTutorial2019b].
+
+This can all be done using `docker build` with a Dockerfile!
+
+## The Dockerfile
+The image build process - `docker build` - requires a "Docker context": a collection of files that provide instructions and contents that make up the built image. In this package, the Docker context lives in `extdata/docker`. If you're looking at the `sqlpetr` package source, you'll find this in `inst/extdata/docker`.
+
+First, the `Dockerfile`:
+
+```{bash eval = FALSE}
+FROM docker.io/postgres:10
+LABEL maintainer="M. Edward (Ed) Borasky <znmeb@znmeb.net>"
+
+# Install apt packages
+RUN apt-get update \
+  && apt-get install -qqy --no-install-recommends \
+    unzip \
+  && apt-get clean
+
+# download and extract the zip archive
+WORKDIR /
+ADD http://www.postgresqltutorial.com/wp-content/uploads/2017/10/dvdrental.zip /
+RUN unzip /dvdrental.zip
+
+# load the extract script into the "magic pocket"
+COPY restoredb.sh /docker-entrypoint-initdb.d/
+```
+
+Notes:
+
+1. The database backup is provided as a `zip` archive. So we need to install the `unzip` Linux package using `apt-get`.
+2, The `ADD` operation downloads the `dvdrental.zip` archive and places it in the root (`/`) of the image filesystem.
+3. The `RUN unzip` extracts the backup file to `/dvdrental.tar`.
+4. The `COPY` copies the `restoredb.sh` script into `/docker-entrypoint-initdb.d`. It will run when the image first runs in a container.
+
+## The restore script
+
+```{bash eval = FALSE}
+echo "creating the 'dvdrental' database"
+createdb dvdrental
+echo "restoring the database"
+pg_restore -U postgres -d dvdrental /dvdrental.tar
+```
+
+As noted above, after the `initdb`, the container start process "sources" any `.sh` scripts it finds in `/docker-entrypoint-initdb.d` as the Linux `postgres` user. This user is the Linux equivalent of the ***database*** superuser `postgres` - it can create databases and roles from the Linux command line and execute the PostgreSQL command line utilities with full database privileges. That's all we need!
+
+## The function
+We've packaged all of this into a function, `sqlpetr::sp_make_dvdrental_image`. You can see the documentation for the function on the `sqlpetr` website: <https://smithjd.github.io/sqlpetr>.
+
+## References

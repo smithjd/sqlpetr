@@ -14,4 +14,3 @@ RUN unzip /dvdrental.zip
 
 # load the extract script into the "magic pocket"
 COPY restoredb.sh /docker-entrypoint-initdb.d/
-RUN chmod +x /docker-entrypoint-initdb.d/restoredb.sh
