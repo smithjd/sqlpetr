@@ -17,17 +17,7 @@ if it failed.
 Create an image with PostgreSQL and the \code{dvdrental} database
 }
 \details{
-This function executes a \code{docker build} with build context of this
-package's \code{extdata/docker} directory. In RStudio package development,
-it's \code{inst/extdata/docker}.
-
-The Dockerfile fetches the PostgreSQL 10 image, then installs \code{unzip}. It then
-downloads and unzips the DVD rental database. Then it copyies a restore
-script into the container's directory \code{/docker-entrypoint-initdb.d/restoredb.sh}.
-
-This script will run when a container first runs the image. It simply creates
-the \code{dvdrental} database and restores the unzipped \code{tar} archive to it with
-\code{pg_restore}.
+See the vignette "Building the \code{dvdrental} Docker Image" for the details.
 }
 \examples{
 \dontrun{sp_make_dvdrental_image("dvdrental")}
