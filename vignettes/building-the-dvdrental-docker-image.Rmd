@@ -45,7 +45,7 @@ The image build process - `docker build` - requires a "Docker context": a collec
 
 First, the `Dockerfile`:
 
-```{bash eval = FALSE}
+```
 FROM docker.io/postgres:10
 LABEL maintainer="M. Edward (Ed) Borasky <znmeb@znmeb.net>"
 
@@ -73,7 +73,7 @@ Notes:
 
 ## The restore script
 
-```{bash eval = FALSE}
+```
 echo "creating the 'dvdrental' database"
 createdb dvdrental
 echo "restoring the database"
