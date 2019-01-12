@@ -1,7 +1,3 @@
-^Meta$
-^doc$
-^.*\.Rproj$
-^\.Rproj\.user$
 arch_install.bash
 CODE_OF_CONDUCT.md
 Contributing.md
@@ -10,3 +6,4 @@ docs
 install_me.R
 install_me_linux.R
 README.Rmd
+sqlpetr.Rproj
