@@ -16,7 +16,7 @@
 
 sp_set_key <- function(key_name, key_value) {
   keyring::key_set_with_value(
-    service = key_name, password = key_value, keyring = "Default keyring")
+    service = key_name, password = key_value, keyring = "")
 }
 
 #' @title Get a key from the keyring
@@ -32,5 +32,5 @@ sp_set_key <- function(key_name, key_value) {
 #' sp_get_key(key_name = "POSTGRES_PASSWORD")
 #' }
 sp_get_key <- function(key_name) {
-  return(keyring::key_get(service = key_name, keyring = "Default keyring"))
+  return(keyring::key_get(service = key_name, keyring = ""))
 }
