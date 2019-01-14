@@ -38,7 +38,9 @@ Imports:
     tidyverse (>= 1.2.1),
     utils (>= 3.5.1),
     webshot (>= 0.5.1),
-    keyring
+    keyring,
+    readr,
+    snakecase
 Suggests: 
     devtools (>= 2.0.1),
     ggplot2 (>= 3.1.0),

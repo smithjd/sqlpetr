@@ -97,6 +97,57 @@ sp_make_simple_pg <- function(container_name) {
   result <- sp_pg_docker_run("postgres:10", container_name)
 }
 
+#' @title List containers into a tibble
+#' @name sp_docker_containers_tibble
+#' @description Creates a tibble of all containers using `docker ps --all`
+#' @return A tibble with all the containers
+#' @importFrom readr read_delim
+#' @importFrom dplyr %>%
+#' @importFrom snakecase to_snake_case
+#' @export sp_docker_containers_tibble
+#' @examples
+#' \dontrun{
+#' sp_docker_containers_tibble()
+#' }
+
+sp_docker_containers_tibble <- function() {
+
+  # everything Docker knows about a container - see
+  # https://docs.docker.com/engine/reference/commandline/ps/#formatting
+  prettyprint_format <- paste(
+    "table {{.ID}}",
+    "{{.Image}}",
+    "{{.Command}}",
+    "{{.CreatedAt}}",
+    "{{.RunningFor}}",
+    "{{.Ports}}",
+    "{{.Status}}",
+    "{{.Size}}",
+    "{{.Names}}",
+    "{{.Labels}}",
+    "{{.Mounts}}",
+    "{{.Networks}}",
+    sep = "|"
+  )
+  docker_cmd <- paste(
+    "ps --all --format ",
+    '"',
+    prettyprint_format,
+    '"',
+    sep = ""
+  )
+  containers <-
+    system2("docker", docker_cmd, stdout = TRUE, stderr = FALSE) %>%
+    readr::read_delim(
+      delim = "|",
+      col_types = cols(.default = col_character())
+    )
+  colnames(containers) <- colnames(containers) %>% snakecase::to_snake_case()
+  return(containers)
+}
+
 utils::globalVariables(c(
+  "cols",
+  "col_character",
   "docker_cmd"
 ))
