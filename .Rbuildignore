@@ -8,4 +8,5 @@ docs
 install_me.R
 install_me_linux.R
 README.Rmd
-sqlpetr.Rproj
+^.*\.Rproj$
+^\.Rproj\.user$
