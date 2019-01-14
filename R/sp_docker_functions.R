@@ -102,6 +102,8 @@ sp_make_simple_pg <- function(container_name) {
 #' @description Creates a tibble of all containers using `docker ps --all`
 #' @return A tibble with all the containers
 #' @importFrom readr read_delim
+#' @importFrom readr cols
+#' @importFrom readr col_character
 #' @importFrom dplyr %>%
 #' @importFrom snakecase to_snake_case
 #' @export sp_docker_containers_tibble
@@ -140,14 +142,58 @@ sp_docker_containers_tibble <- function() {
     system2("docker", docker_cmd, stdout = TRUE, stderr = FALSE) %>%
     readr::read_delim(
       delim = "|",
-      col_types = cols(.default = col_character())
+      col_types = readr::cols(.default = readr::col_character())
     )
   colnames(containers) <- colnames(containers) %>% snakecase::to_snake_case()
   return(containers)
 }
 
+#' @title List images into a tibble
+#' @name sp_docker_images_tibble
+#' @description Creates a tibble of images using `docker images`
+#' @return A tibble with all the images
+#' @importFrom readr read_delim
+#' @importFrom readr cols
+#' @importFrom readr col_character
+#' @importFrom dplyr %>%
+#' @importFrom snakecase to_snake_case
+#' @export sp_docker_images_tibble
+#' @examples
+#' \dontrun{
+#' sp_docker_images_tibble()
+#' }
+
+sp_docker_images_tibble <- function() {
+
+  # everything Docker knows about an image - see
+  # https://docs.docker.com/engine/reference/commandline/images/#format-the-output
+  prettyprint_format <- paste(
+    "table {{.ID}}",
+    "{{.Repository}}",
+    "{{.Tag}}",
+    "{{.Digest}}",
+    "{{.CreatedSince}}",
+    "{{.CreatedAt}}",
+    "{{.Size}}",
+    sep = "|"
+  )
+  docker_cmd <- paste(
+    "images --format ",
+    '"',
+    prettyprint_format,
+    '"',
+    sep = ""
+  )
+  images <-
+    system2("docker", docker_cmd, stdout = TRUE, stderr = FALSE) %>%
+    readr::read_delim(
+      delim = "|",
+      col_types = readr::cols(.default = readr::col_character())
+    )
+  colnames(images) <- colnames(images) %>% snakecase::to_snake_case()
+  return(images)
+}
+
 utils::globalVariables(c(
-  "cols",
-  "col_character",
   "docker_cmd"
 ))
