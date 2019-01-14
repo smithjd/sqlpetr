@@ -1,5 +1,5 @@
 # local function to call to Docker via system2
-.system2_to_docker <- function(docker_command_string) {
+.system2_to_docker <- function(docker_cmd) {
 
   # pass the command to Docker via `system2` and capture the
   # outputs
@@ -94,5 +94,9 @@ sp_pg_docker_run <- function(image_tag, container_name) {
 #' }
 
 sp_make_simple_pg <- function(container_name) {
-  result <- sp_pg_docker_run("postgres:10")
+  result <- sp_pg_docker_run("postgres:10", container_name)
 }
+
+utils::globalVariables(c(
+  "docker_cmd"
+))
