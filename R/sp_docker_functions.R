@@ -247,6 +247,42 @@ sp_docker_remove_container <- function(docker_container) {
   return(0)
 }
 
+#' @title Start an existing container
+#' @name sp_docker_start
+#' @description Starts the container given by `container_name`.
+#' @param container_name character container to start
+#' @return Result of Docker command if it succeeded. Stops with an
+#' error message if it failed.
+#' @importFrom glue glue
+#' @export sp_docker_start
+#' @examples
+#' \dontrun{sp_docker_start("sql-pet")}
+sp_docker_start <- function(container_name) {
+  docker_cmd <- glue::glue(
+    "start ", # Docker command.
+    container_name # gives the container a name
+  )
+  result <- .system2_to_docker(docker_cmd)
+}
+
+#' @title Stop an existing container
+#' @name sp_docker_stop
+#' @description Stops the container given by `container_name`.
+#' @param container_name character container to stop
+#' @return Result of Docker command if it succeeded. Stops with an
+#' error message if it failed.
+#' @importFrom glue glue
+#' @export sp_docker_stop
+#' @examples
+#' \dontrun{sp_docker_stop("sql-pet")}
+sp_docker_stop <- function(container_name) {
+  docker_cmd <- glue::glue(
+    "stop ", # Docker command.
+    container_name # gives the container a name
+  )
+  result <- .system2_to_docker(docker_cmd)
+}
+
 utils::globalVariables(c(
   "docker_cmd"
 ))
