@@ -38,7 +38,6 @@ Imports:
     tidyverse (>= 1.2.1),
     utils (>= 3.5.1),
     webshot (>= 0.5.1),
-    keyring,
     readr,
     snakecase
 Suggests: 
