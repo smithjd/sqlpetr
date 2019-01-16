@@ -4,16 +4,22 @@
 \alias{sp_docker_containers_tibble}
 \title{List containers into a tibble}
 \usage{
-sp_docker_containers_tibble()
+sp_docker_containers_tibble(list_all)
+}
+\arguments{
+\item{list_all}{logical - list all containers if TRUE, just
+\emph{running} containers if FALSE}
 }
 \value{
-A tibble with all the containers
+A tibble listing the containers. If there are none,
+returns an empty (0x0) tibble.
 }
 \description{
-Creates a tibble of all containers using \code{docker ps --all}
+Creates a tibble of containers using
+\code{docker ps}
 }
 \examples{
 \dontrun{
-sp_docker_containers_tibble()
+sp_docker_containers_tibble(list_all = FALSE)
 }
 }

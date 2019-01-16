@@ -4,16 +4,20 @@
 \alias{sp_docker_images_tibble}
 \title{List images into a tibble}
 \usage{
-sp_docker_images_tibble()
+sp_docker_images_tibble(list_all)
+}
+\arguments{
+\item{list_all}{logical - list all images if TRUE, just
+\emph{tagged} images if FALSE}
 }
 \value{
-A tibble with all the images
+A tibble listing the images
 }
 \description{
 Creates a tibble of images using \code{docker images}
 }
 \examples{
 \dontrun{
-sp_docker_images_tibble()
+sp_docker_images_tibble(list_all = TRUE)
 }
 }

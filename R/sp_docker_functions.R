@@ -99,20 +99,25 @@ sp_make_simple_pg <- function(container_name) {
 
 #' @title List containers into a tibble
 #' @name sp_docker_containers_tibble
-#' @description Creates a tibble of all containers using `docker ps --all`
-#' @return A tibble with all the containers
+#' @description Creates a tibble of containers using
+#' `docker ps`
+#' @param list_all logical - list all containers if TRUE, just
+#' *running* containers if FALSE
+#' @return A tibble listing the containers. If there are none,
+#' returns an empty (0x0) tibble.
 #' @importFrom readr read_delim
 #' @importFrom readr cols
 #' @importFrom readr col_character
 #' @importFrom dplyr %>%
 #' @importFrom snakecase to_snake_case
+#' @importFrom tibble tibble
 #' @export sp_docker_containers_tibble
 #' @examples
 #' \dontrun{
-#' sp_docker_containers_tibble()
+#' sp_docker_containers_tibble(list_all = FALSE)
 #' }
 
-sp_docker_containers_tibble <- function() {
+sp_docker_containers_tibble <- function(list_all) {
 
   # everything Docker knows about a container - see
   # https://docs.docker.com/engine/reference/commandline/ps/#formatting
@@ -131,39 +136,53 @@ sp_docker_containers_tibble <- function() {
     "{{.Networks}}",
     sep = "|"
   )
+  all_flag <- ifelse(list_all, "--all ", "")
   docker_cmd <- paste(
-    "ps --all --format ",
+    "ps ", all_flag, "--format ",
     '"',
     prettyprint_format,
     '"',
     sep = ""
   )
-  containers <-
-    system2("docker", docker_cmd, stdout = TRUE, stderr = FALSE) %>%
-    readr::read_delim(
-      delim = "|",
-      col_types = readr::cols(.default = readr::col_character())
-    )
-  colnames(containers) <- colnames(containers) %>% snakecase::to_snake_case()
-  return(containers)
+  listing <- system2(
+    "docker", docker_cmd, stdout = TRUE, stderr = FALSE
+  )
+
+  # are there any data rows?
+  if (length(listing) > 1) {
+    containers <- listing %>%
+      readr::read_delim(
+        delim = "|",
+        col_types = readr::cols(.default = readr::col_character())
+      )
+    colnames(containers) <- colnames(containers) %>%
+      snakecase::to_snake_case()
+    return(containers)
+  }
+
+  # no containers - return an empty tibble
+  return(tibble::tibble())
 }
 
 #' @title List images into a tibble
 #' @name sp_docker_images_tibble
 #' @description Creates a tibble of images using `docker images`
-#' @return A tibble with all the images
+#' @param list_all logical - list all images if TRUE, just
+#' *tagged* images if FALSE
+#' @return A tibble listing the images
 #' @importFrom readr read_delim
 #' @importFrom readr cols
 #' @importFrom readr col_character
 #' @importFrom dplyr %>%
 #' @importFrom snakecase to_snake_case
+#' @importFrom tibble tibble
 #' @export sp_docker_images_tibble
 #' @examples
 #' \dontrun{
-#' sp_docker_images_tibble()
+#' sp_docker_images_tibble(list_all = TRUE)
 #' }
 
-sp_docker_images_tibble <- function() {
+sp_docker_images_tibble <- function(list_all) {
 
   # everything Docker knows about an image - see
   # https://docs.docker.com/engine/reference/commandline/images/#format-the-output
@@ -177,21 +196,32 @@ sp_docker_images_tibble <- function() {
     "{{.Size}}",
     sep = "|"
   )
+  all_flag <- ifelse(list_all, "--all ", "")
   docker_cmd <- paste(
-    "images --format ",
+    "images ", all_flag, "--format ",
     '"',
     prettyprint_format,
     '"',
     sep = ""
   )
-  images <-
-    system2("docker", docker_cmd, stdout = TRUE, stderr = FALSE) %>%
-    readr::read_delim(
-      delim = "|",
-      col_types = readr::cols(.default = readr::col_character())
-    )
-  colnames(images) <- colnames(images) %>% snakecase::to_snake_case()
-  return(images)
+  listing <- system2(
+    "docker", docker_cmd, stdout = TRUE, stderr = FALSE
+  )
+
+  # are there any data rows?
+  if (length(listing) > 1) {
+    images <- listing %>%
+      readr::read_delim(
+        delim = "|",
+        col_types = readr::cols(.default = readr::col_character())
+      )
+    colnames(images) <- colnames(images) %>%
+      snakecase::to_snake_case()
+    return(images)
+  }
+
+  # no images - return an empty tibble
+  return(tibble::tibble())
 }
 
 utils::globalVariables(c(
