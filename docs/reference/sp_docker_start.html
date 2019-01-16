@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Start the specified docker container — sp_docker_start • sqlpetr</title>
+<title>Start an existing container — sp_docker_start • sqlpetr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Start the specified docker container — sp_docker_start" />
+<meta property="og:title" content="Start an existing container — sp_docker_start" />
 
-<meta property="og:description" content="Start the specified docker container" />
+<meta property="og:description" content="Starts the container given by container_name." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,31 +111,32 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Start the specified docker container</h1>
-    <small class="dont-index">Source: <a href='https://github.com/smithjd/sqlpetr/blob/master/R/sp_docker_start.R'><code>R/sp_docker_start.R</code></a></small>
+    <h1>Start an existing container</h1>
+    <small class="dont-index">Source: <a href='https://github.com/smithjd/sqlpetr/blob/master/R/sp_docker_functions.R'><code>R/sp_docker_functions.R</code></a></small>
     <div class="hidden name"><code>sp_docker_start.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Start the specified docker container</p>
+    <p>Starts the container given by <code>container_name</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sp_docker_start</span>(<span class='no'>docker_container</span>)</pre>
+    <pre class="usage"><span class='fu'>sp_docker_start</span>(<span class='no'>container_name</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>docker_container</th>
-      <td><p>is the name of the docker container to start up.</p></td>
+      <th>container_name</th>
+      <td><p>character container to start</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>0</p>
+    <p>Result of Docker command if it succeeded. Stops with an
+error message if it failed.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
