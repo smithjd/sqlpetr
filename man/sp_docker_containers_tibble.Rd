@@ -4,11 +4,11 @@
 \alias{sp_docker_containers_tibble}
 \title{List containers into a tibble}
 \usage{
-sp_docker_containers_tibble(list_all)
+sp_docker_containers_tibble(list_all = FALSE)
 }
 \arguments{
-\item{list_all}{logical - list all containers if TRUE, just
-\emph{running} containers if FALSE}
+\item{list_all}{logical - list all containers if \code{TRUE}, just
+\emph{running} containers if \code{FALSE}. Default is \code{FALSE}.}
 }
 \value{
 A tibble listing the containers. If there are none,

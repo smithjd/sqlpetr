@@ -101,8 +101,8 @@ sp_make_simple_pg <- function(container_name) {
 #' @name sp_docker_containers_tibble
 #' @description Creates a tibble of containers using
 #' `docker ps`
-#' @param list_all logical - list all containers if TRUE, just
-#' *running* containers if FALSE
+#' @param list_all logical - list all containers if `TRUE`, just
+#' *running* containers if `FALSE`. Default is `FALSE`.
 #' @return A tibble listing the containers. If there are none,
 #' returns an empty (0x0) tibble.
 #' @importFrom readr read_delim
@@ -117,7 +117,7 @@ sp_make_simple_pg <- function(container_name) {
 #' sp_docker_containers_tibble(list_all = FALSE)
 #' }
 
-sp_docker_containers_tibble <- function(list_all) {
+sp_docker_containers_tibble <- function(list_all = FALSE) {
 
   # everything Docker knows about a container - see
   # https://docs.docker.com/engine/reference/commandline/ps/#formatting
@@ -167,8 +167,8 @@ sp_docker_containers_tibble <- function(list_all) {
 #' @title List images into a tibble
 #' @name sp_docker_images_tibble
 #' @description Creates a tibble of images using `docker images`
-#' @param list_all logical - list all images if TRUE, just
-#' *tagged* images if FALSE
+#' @param list_all logical - list all images if `TRUE`, just
+#' *tagged* images if `FALSE`. Default is `FALSE`.
 #' @return A tibble listing the images
 #' @importFrom readr read_delim
 #' @importFrom readr cols
@@ -179,10 +179,10 @@ sp_docker_containers_tibble <- function(list_all) {
 #' @export sp_docker_images_tibble
 #' @examples
 #' \dontrun{
-#' sp_docker_images_tibble(list_all = TRUE)
+#' sp_docker_images_tibble(list_all = FALSE)
 #' }
 
-sp_docker_images_tibble <- function(list_all) {
+sp_docker_images_tibble <- function(list_all = FALSE) {
 
   # everything Docker knows about an image - see
   # https://docs.docker.com/engine/reference/commandline/images/#format-the-output

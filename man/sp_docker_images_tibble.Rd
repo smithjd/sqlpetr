@@ -4,11 +4,11 @@
 \alias{sp_docker_images_tibble}
 \title{List images into a tibble}
 \usage{
-sp_docker_images_tibble(list_all)
+sp_docker_images_tibble(list_all = FALSE)
 }
 \arguments{
-\item{list_all}{logical - list all images if TRUE, just
-\emph{tagged} images if FALSE}
+\item{list_all}{logical - list all images if \code{TRUE}, just
+\emph{tagged} images if \code{FALSE}. Default is \code{FALSE}.}
 }
 \value{
 A tibble listing the images
@@ -18,6 +18,6 @@ Creates a tibble of images using \code{docker images}
 }
 \examples{
 \dontrun{
-sp_docker_images_tibble(list_all = TRUE)
+sp_docker_images_tibble(list_all = FALSE)
 }
 }
