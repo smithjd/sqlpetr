@@ -4,6 +4,7 @@ arch_install.bash
 CODE_OF_CONDUCT.md
 Contributing.md
 debian_ubuntu_install.bash
+fedora_install.bash
 docs
 install_me.R
 install_me_linux.R
