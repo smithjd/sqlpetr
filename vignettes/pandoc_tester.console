@@ -1,0 +1,195 @@
+
+R version 3.5.2 Patched (2019-01-24 r76018) -- "Eggshell Igloo"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+
+R version 3.5.2 Patched (2019-01-24 r76018) -- "Eggshell Igloo"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> source('C:/Users/znmeb/Projects/sqlpetr/vignettes/pandoc_tester.R')
+pandoc.exe 2.6
+Compiled with pandoc-types 1.17.5.4, texmath 0.11.1.2, skylighting 0.7.5
+Default user data directory: C:\Users\znmeb\AppData\Roaming\pandoc
+Copyright (C) 2006-2018 John MacFarlane
+Web:  http://pandoc.org
+This is free software; see the source for copying conditions.
+There is no warranty, not even for merchantability or fitness
+for a particular purpose.
+
+
+processing file: building-the-dvdrental-docker-image.Rmd
+  |......................                                           |  33%
+   inline R code fragments
+
+  |...........................................                      |  67%
+label: setup (with options)
+List of 1
+ $ include: logi FALSE
+
+  |.................................................................| 100%
+  ordinary text without R code
+
+
+output file: building-the-dvdrental-docker-image.knit.md
+
+"C:/Program Files/Pandoc/pandoc" +RTS -K512m -RTS building-the-dvdrental-docker-image.utf8.md --to html4 --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash+smart --output building-the-dvdrental-docker-image.html --email-obfuscation none --self-contained --standalone --section-divs --template "C:\Users\znmeb\OneDrive\Documents\R\win-library\3.5\rmarkdown\rmd\h\default.html" --highlight-style pygments --css "C:\Users\znmeb\OneDrive\Documents\R\win-library\3.5\rmarkdown\rmarkdown\templates\html_vignette\resources\vignette.css" --mathjax --variable "mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" --filter pandoc-citeproc
+
+Access violation in generated code when executing data at 0x89faaea
+
+ Attempting to reconstruct a stack trace...
+
+   Frame	Code address
+ * 0x579dac0	0x89faaea
+
+[1] "Error : pandoc document conversion failed with error 11\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError: pandoc document conversion failed with error 11>
+> source('C:/Users/znmeb/Projects/sqlpetr/vignettes/pandoc_tester.R')
+pandoc.exe 2.6
+Compiled with pandoc-types 1.17.5.4, texmath 0.11.1.2, skylighting 0.7.5
+Default user data directory: C:\Users\znmeb\AppData\Roaming\pandoc
+Copyright (C) 2006-2018 John MacFarlane
+Web:  http://pandoc.org
+This is free software; see the source for copying conditions.
+There is no warranty, not even for merchantability or fitness
+for a particular purpose.
+
+
+processing file: building-the-dvdrental-docker-image.Rmd
+  |......................                                           |  33%
+   inline R code fragments
+
+  |...........................................                      |  67%
+label: setup (with options)
+List of 1
+ $ include: logi FALSE
+
+  |.................................................................| 100%
+  ordinary text without R code
+
+
+output file: building-the-dvdrental-docker-image.knit.md
+
+"C:/Program Files/Pandoc/pandoc" +RTS -K512m -RTS building-the-dvdrental-docker-image.utf8.md --to html4 --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash+smart --output building-the-dvdrental-docker-image.html --email-obfuscation none --self-contained --standalone --section-divs --template "C:\Users\znmeb\OneDrive\Documents\R\win-library\3.5\rmarkdown\rmd\h\default.html" --highlight-style pygments --css "C:\Users\znmeb\OneDrive\Documents\R\win-library\3.5\rmarkdown\rmarkdown\templates\html_vignette\resources\vignette.css" --mathjax --variable "mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" --filter pandoc-citeproc
+
+Access violation in generated code when executing data at 0x7916992
+
+ Attempting to reconstruct a stack trace...
+
+   Frame	Code address
+ * 0x579dac0	0x7916992
+
+[1] "Error : pandoc document conversion failed with error 11\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError: pandoc document conversion failed with error 11>
+> source('C:/Users/znmeb/Projects/sqlpetr/vignettes/pandoc_tester.R')
+pandoc.exe 2.6
+Compiled with pandoc-types 1.17.5.4, texmath 0.11.1.2, skylighting 0.7.5
+Default user data directory: C:\Users\znmeb\AppData\Roaming\pandoc
+Copyright (C) 2006-2018 John MacFarlane
+Web:  http://pandoc.org
+This is free software; see the source for copying conditions.
+There is no warranty, not even for merchantability or fitness
+for a particular purpose.
+
+
+processing file: building-the-dvdrental-docker-image.Rmd
+  |......................                                           |  33%
+   inline R code fragments
+
+  |...........................................                      |  67%
+label: setup (with options)
+List of 1
+ $ include: logi FALSE
+
+  |.................................................................| 100%
+  ordinary text without R code
+
+
+output file: building-the-dvdrental-docker-image.knit.md
+
+"C:/Program Files/Pandoc/pandoc" +RTS -K512m -RTS building-the-dvdrental-docker-image.utf8.md --to html4 --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash+smart --output building-the-dvdrental-docker-image.html --email-obfuscation none --self-contained --standalone --section-divs --template "C:\Users\znmeb\OneDrive\Documents\R\win-library\3.5\rmarkdown\rmd\h\default.html" --highlight-style pygments --css "C:\Users\znmeb\OneDrive\Documents\R\win-library\3.5\rmarkdown\rmarkdown\templates\html_vignette\resources\vignette.css" --mathjax --variable "mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" --filter pandoc-citeproc
+
+Access violation in generated code when executing data at 0x4b5f1b9
+
+ Attempting to reconstruct a stack trace...
+
+   Frame	Code address
+ * 0x579dac0	0x4b5f1b9 C:\PROGRA~1\Pandoc\pandoc.exe+0x475f1b9
+
+[1] "Error : pandoc document conversion failed with error 11\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError: pandoc document conversion failed with error 11>
+> source('C:/Users/znmeb/Projects/sqlpetr/vignettes/pandoc_tester.R')
+pandoc.exe 2.6
+Compiled with pandoc-types 1.17.5.4, texmath 0.11.1.2, skylighting 0.7.5
+Default user data directory: C:\Users\znmeb\AppData\Roaming\pandoc
+Copyright (C) 2006-2018 John MacFarlane
+Web:  http://pandoc.org
+This is free software; see the source for copying conditions.
+There is no warranty, not even for merchantability or fitness
+for a particular purpose.
+
+
+processing file: building-the-dvdrental-docker-image.Rmd
+  |......................                                           |  33%
+   inline R code fragments
+
+  |...........................................                      |  67%
+label: setup (with options)
+List of 1
+ $ include: logi FALSE
+
+  |.................................................................| 100%
+  ordinary text without R code
+
+
+output file: building-the-dvdrental-docker-image.knit.md
+
+"C:/Program Files/Pandoc/pandoc" +RTS -K512m -RTS building-the-dvdrental-docker-image.utf8.md --to html4 --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash+smart --output building-the-dvdrental-docker-image.html --email-obfuscation none --self-contained --standalone --section-divs --template "C:\Users\znmeb\OneDrive\Documents\R\win-library\3.5\rmarkdown\rmd\h\default.html" --highlight-style pygments --css "C:\Users\znmeb\OneDrive\Documents\R\win-library\3.5\rmarkdown\rmarkdown\templates\html_vignette\resources\vignette.css" --mathjax --variable "mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" --filter pandoc-citeproc
+
+Access violation in generated code when executing data at 0x881170a
+
+ Attempting to reconstruct a stack trace...
+
+   Frame	Code address
+ * 0x579dac0	0x881170a
+
+[1] "Error : pandoc document conversion failed with error 11\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError: pandoc document conversion failed with error 11>
+>
