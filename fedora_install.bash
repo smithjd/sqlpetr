@@ -9,3 +9,4 @@ sudo dnf install -y \
   postgresql-libs \
   qpdf
 ./install_me_linux.R
+xdg-open docs/index.html
