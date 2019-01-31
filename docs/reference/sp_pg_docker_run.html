@@ -122,22 +122,20 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>sp_pg_docker_run</span>(<span class='no'>image_tag</span>, <span class='no'>container_name</span>)</pre>
+    <pre class="usage"><span class='fu'>sp_pg_docker_run</span>(<span class='kw'>image_tag</span> <span class='kw'>=</span> <span class='st'>"docker.io/postgres:10"</span>, <span class='no'>container_name</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>image_tag</th>
-      <td><p>character a valid image tag (name) for the
-docker image. If it doesn't exist locally, <code>docker run</code> will
-try to download it. If the download fails, the function will
-abort.</p></td>
+      <td><p>character: a valid image tag (name) for the
+docker image. Default is the base PostgreSQL 10 image,
+<code>docker.io/postgres:10</code>.</p></td>
     </tr>
     <tr>
       <th>container_name</th>
-      <td><p>character a valid container name for the
-container</p></td>
+      <td><p>character: a valid container name for the container</p></td>
     </tr>
     </table>
     
