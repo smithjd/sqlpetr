@@ -5,3 +5,4 @@ sudo pacman --sync --noconfirm --needed \
   postgresql-libs \
   qpdf
 ./install_me_linux.R
+xdg-open docs/index.html
