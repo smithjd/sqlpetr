@@ -4,16 +4,14 @@
 \alias{sp_pg_docker_run}
 \title{Run a PostgreSQL Docker image in a container}
 \usage{
-sp_pg_docker_run(image_tag, container_name)
+sp_pg_docker_run(image_tag = "docker.io/postgres:10", container_name)
 }
 \arguments{
-\item{image_tag}{character a valid image tag (name) for the
-docker image. If it doesn't exist locally, \code{docker run} will
-try to download it. If the download fails, the function will
-abort.}
+\item{image_tag}{character: a valid image tag (name) for the
+docker image. Default is the base PostgreSQL 10 image,
+\code{docker.io/postgres:10}.}
 
-\item{container_name}{character a valid container name for the
-container}
+\item{container_name}{character: a valid container name for the container}
 }
 \value{
 Result of Docker command if it succeeded. Stops with an

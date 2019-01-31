@@ -112,12 +112,10 @@ sp_docker_run <- function(options, image, command = "", args = "") {
 #' @title Run a PostgreSQL Docker image in a container
 #' @name sp_pg_docker_run
 #' @description Creates a container and runs an image in it. The image should be based on the `postgres:10` image
-#' @param image_tag character a valid image tag (name) for the
-#' docker image. If it doesn't exist locally, `docker run` will
-#' try to download it. If the download fails, the function will
-#' abort.
-#' @param container_name character a valid container name for the
-#' container
+#' @param image_tag character: a valid image tag (name) for the
+#' docker image. Default is the base PostgreSQL 10 image,
+#' `docker.io/postgres:10`.
+#' @param container_name character: a valid container name for the container
 #' @return Result of Docker command if it succeeded. Stops with an
 #' error message if it failed.
 #' @importFrom glue glue
@@ -128,15 +126,16 @@ sp_docker_run <- function(options, image, command = "", args = "") {
 #' sp_pg_docker_run("dvdrental:latest", "sql-pet")
 #' }
 
-sp_pg_docker_run <- function(image_tag, container_name) {
-  docker_cmd <- glue::glue(
-    "run ", # Run is the Docker command.
+sp_pg_docker_run <- function(
+  image_tag = "docker.io/postgres:10",
+  container_name
+) {
+  run_options <- glue::glue(
     "--detach ", # run in the backgrouns
     "--name ", container_name, # gives the container a name
-    " --publish 5432:5432 ", # Exposes the default Postgres port
-    image_tag # Docker the image to be run
+    " --publish 5432:5432 " # Exposes the default Postgres port
   )
-  result <- .system2_to_docker(docker_cmd)
+  result <- sp_docker_run(options = run_options, image = image_tag)
 }
 
 #' @title Make simple PostgreSQL container
@@ -151,11 +150,12 @@ sp_pg_docker_run <- function(image_tag, container_name) {
 #' @export sp_make_simple_pg
 #' @examples
 #' \dontrun{
-#' sp_make_simple_pg("cattle")
+#'   sp_make_simple_pg("cattle")
+#'   sp_docker_containers_tibble()
 #' }
 
 sp_make_simple_pg <- function(container_name) {
-  result <- sp_pg_docker_run("postgres:10", container_name)
+  result <- sp_pg_docker_run("docker.io/postgres:10", container_name)
 }
 
 #' @title List containers into a tibble

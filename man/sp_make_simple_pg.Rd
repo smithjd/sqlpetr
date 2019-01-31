@@ -21,6 +21,7 @@ it doesn't exist locally.
 }
 \examples{
 \dontrun{
-sp_make_simple_pg("cattle")
+  sp_make_simple_pg("cattle")
+  sp_docker_containers_tibble()
 }
 }
