@@ -2,9 +2,11 @@
 
 export(sp_check_that_docker_is_up)
 export(sp_color_markdown_text)
+export(sp_docker_build)
 export(sp_docker_containers_tibble)
 export(sp_docker_images_tibble)
 export(sp_docker_remove_container)
+export(sp_docker_run)
 export(sp_docker_start)
 export(sp_docker_stop)
 export(sp_get_dbms_data_dictionary)

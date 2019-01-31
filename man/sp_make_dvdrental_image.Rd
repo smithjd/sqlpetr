@@ -22,5 +22,8 @@ Creates a Docker image with PostgreSQL and the
 See the vignette "Building the \code{dvdrental} Docker Image" for the details.
 }
 \examples{
-\dontrun{sp_make_dvdrental_image("dvdrental")}
+\dontrun{
+sp_make_dvdrental_image("dvdrental")
+sp_docker_images_tibble()
+}
 }

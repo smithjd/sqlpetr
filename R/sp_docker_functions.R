@@ -19,6 +19,28 @@
   return(result)
 }
 
+#' @title Build Docker image
+#' @name sp_docker_build
+#' @description Creates a Docker image
+#' @param options character: the build options. There are many; do `docker build --help` to see them
+#' at a command prompt to see them. You will need at least the `--tag` option
+#' to give the built image a tag (name).
+#' @param path character: the build context path
+#' @return Result of Docker command if it succeeded. Stops with an
+#'  error message if it failed.
+#' @importFrom glue glue
+#' @export sp_docker_build
+
+sp_docker_build <- function(options, path) {
+
+  docker_cmd <- glue::glue(
+    "build ", # docker build
+    options, " ",
+    path
+  )
+  result <- .system2_to_docker(docker_cmd)
+}
+
 #' @title Make `dvdrental` Docker image
 #' @name sp_make_dvdrental_image
 #' @description Creates a Docker image with PostgreSQL and the
@@ -30,7 +52,10 @@
 #' @importFrom glue glue
 #' @export sp_make_dvdrental_image
 #' @examples
-#' \dontrun{sp_make_dvdrental_image("dvdrental")}
+#' \dontrun{
+#' sp_make_dvdrental_image("dvdrental")
+#' sp_docker_images_tibble()
+#' }
 #' @details See the vignette "Building the `dvdrental` Docker Image" for the details.
 
 sp_make_dvdrental_image <- function(image_tag) {
@@ -40,10 +65,46 @@ sp_make_dvdrental_image <- function(image_tag) {
     system.file(package = "sqlpetr"),
     "/extdata/docker", sep = "/"
   )
+  build_options <- glue::glue(
+    "--tag ", image_tag, " " # gives the image a name
+  )
+  result <- sp_docker_build(options = build_options, path = build_context)
+}
+
+#' @title Run an image in a container
+#' @name sp_docker_run
+#' @description Creates a container and runs an image in it.
+#' @param options the options to use when running the image. Default is the
+#' empty string. Note that if you want to name the container, you need to at
+#' least specify the option `--name`.
+#' @param image character a valid image tag (name) for the
+#' docker image. If it doesn't exist locally, `docker run` will
+#' try to download it. If the download fails, the function will
+#' abort.
+#'
+#' Note that the full syntax of an image tag is `<repository>/<name>:<tag>`. For example, the PostgreSQL 10 image we use is `docker.io/postgres:10`.
+#' @param command the command to run after the container boots up. Default is an empty string, which uses the startup command defined in the image.
+#' @param args the arguments for the command. Default is an empty string.
+#' @details Do `docker run --help` in a command prompt to see all the options, of which there are many.
+#' @return Result of Docker command if it succeeded. Stops with an
+#' error message if it failed.
+#' @importFrom glue glue
+#' @export sp_docker_run
+#' @examples
+#' \dontrun{
+#' sp_docker_run(
+#'   options = "--detach --name cattle --publish 5432:5432",
+#'   image = "docker.io.postgres:10"
+#' )
+#' }
+
+sp_docker_run <- function(options, image, command = "", args = "") {
   docker_cmd <- glue::glue(
-    "build ", # docker build
-    "--tag ", image_tag, " ", # gives the image a name
-    build_context
+    "run ", # Run is the Docker command.
+    options, " ",
+    image, " ",
+    command, " ",
+    args, " "
   )
   result <- .system2_to_docker(docker_cmd)
 }
