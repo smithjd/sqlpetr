@@ -2,7 +2,9 @@
 title: "Building the `dvdrental` Docker Image"
 author: "M. Edward (Ed) Borasky, Ian Frantz"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+      self_contained: false
 bibliography: vignettes.bib
 vignette: >
   %\VignetteIndexEntry{Building the `dvdrental` Docker Image}
