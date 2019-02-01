@@ -32,7 +32,9 @@
 
 <meta property="og:title" content="Run a PostgreSQL Docker image in a container — sp_pg_docker_run" />
 
-<meta property="og:description" content="Creates a container and runs an image in it. The image should be based on the postgres:10 image" />
+<meta property="og:description" content="Creates a container and runs an image in it. The image should be
+based on the postgres:10 image. It will run in the background (--detach)
+and the default PostgreSQL port 5432 will be published." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -118,7 +120,9 @@
 
     <div class="ref-description">
     
-    <p>Creates a container and runs an image in it. The image should be based on the <code>postgres:10</code> image</p>
+    <p>Creates a container and runs an image in it. The image should be
+based on the <code>postgres:10</code> image. It will run in the background (<code>--detach</code>)
+and the default PostgreSQL port 5432 will be published.</p>
     
     </div>
 
@@ -129,9 +133,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>image_tag</th>
-      <td><p>character: a valid image tag (name) for the
-docker image. Default is the base PostgreSQL 10 image,
-<code>docker.io/postgres:10</code>.</p></td>
+      <td><p>character: a valid image tag (name) for the docker image.
+Default is the base PostgreSQL 10 image, <code>docker.io/postgres:10</code>.</p></td>
     </tr>
     <tr>
       <th>container_name</th>
@@ -149,6 +152,7 @@ error message if it failed.</p>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='fu'><a href='sp_make_dvdrental_image.html'>sp_make_dvdrental_image</a></span>(<span class='st'>"dvdrental:latest"</span>)
 <span class='fu'>sp_pg_docker_run</span>(<span class='st'>"dvdrental:latest"</span>, <span class='st'>"sql-pet"</span>)
+<span class='fu'><a href='sp_docker_containers_tibble.html'>sp_docker_containers_tibble</a></span>()
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
