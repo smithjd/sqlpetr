@@ -7,9 +7,8 @@
 sp_pg_docker_run(image_tag = "docker.io/postgres:10", container_name)
 }
 \arguments{
-\item{image_tag}{character: a valid image tag (name) for the
-docker image. Default is the base PostgreSQL 10 image,
-\code{docker.io/postgres:10}.}
+\item{image_tag}{character: a valid image tag (name) for the docker image.
+Default is the base PostgreSQL 10 image, \code{docker.io/postgres:10}.}
 
 \item{container_name}{character: a valid container name for the container}
 }
@@ -18,11 +17,14 @@ Result of Docker command if it succeeded. Stops with an
 error message if it failed.
 }
 \description{
-Creates a container and runs an image in it. The image should be based on the \code{postgres:10} image
+Creates a container and runs an image in it. The image should be
+based on the \code{postgres:10} image. It will run in the background (\code{--detach})
+and the default PostgreSQL port 5432 will be published.
 }
 \examples{
 \dontrun{
 sp_make_dvdrental_image("dvdrental:latest")
 sp_pg_docker_run("dvdrental:latest", "sql-pet")
+sp_docker_containers_tibble()
 }
 }

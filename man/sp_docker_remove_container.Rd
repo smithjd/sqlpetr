@@ -7,21 +7,19 @@
 sp_docker_remove_container(docker_container)
 }
 \arguments{
-\item{docker_container}{character the name of the container to
+\item{docker_container}{character: the name of the container to
 remove}
 }
 \value{
 a numeric \code{0}
 }
 \description{
-Forcibly removes a Docker container. If it is
-running it will be forcibly terminated and removed. If it
-doesn't exist you won't get an error message. This is a blunt
-instrument!
+Forcibly removes a Docker container. If it is running it will be
+forcibly terminated and removed. If it doesn't exist you won't get an error
+message. This is a blunt instrument!
 }
 \details{
-Warning: this function removes the container you asked
-it to remove!
+Warning: this function removes the container you asked it to remove!
 }
 \examples{
 \dontrun{sp_docker_remove_container("sql-pet")}

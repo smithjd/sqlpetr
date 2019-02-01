@@ -7,7 +7,7 @@
 sp_docker_start(container_name)
 }
 \arguments{
-\item{container_name}{character container to start}
+\item{container_name}{character: container to start}
 }
 \value{
 Result of Docker command if it succeeded. Stops with an

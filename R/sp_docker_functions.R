@@ -1,14 +1,14 @@
 # local function to call to Docker via system2
 .system2_to_docker <- function(docker_cmd) {
 
-  # pass the command to Docker via `system2` and capture the
+  # pass `the command`docker_cmd`` to Docker via `system2` and capture the
   # outputs
   result <- system2(
     "docker", docker_cmd, stdout = TRUE, stderr = TRUE
   )
   status <- attr(result, "status")
 
-  # abort with the error message if the command failed
+  # stop with the error message if the command failed
   if (length(status) > 0) {
     message(paste("command:", docker_cmd))
     message(paste("return:", result))
@@ -22,12 +22,12 @@
 #' @title Build Docker image
 #' @name sp_docker_build
 #' @description Creates a Docker image
-#' @param options character: the build options. There are many; do `docker build --help` to see them
-#' at a command prompt to see them. You will need at least the `--tag` option
-#' to give the built image a tag (name).
+#' @param options character: the build options. There are many; do
+#' `docker build --help` at a command prompt to see them. You will need at least
+#' the `--tag` option to give the built image a tag (name).
 #' @param path character: the build context path
 #' @return Result of Docker command if it succeeded. Stops with an
-#'  error message if it failed.
+#' error message if it failed.
 #' @importFrom glue glue
 #' @export sp_docker_build
 
@@ -43,12 +43,11 @@ sp_docker_build <- function(options, path) {
 
 #' @title Make `dvdrental` Docker image
 #' @name sp_make_dvdrental_image
-#' @description Creates a Docker image with PostgreSQL and the
-#' `dvdrental` database
-#' @param image_tag character a valid image tag (name) for the
-#'  docker image
+#' @description Creates a Docker image with PostgreSQL and the `dvdrental`
+#' database
+#' @param image_tag character: a valid image tag (name) for the docker image
 #' @return Result of Docker command if it succeeded. Stops with an
-#'  error message if it failed.
+#' error message if it failed.
 #' @importFrom glue glue
 #' @export sp_make_dvdrental_image
 #' @examples
@@ -71,21 +70,25 @@ sp_make_dvdrental_image <- function(image_tag) {
   result <- sp_docker_build(options = build_options, path = build_context)
 }
 
-#' @title Run an image in a container
+#' @title Run a Docker image
 #' @name sp_docker_run
 #' @description Creates a container and runs an image in it.
-#' @param options the options to use when running the image. Default is the
-#' empty string. Note that if you want to name the container, you need to at
-#' least specify the option `--name`.
-#' @param image character a valid image tag (name) for the
-#' docker image. If it doesn't exist locally, `docker run` will
-#' try to download it. If the download fails, the function will
-#' abort.
+#' @param options character: the options to use when running the image. Default
+#' is the empty string. You will need at least the `--tag` option to give the
+#' container a name.
+#' @param image character: a valid image tag (name) for the docker image. If it
+#' doesn't exist locally, `docker run` will try to download it. If the download
+#' then fails, the function will stop
 #'
-#' Note that the full syntax of an image tag is `<repository>/<name>:<tag>`. For example, the PostgreSQL 10 image we use is `docker.io/postgres:10`.
-#' @param command the command to run after the container boots up. Default is an empty string, which uses the startup command defined in the image.
-#' @param args the arguments for the command. Default is an empty string.
-#' @details Do `docker run --help` in a command prompt to see all the options, of which there are many.
+#' Note that the full syntax of an image tag is `<repository>/<name>:<tag>`. For
+#' example, the PostgreSQL 10 image we use is `docker.io/postgres:10`.
+#' @param command character: the command to run after the container boots up.
+#' Default is an empty string, which uses the startup command defined in the
+#' image.
+#' @param args character: the arguments for the command. Default is an empty
+#' string.
+#' @details Do `docker run --help` in a command prompt to see all the options,
+#' of which there are many.
 #' @return Result of Docker command if it succeeded. Stops with an
 #' error message if it failed.
 #' @importFrom glue glue
@@ -111,10 +114,11 @@ sp_docker_run <- function(options, image, command = "", args = "") {
 
 #' @title Run a PostgreSQL Docker image in a container
 #' @name sp_pg_docker_run
-#' @description Creates a container and runs an image in it. The image should be based on the `postgres:10` image
-#' @param image_tag character: a valid image tag (name) for the
-#' docker image. Default is the base PostgreSQL 10 image,
-#' `docker.io/postgres:10`.
+#' @description Creates a container and runs an image in it. The image should be
+#' based on the `postgres:10` image. It will run in the background (`--detach`)
+#' and the default PostgreSQL port 5432 will be published.
+#' @param image_tag character: a valid image tag (name) for the docker image.
+#' Default is the base PostgreSQL 10 image, `docker.io/postgres:10`.
 #' @param container_name character: a valid container name for the container
 #' @return Result of Docker command if it succeeded. Stops with an
 #' error message if it failed.
@@ -124,6 +128,7 @@ sp_docker_run <- function(options, image, command = "", args = "") {
 #' \dontrun{
 #' sp_make_dvdrental_image("dvdrental:latest")
 #' sp_pg_docker_run("dvdrental:latest", "sql-pet")
+#' sp_docker_containers_tibble()
 #' }
 
 sp_pg_docker_run <- function(
@@ -140,18 +145,18 @@ sp_pg_docker_run <- function(
 
 #' @title Make simple PostgreSQL container
 #' @name sp_make_simple_pg
-#' @description Creates a container and runs the PostgreSQL 10
-#' image (`postgres:10`) in it. The image will be downloaded if
-#' it doesn't exist locally.
-#' @param container_name character a valid container name for the
+#' @description Creates a container and runs the PostgreSQL 10 image
+#' (`postgres:10`) in it. The image will be downloaded if it doesn't exist
+#' locally.
+#' @param container_name character: a valid container name for the
 #' container
 #' @return Result of Docker command if it succeeded. Stops with an
-#'  error message if it failed.
+#' error message if it failed.
 #' @export sp_make_simple_pg
 #' @examples
 #' \dontrun{
-#'   sp_make_simple_pg("cattle")
-#'   sp_docker_containers_tibble()
+#' sp_make_simple_pg("cattle")
+#' sp_docker_containers_tibble()
 #' }
 
 sp_make_simple_pg <- function(container_name) {
@@ -160,9 +165,8 @@ sp_make_simple_pg <- function(container_name) {
 
 #' @title List containers into a tibble
 #' @name sp_docker_containers_tibble
-#' @description Creates a tibble of containers using
-#' `docker ps`
-#' @param list_all logical - list all containers if `TRUE`, just
+#' @description Creates a tibble of containers using `docker ps`
+#' @param list_all logical: list all containers if `TRUE`, just
 #' *running* containers if `FALSE`. Default is `FALSE`.
 #' @return A tibble listing the containers. If there are none,
 #' returns an empty (0x0) tibble.
@@ -228,7 +232,7 @@ sp_docker_containers_tibble <- function(list_all = FALSE) {
 #' @title List images into a tibble
 #' @name sp_docker_images_tibble
 #' @description Creates a tibble of images using `docker images`
-#' @param list_all logical - list all images if `TRUE`, just
+#' @param list_all logical: list all images if `TRUE`, just
 #' *tagged* images if `FALSE`. Default is `FALSE`.
 #' @return A tibble listing the images
 #' @importFrom readr read_delim
@@ -287,17 +291,15 @@ sp_docker_images_tibble <- function(list_all = FALSE) {
 
 #' @title Forcibly remove a container
 #' @name sp_docker_remove_container
-#' @description Forcibly removes a Docker container. If it is
-#' running it will be forcibly terminated and removed. If it
-#' doesn't exist you won't get an error message. This is a blunt
-#' instrument!
-#' @param docker_container character the name of the container to
+#' @description Forcibly removes a Docker container. If it is running it will be
+#' forcibly terminated and removed. If it doesn't exist you won't get an error
+#' message. This is a blunt instrument!
+#' @param docker_container character: the name of the container to
 #' remove
 #' @return a numeric `0`
 #' @examples
 #' \dontrun{sp_docker_remove_container("sql-pet")}
-#' @details Warning: this function removes the container you asked
-#' it to remove!
+#' @details Warning: this function removes the container you asked it to remove!
 #' @export sp_docker_remove_container
 
 sp_docker_remove_container <- function(docker_container) {
@@ -311,7 +313,7 @@ sp_docker_remove_container <- function(docker_container) {
 #' @title Start an existing container
 #' @name sp_docker_start
 #' @description Starts the container given by `container_name`.
-#' @param container_name character container to start
+#' @param container_name character: container to start
 #' @return Result of Docker command if it succeeded. Stops with an
 #' error message if it failed.
 #' @importFrom glue glue
@@ -329,7 +331,7 @@ sp_docker_start <- function(container_name) {
 #' @title Stop an existing container
 #' @name sp_docker_stop
 #' @description Stops the container given by `container_name`.
-#' @param container_name character container to stop
+#' @param container_name character: container to stop
 #' @return Result of Docker command if it succeeded. Stops with an
 #' error message if it failed.
 #' @importFrom glue glue

@@ -7,7 +7,7 @@
 sp_docker_images_tibble(list_all = FALSE)
 }
 \arguments{
-\item{list_all}{logical - list all images if \code{TRUE}, just
+\item{list_all}{logical: list all images if \code{TRUE}, just
 \emph{tagged} images if \code{FALSE}. Default is \code{FALSE}.}
 }
 \value{

@@ -2,25 +2,28 @@
 % Please edit documentation in R/sp_docker_functions.R
 \name{sp_docker_run}
 \alias{sp_docker_run}
-\title{Run an image in a container}
+\title{Run a Docker image}
 \usage{
 sp_docker_run(options, image, command = "", args = "")
 }
 \arguments{
-\item{options}{the options to use when running the image. Default is the
-empty string. Note that if you want to name the container, you need to at
-least specify the option \code{--name}.}
+\item{options}{character: the options to use when running the image. Default
+is the empty string. You will need at least the \code{--tag} option to give the
+container a name.}
 
-\item{image}{character a valid image tag (name) for the
-docker image. If it doesn't exist locally, \code{docker run} will
-try to download it. If the download fails, the function will
-abort.
+\item{image}{character: a valid image tag (name) for the docker image. If it
+doesn't exist locally, \code{docker run} will try to download it. If the download
+then fails, the function will stop
 
-Note that the full syntax of an image tag is \code{<repository>/<name>:<tag>}. For example, the PostgreSQL 10 image we use is \code{docker.io/postgres:10}.}
+Note that the full syntax of an image tag is \code{<repository>/<name>:<tag>}. For
+example, the PostgreSQL 10 image we use is \code{docker.io/postgres:10}.}
 
-\item{command}{the command to run after the container boots up. Default is an empty string, which uses the startup command defined in the image.}
+\item{command}{character: the command to run after the container boots up.
+Default is an empty string, which uses the startup command defined in the
+image.}
 
-\item{args}{the arguments for the command. Default is an empty string.}
+\item{args}{character: the arguments for the command. Default is an empty
+string.}
 }
 \value{
 Result of Docker command if it succeeded. Stops with an
@@ -30,7 +33,8 @@ error message if it failed.
 Creates a container and runs an image in it.
 }
 \details{
-Do \code{docker run --help} in a command prompt to see all the options, of which there are many.
+Do \code{docker run --help} in a command prompt to see all the options,
+of which there are many.
 }
 \examples{
 \dontrun{

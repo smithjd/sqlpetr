@@ -7,7 +7,7 @@
 sp_make_simple_pg(container_name)
 }
 \arguments{
-\item{container_name}{character a valid container name for the
+\item{container_name}{character: a valid container name for the
 container}
 }
 \value{
@@ -15,13 +15,13 @@ Result of Docker command if it succeeded. Stops with an
 error message if it failed.
 }
 \description{
-Creates a container and runs the PostgreSQL 10
-image (\code{postgres:10}) in it. The image will be downloaded if
-it doesn't exist locally.
+Creates a container and runs the PostgreSQL 10 image
+(\code{postgres:10}) in it. The image will be downloaded if it doesn't exist
+locally.
 }
 \examples{
 \dontrun{
-  sp_make_simple_pg("cattle")
-  sp_docker_containers_tibble()
+sp_make_simple_pg("cattle")
+sp_docker_containers_tibble()
 }
 }

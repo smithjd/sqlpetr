@@ -7,7 +7,7 @@
 sp_docker_stop(container_name)
 }
 \arguments{
-\item{container_name}{character container to stop}
+\item{container_name}{character: container to stop}
 }
 \value{
 Result of Docker command if it succeeded. Stops with an

@@ -7,7 +7,7 @@
 sp_docker_containers_tibble(list_all = FALSE)
 }
 \arguments{
-\item{list_all}{logical - list all containers if \code{TRUE}, just
+\item{list_all}{logical: list all containers if \code{TRUE}, just
 \emph{running} containers if \code{FALSE}. Default is \code{FALSE}.}
 }
 \value{
@@ -15,8 +15,7 @@ A tibble listing the containers. If there are none,
 returns an empty (0x0) tibble.
 }
 \description{
-Creates a tibble of containers using
-\code{docker ps}
+Creates a tibble of containers using \code{docker ps}
 }
 \examples{
 \dontrun{

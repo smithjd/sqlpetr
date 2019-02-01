@@ -7,16 +7,15 @@
 sp_make_dvdrental_image(image_tag)
 }
 \arguments{
-\item{image_tag}{character a valid image tag (name) for the
-docker image}
+\item{image_tag}{character: a valid image tag (name) for the docker image}
 }
 \value{
 Result of Docker command if it succeeded. Stops with an
 error message if it failed.
 }
 \description{
-Creates a Docker image with PostgreSQL and the
-\code{dvdrental} database
+Creates a Docker image with PostgreSQL and the \code{dvdrental}
+database
 }
 \details{
 See the vignette "Building the \code{dvdrental} Docker Image" for the details.
