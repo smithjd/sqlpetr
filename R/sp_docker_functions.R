@@ -114,12 +114,16 @@ sp_docker_run <- function(options, image, command = "", args = "") {
 
 #' @title Run a PostgreSQL Docker image in a container
 #' @name sp_pg_docker_run
-#' @description Creates a container and runs an image in it. The image should be
-#' based on the `postgres:10` image. It will run in the background (`--detach`)
-#' and the default PostgreSQL port 5432 will be published.
+#' @description Creates a container and runs an image in it. The image
+#' must be based on the `postgres:10` image. It will run in the background
+#' (`--detach`) and the default PostgreSQL port 5432 will be published.
 #' @param image_tag character: a valid image tag (name) for the docker image.
 #' Default is the base PostgreSQL 10 image, `docker.io/postgres:10`.
 #' @param container_name character: a valid container name for the container
+#' @param postgres_user character: the database superuser name. Default is
+#' "postgres".
+#' @param postgres_password character: the database superuser password.
+#' Default is "postgres".
 #' @return Result of Docker command if it succeeded. Stops with an
 #' error message if it failed.
 #' @importFrom glue glue
@@ -133,12 +137,16 @@ sp_docker_run <- function(options, image, command = "", args = "") {
 
 sp_pg_docker_run <- function(
   image_tag = "docker.io/postgres:10",
-  container_name
+  container_name,
+  postgres_user = "postgres",
+  postgres_password = "postgres"
 ) {
   run_options <- glue::glue(
     "--detach ", # run in the backgrouns
     "--name ", container_name, # gives the container a name
-    " --publish 5432:5432 " # Exposes the default Postgres port
+    " --publish 5432:5432 ", # publish the default Postgres port
+    "--env POSTGRES_USER=", postgres_user, # database superuser name
+    " --env POSTGRES_PASSWORD=", postgres_password # superuser password
   )
   result <- sp_docker_run(options = run_options, image = image_tag)
 }
