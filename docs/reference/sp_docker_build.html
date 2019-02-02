@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build Docker image — sp_docker_build • sqlpetr</title>
+<title>Build a Docker image — sp_docker_build • sqlpetr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Build Docker image — sp_docker_build" />
+<meta property="og:title" content="Build a Docker image — sp_docker_build" />
 
 <meta property="og:description" content="Creates a Docker image" />
 <meta name="twitter:card" content="summary" />
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sqlpetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -111,7 +111,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build Docker image</h1>
+    <h1>Build a Docker image</h1>
     <small class="dont-index">Source: <a href='https://github.com/smithjd/sqlpetr/blob/master/R/sp_docker_functions.R'><code>R/sp_docker_functions.R</code></a></small>
     <div class="hidden name"><code>sp_docker_build.Rd</code></div>
     </div>
@@ -122,27 +122,27 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>sp_docker_build</span>(<span class='no'>options</span>, <span class='no'>path</span>)</pre>
+    <pre class="usage"><span class='fu'>sp_docker_build</span>(<span class='no'>build_options</span>, <span class='no'>build_context_path</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>options</th>
+      <th>build_options</th>
       <td><p>character: the build options. There are many; do
 <code>docker build --help</code> at a command prompt to see them. You will need at least
 the <code>--tag</code> option to give the built image a tag (name).</p></td>
     </tr>
     <tr>
-      <th>path</th>
+      <th>build_context_path</th>
       <td><p>character: the build context path</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Result of Docker command if it succeeded. Stops with an
-error message if it failed.</p>
+    <p>Result of Docker command if it succeeded. Stops with an error message
+if it failed.</p>
     
 
   </div>
