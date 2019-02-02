@@ -11,3 +11,4 @@ sudo apt-get install -qqy --no-install-recommends \
   wget \
   zlib1g-dev
 ./install_me_linux.R
+xdg-open docs/index.html

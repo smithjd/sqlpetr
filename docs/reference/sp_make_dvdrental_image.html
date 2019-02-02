@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create an image with PostgreSQL and the <code>dvdrental</code> database — sp_make_dvdrental_image • sqlpetr</title>
+<title>Make <code>dvdrental</code> Docker image — sp_make_dvdrental_image • sqlpetr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Create an image with PostgreSQL and the <code>dvdrental</code> database — sp_make_dvdrental_image" />
+<meta property="og:title" content="Make <code>dvdrental</code> Docker image — sp_make_dvdrental_image" />
 
-<meta property="og:description" content="Create an image with PostgreSQL and the dvdrental database" />
+<meta property="og:description" content="Creates a Docker image with PostgreSQL and the dvdrental
+database" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sqlpetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -111,25 +112,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create an image with PostgreSQL and the <code>dvdrental</code> database</h1>
-    <small class="dont-index">Source: <a href='https://github.com/smithjd/sqlpetr/blob/master/R/sp_make_dvdrental_image.R'><code>R/sp_make_dvdrental_image.R</code></a></small>
+    <h1>Make <code>dvdrental</code> Docker image</h1>
+    <small class="dont-index">Source: <a href='https://github.com/smithjd/sqlpetr/blob/master/R/sp_docker_functions.R'><code>R/sp_docker_functions.R</code></a></small>
     <div class="hidden name"><code>sp_make_dvdrental_image.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Create an image with PostgreSQL and the <code>dvdrental</code> database</p>
+    <p>Creates a Docker image with PostgreSQL and the <code>dvdrental</code>
+database</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sp_make_dvdrental_image</span>(<span class='no'>image_name</span>)</pre>
+    <pre class="usage"><span class='fu'>sp_make_dvdrental_image</span>(<span class='no'>image_tag</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>image_name</th>
-      <td><p>name for the docker image</p></td>
+      <th>image_tag</th>
+      <td><p>character: a valid image tag (name) for the docker image</p></td>
     </tr>
     </table>
     
@@ -140,12 +142,14 @@ if it failed.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>See the vignette "Building the <code>dvdrental</code> Docker Image" for the details.</p>
+    <p>See the vignette "Building the <code>dvdrental</code> Docker Image" for the
+details.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>sp_make_dvdrental_image</span>(<span class='st'>"dvdrental"</span>)
+<span class='no'>build_log</span> <span class='kw'>&lt;-</span> <span class='fu'>sp_make_dvdrental_image</span>(<span class='st'>"test-dvdrental:latest"</span>)
+<span class='fu'><a href='sp_docker_images_tibble.html'>sp_docker_images_tibble</a></span>()
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
