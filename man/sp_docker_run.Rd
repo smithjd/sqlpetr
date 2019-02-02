@@ -4,19 +4,19 @@
 \alias{sp_docker_run}
 \title{Run a Docker image}
 \usage{
-sp_docker_run(options, image, command = "", args = "")
+sp_docker_run(image, options = "", command = "", args = "")
 }
 \arguments{
-\item{options}{character: the options to use when running the image. Default
-is the empty string. You will need at least the \code{--tag} option to give the
-container a name.}
-
 \item{image}{character: a valid image tag (name) for the docker image. If it
 doesn't exist locally, \code{docker run} will try to download it. If the download
 then fails, the function will stop
 
 Note that the full syntax of an image tag is \code{<repository>/<name>:<tag>}. For
 example, the PostgreSQL 10 image we use is \code{docker.io/postgres:10}.}
+
+\item{options}{character: the options to use when running the image. Default
+is the empty string. You will need at least the \code{--name} option to give the
+container a name.}
 
 \item{command}{character: the command to run after the container boots up.
 Default is an empty string, which uses the startup command defined in the
@@ -26,8 +26,8 @@ image.}
 string.}
 }
 \value{
-Result of Docker command if it succeeded. Stops with an
-error message if it failed.
+Result of Docker command if it succeeded. Stops with an error message
+if it failed.
 }
 \description{
 Creates a container and runs an image in it.
@@ -38,9 +38,7 @@ of which there are many.
 }
 \examples{
 \dontrun{
-sp_docker_run(
-  options = "--detach --name cattle --publish 5432:5432",
-  image = "docker.io.postgres:10"
-)
+print(sp_docker_run("hello-world"))
+sp_docker_images_tibble()
 }
 }

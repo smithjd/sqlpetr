@@ -14,8 +14,8 @@ the \code{--tag} option to give the built image a tag (name).}
 \item{path}{character: the build context path}
 }
 \value{
-Result of Docker command if it succeeded. Stops with an
-error message if it failed.
+Result of Docker command if it succeeded. Stops with an error message
+if it failed.
 }
 \description{
 Creates a Docker image

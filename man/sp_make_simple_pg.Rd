@@ -4,11 +4,17 @@
 \alias{sp_make_simple_pg}
 \title{Make simple PostgreSQL container}
 \usage{
-sp_make_simple_pg(container_name)
+sp_make_simple_pg(container_name, postgres_user = "postgres",
+  postgres_password = "postgres")
 }
 \arguments{
 \item{container_name}{character: a valid container name for the
 container}
+
+\item{postgres_user}{character: database superuser. Default is "postgres".}
+
+\item{postgres_password}{character: superuser password. Default is
+"postgres".}
 }
 \value{
 Result of Docker command if it succeeded. Stops with an
@@ -16,12 +22,13 @@ error message if it failed.
 }
 \description{
 Creates a container and runs the PostgreSQL 10 image
-(\code{postgres:10}) in it. The image will be downloaded if it doesn't exist
-locally.
+(\code{docker.io/postgres:10}) in it. The image will be downloaded if it doesn't
+exist locally.
 }
 \examples{
 \dontrun{
-sp_make_simple_pg("cattle")
+sp_make_simple_pg("livestock")
+sp_docker_images_tibble()
 sp_docker_containers_tibble()
 }
 }

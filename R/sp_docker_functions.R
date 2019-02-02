@@ -26,8 +26,8 @@
 #' `docker build --help` at a command prompt to see them. You will need at least
 #' the `--tag` option to give the built image a tag (name).
 #' @param path character: the build context path
-#' @return Result of Docker command if it succeeded. Stops with an
-#' error message if it failed.
+#' @return Result of Docker command if it succeeded. Stops with an error message
+#' if it failed.
 #' @importFrom glue glue
 #' @export sp_docker_build
 
@@ -46,8 +46,8 @@ sp_docker_build <- function(options, path) {
 #' @description Creates a Docker image with PostgreSQL and the `dvdrental`
 #' database
 #' @param image_tag character: a valid image tag (name) for the docker image
-#' @return Result of Docker command if it succeeded. Stops with an
-#' error message if it failed.
+#' @return Result of Docker command if it succeeded. Stops with an error message
+#' if it failed.
 #' @importFrom glue glue
 #' @export sp_make_dvdrental_image
 #' @examples
@@ -55,7 +55,8 @@ sp_docker_build <- function(options, path) {
 #' sp_make_dvdrental_image("dvdrental")
 #' sp_docker_images_tibble()
 #' }
-#' @details See the vignette "Building the `dvdrental` Docker Image" for the details.
+#' @details See the vignette "Building the `dvdrental` Docker Image" for the
+#' details.
 
 sp_make_dvdrental_image <- function(image_tag) {
 
@@ -73,15 +74,15 @@ sp_make_dvdrental_image <- function(image_tag) {
 #' @title Run a Docker image
 #' @name sp_docker_run
 #' @description Creates a container and runs an image in it.
-#' @param options character: the options to use when running the image. Default
-#' is the empty string. You will need at least the `--tag` option to give the
-#' container a name.
 #' @param image character: a valid image tag (name) for the docker image. If it
 #' doesn't exist locally, `docker run` will try to download it. If the download
 #' then fails, the function will stop
 #'
 #' Note that the full syntax of an image tag is `<repository>/<name>:<tag>`. For
 #' example, the PostgreSQL 10 image we use is `docker.io/postgres:10`.
+#' @param options character: the options to use when running the image. Default
+#' is the empty string. You will need at least the `--name` option to give the
+#' container a name.
 #' @param command character: the command to run after the container boots up.
 #' Default is an empty string, which uses the startup command defined in the
 #' image.
@@ -89,25 +90,23 @@ sp_make_dvdrental_image <- function(image_tag) {
 #' string.
 #' @details Do `docker run --help` in a command prompt to see all the options,
 #' of which there are many.
-#' @return Result of Docker command if it succeeded. Stops with an
-#' error message if it failed.
+#' @return Result of Docker command if it succeeded. Stops with an error message
+#' if it failed.
 #' @importFrom glue glue
 #' @export sp_docker_run
 #' @examples
 #' \dontrun{
-#' sp_docker_run(
-#'   options = "--detach --name cattle --publish 5432:5432",
-#'   image = "docker.io.postgres:10"
-#' )
+#' print(sp_docker_run("hello-world"))
+#' sp_docker_images_tibble()
 #' }
 
-sp_docker_run <- function(options, image, command = "", args = "") {
+sp_docker_run <- function(image, options = "", command = "", args = "") {
   docker_cmd <- glue::glue(
     "run ", # Run is the Docker command.
     options, " ",
     image, " ",
     command, " ",
-    args, " "
+    args
   )
   result <- .system2_to_docker(docker_cmd)
 }
@@ -115,11 +114,12 @@ sp_docker_run <- function(options, image, command = "", args = "") {
 #' @title Run a PostgreSQL Docker image in a container
 #' @name sp_pg_docker_run
 #' @description Creates a container and runs an image in it. The image
-#' must be based on the `postgres:10` image. It will run in the background
-#' (`--detach`) and the default PostgreSQL port 5432 will be published.
-#' @param image_tag character: a valid image tag (name) for the docker image.
-#' Default is the base PostgreSQL 10 image, `docker.io/postgres:10`.
+#' must be based on the `docker.io/postgres:10` image. It will run in the
+#' background (`--detach`) and the default PostgreSQL port 5432 will be
+#' published to `localhost:5432`.
 #' @param container_name character: a valid container name for the container
+#' @param image_tag character: a valid image tag (name) for the docker image to
+#' run. Default is the base PostgreSQL 10 image, `docker.io/postgres:10`.
 #' @param postgres_user character: the database superuser name. Default is
 #' "postgres".
 #' @param postgres_password character: the database superuser password.
@@ -131,44 +131,51 @@ sp_docker_run <- function(options, image, command = "", args = "") {
 #' @examples
 #' \dontrun{
 #' sp_make_dvdrental_image("dvdrental:latest")
-#' sp_pg_docker_run("dvdrental:latest", "sql-pet")
+#' sp_pg_docker_run("dvdrental-pet", "dvdrental:latest")
+#' sp_docker_images_tibble()
 #' sp_docker_containers_tibble()
 #' }
 
-sp_pg_docker_run <- function(
-  image_tag = "docker.io/postgres:10",
-  container_name,
-  postgres_user = "postgres",
-  postgres_password = "postgres"
-) {
+sp_pg_docker_run <- function(container_name,
+                             image_tag = "docker.io/postgres:10",
+                             postgres_user = "postgres",
+                             postgres_password = "postgres") {
   run_options <- glue::glue(
     "--detach ", # run in the backgrouns
-    "--name ", container_name, # gives the container a name
-    " --publish 5432:5432 ", # publish the default Postgres port
-    "--env POSTGRES_USER=", postgres_user, # database superuser name
-    " --env POSTGRES_PASSWORD=", postgres_password # superuser password
+    "--name ", container_name, " ", # gives the container a name
+    "--publish 5432:5432 ", # publish the default Postgres port
+    "--env POSTGRES_USER=", postgres_user, " ", # database superuser name
+    "--env POSTGRES_PASSWORD=", postgres_password # superuser password
   )
-  result <- sp_docker_run(options = run_options, image = image_tag)
+  result <- sp_docker_run(image = image_tag, options = run_options)
 }
 
 #' @title Make simple PostgreSQL container
 #' @name sp_make_simple_pg
 #' @description Creates a container and runs the PostgreSQL 10 image
-#' (`postgres:10`) in it. The image will be downloaded if it doesn't exist
-#' locally.
+#' (`docker.io/postgres:10`) in it. The image will be downloaded if it doesn't
+#' exist locally.
 #' @param container_name character: a valid container name for the
 #' container
+#' @param postgres_user character: database superuser. Default is "postgres".
+#' @param postgres_password character: superuser password. Default is
+#' "postgres".
 #' @return Result of Docker command if it succeeded. Stops with an
 #' error message if it failed.
 #' @export sp_make_simple_pg
 #' @examples
 #' \dontrun{
-#' sp_make_simple_pg("cattle")
+#' sp_make_simple_pg("livestock")
+#' sp_docker_images_tibble()
 #' sp_docker_containers_tibble()
 #' }
 
-sp_make_simple_pg <- function(container_name) {
-  result <- sp_pg_docker_run("docker.io/postgres:10", container_name)
+sp_make_simple_pg <- function(container_name, postgres_user = "postgres",
+                              postgres_password = "postgres") {
+  result <- sp_pg_docker_run(container_name,
+                             image_tag = "docker.io/postgres:10",
+                             postgres_user = postgres_user,
+                             postgres_password = postgres_password)
 }
 
 #' @title List containers into a tibble
