@@ -4,14 +4,11 @@
 \alias{sp_make_simple_pg}
 \title{Make simple PostgreSQL container}
 \usage{
-sp_make_simple_pg(container_name, postgres_user = "postgres",
-  postgres_password = "postgres")
+sp_make_simple_pg(container_name, postgres_password = "postgres")
 }
 \arguments{
 \item{container_name}{character: a valid container name for the
 container}
-
-\item{postgres_user}{character: database superuser. Default is "postgres".}
 
 \item{postgres_password}{character: superuser password. Default is
 "postgres".}
@@ -27,7 +24,7 @@ exist locally.
 }
 \examples{
 \dontrun{
-sp_make_simple_pg("livestock")
+run_log <- sp_make_simple_pg("livestock")
 sp_docker_images_tibble()
 sp_docker_containers_tibble()
 }

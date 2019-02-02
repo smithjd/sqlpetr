@@ -2,16 +2,16 @@
 % Please edit documentation in R/sp_docker_functions.R
 \name{sp_docker_build}
 \alias{sp_docker_build}
-\title{Build Docker image}
+\title{Build a Docker image}
 \usage{
-sp_docker_build(options, path)
+sp_docker_build(build_options, build_context_path)
 }
 \arguments{
-\item{options}{character: the build options. There are many; do
+\item{build_options}{character: the build options. There are many; do
 \code{docker build --help} at a command prompt to see them. You will need at least
 the \code{--tag} option to give the built image a tag (name).}
 
-\item{path}{character: the build context path}
+\item{build_context_path}{character: the build context path}
 }
 \value{
 Result of Docker command if it succeeded. Stops with an error message

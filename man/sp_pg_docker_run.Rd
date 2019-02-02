@@ -5,7 +5,7 @@
 \title{Run a PostgreSQL Docker image in a container}
 \usage{
 sp_pg_docker_run(container_name, image_tag = "docker.io/postgres:10",
-  postgres_user = "postgres", postgres_password = "postgres")
+  postgres_password = "postgres")
 }
 \arguments{
 \item{container_name}{character: a valid container name for the container}
@@ -13,15 +13,12 @@ sp_pg_docker_run(container_name, image_tag = "docker.io/postgres:10",
 \item{image_tag}{character: a valid image tag (name) for the docker image to
 run. Default is the base PostgreSQL 10 image, \code{docker.io/postgres:10}.}
 
-\item{postgres_user}{character: the database superuser name. Default is
-"postgres".}
-
-\item{postgres_password}{character: the database superuser password.
-Default is "postgres".}
+\item{postgres_password}{character: the \code{postgres} database superuser
+password. Default is "postgres".}
 }
 \value{
-Result of Docker command if it succeeded. Stops with an
-error message if it failed.
+Result of Docker command if it succeeded. Stops with an error message
+if it failed.
 }
 \description{
 Creates a container and runs an image in it. The image
@@ -31,9 +28,9 @@ published to \code{localhost:5432}.
 }
 \examples{
 \dontrun{
-print(sp_make_dvdrental_image("dvdrental:latest"))
-sp_pg_docker_run("dvdrental-pet", "dvdrental:latest")
+build_log <- sp_make_dvdrental_image("test-dvdrental:latest")
 sp_docker_images_tibble()
+sp_pg_docker_run("test-dvdrental", "test-dvdrental:latest")
 sp_docker_containers_tibble()
 }
 }

@@ -4,19 +4,19 @@
 \alias{sp_docker_run}
 \title{Run a Docker image}
 \usage{
-sp_docker_run(image, options = "", command = "", args = "")
+sp_docker_run(image_tag, options = "", command = "", args = "")
 }
 \arguments{
-\item{image}{character: a valid image tag (name) for the docker image. If it
-doesn't exist locally, \code{docker run} will try to download it. If the download
-then fails, the function will stop
+\item{image_tag}{character: a valid image tag (name) for the docker image. If
+it doesn't exist locally, \code{docker run} will try to download it. If the
+download then fails, the function will stop with an error message.
 
 Note that the full syntax of an image tag is \code{<repository>/<name>:<tag>}. For
 example, the PostgreSQL 10 image we use is \code{docker.io/postgres:10}.}
 
 \item{options}{character: the options to use when running the image. Default
-is the empty string. You will need at least the \code{--name} option to give the
-container a name.}
+is the empty string. You will usually need at least the \code{--name} option to
+give the container a name.}
 
 \item{command}{character: the command to run after the container boots up.
 Default is an empty string, which uses the startup command defined in the

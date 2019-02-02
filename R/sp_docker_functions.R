@@ -1,11 +1,7 @@
-# local function to call to Docker via system2
+# local function to call Docker via `system2` and capture `stdout` and `stderr`
 .system2_to_docker <- function(docker_cmd) {
 
-  # pass `the command`docker_cmd`` to Docker via `system2` and capture the
-  # outputs
-  result <- system2(
-    "docker", docker_cmd, stdout = TRUE, stderr = TRUE
-  )
+  result <- system2("docker", docker_cmd, stdout = TRUE, stderr = TRUE)
   status <- attr(result, "status")
 
   # stop with the error message if the command failed
@@ -19,24 +15,24 @@
   return(result)
 }
 
-#' @title Build Docker image
+#' @title Build a Docker image
 #' @name sp_docker_build
 #' @description Creates a Docker image
-#' @param options character: the build options. There are many; do
+#' @param build_options character: the build options. There are many; do
 #' `docker build --help` at a command prompt to see them. You will need at least
 #' the `--tag` option to give the built image a tag (name).
-#' @param path character: the build context path
+#' @param build_context_path character: the build context path
 #' @return Result of Docker command if it succeeded. Stops with an error message
 #' if it failed.
 #' @importFrom glue glue
 #' @export sp_docker_build
 
-sp_docker_build <- function(options, path) {
+sp_docker_build <- function(build_options, build_context_path) {
 
   docker_cmd <- glue::glue(
     "build ", # docker build
-    options, " ",
-    path
+    build_options, " ",
+    build_context_path
   )
   result <- .system2_to_docker(docker_cmd)
 }
@@ -52,7 +48,7 @@ sp_docker_build <- function(options, path) {
 #' @export sp_make_dvdrental_image
 #' @examples
 #' \dontrun{
-#' print(sp_make_dvdrental_image("dvdrental:latest"))
+#' build_log <- sp_make_dvdrental_image("test-dvdrental:latest")
 #' sp_docker_images_tibble()
 #' }
 #' @details See the vignette "Building the `dvdrental` Docker Image" for the
@@ -60,29 +56,31 @@ sp_docker_build <- function(options, path) {
 
 sp_make_dvdrental_image <- function(image_tag) {
 
-  # path to Docker build context
-  build_context <- paste(
+  # compute path to Docker build context
+  build_context_path <- paste(
     system.file(package = "sqlpetr"),
-    "/extdata/docker", sep = "/"
+    "/extdata/docker",
+    sep = "/"
   )
+
   build_options <- glue::glue(
-    "--tag ", image_tag, " " # gives the image a name
+    "--tag ", image_tag # gives the image a name
   )
-  result <- sp_docker_build(options = build_options, path = build_context)
+  result <- sp_docker_build(build_options, build_context_path)
 }
 
 #' @title Run a Docker image
 #' @name sp_docker_run
 #' @description Creates a container and runs an image in it.
-#' @param image character: a valid image tag (name) for the docker image. If it
-#' doesn't exist locally, `docker run` will try to download it. If the download
-#' then fails, the function will stop
+#' @param image_tag character: a valid image tag (name) for the docker image. If
+#' it doesn't exist locally, `docker run` will try to download it. If the
+#' download then fails, the function will stop with an error message.
 #'
 #' Note that the full syntax of an image tag is `<repository>/<name>:<tag>`. For
 #' example, the PostgreSQL 10 image we use is `docker.io/postgres:10`.
 #' @param options character: the options to use when running the image. Default
-#' is the empty string. You will need at least the `--name` option to give the
-#' container a name.
+#' is the empty string. You will usually need at least the `--name` option to
+#' give the container a name.
 #' @param command character: the command to run after the container boots up.
 #' Default is an empty string, which uses the startup command defined in the
 #' image.
@@ -100,11 +98,14 @@ sp_make_dvdrental_image <- function(image_tag) {
 #' sp_docker_images_tibble()
 #' }
 
-sp_docker_run <- function(image, options = "", command = "", args = "") {
+sp_docker_run <- function(image_tag,
+                          options = "",
+                          command = "",
+                          args = "") {
   docker_cmd <- glue::glue(
     "run ", # Run is the Docker command.
     options, " ",
-    image, " ",
+    image_tag, " ",
     command, " ",
     args
   )
@@ -120,34 +121,30 @@ sp_docker_run <- function(image, options = "", command = "", args = "") {
 #' @param container_name character: a valid container name for the container
 #' @param image_tag character: a valid image tag (name) for the docker image to
 #' run. Default is the base PostgreSQL 10 image, `docker.io/postgres:10`.
-#' @param postgres_user character: the database superuser name. Default is
-#' "postgres".
-#' @param postgres_password character: the database superuser password.
-#' Default is "postgres".
-#' @return Result of Docker command if it succeeded. Stops with an
-#' error message if it failed.
+#' @param postgres_password character: the `postgres` database superuser
+#' password. Default is "postgres".
+#' @return Result of Docker command if it succeeded. Stops with an error message
+#' if it failed.
 #' @importFrom glue glue
 #' @export sp_pg_docker_run
 #' @examples
 #' \dontrun{
-#' print(sp_make_dvdrental_image("dvdrental:latest"))
-#' sp_pg_docker_run("dvdrental-pet", "dvdrental:latest")
+#' build_log <- sp_make_dvdrental_image("test-dvdrental:latest")
 #' sp_docker_images_tibble()
+#' sp_pg_docker_run("test-dvdrental", "test-dvdrental:latest")
 #' sp_docker_containers_tibble()
 #' }
 
 sp_pg_docker_run <- function(container_name,
                              image_tag = "docker.io/postgres:10",
-                             postgres_user = "postgres",
                              postgres_password = "postgres") {
   run_options <- glue::glue(
     "--detach ", # run in the backgrouns
     "--name ", container_name, " ", # gives the container a name
     "--publish 5432:5432 ", # publish the default Postgres port
-    "--env POSTGRES_USER=", postgres_user, " ", # database superuser name
-    "--env POSTGRES_PASSWORD=", postgres_password # superuser password
+    "--env POSTGRES_PASSWORD=", postgres_password # database superuser password
   )
-  result <- sp_docker_run(image = image_tag, options = run_options)
+  result <- sp_docker_run(image_tag = image_tag, options = run_options)
 }
 
 #' @title Make simple PostgreSQL container
@@ -157,7 +154,6 @@ sp_pg_docker_run <- function(container_name,
 #' exist locally.
 #' @param container_name character: a valid container name for the
 #' container
-#' @param postgres_user character: database superuser. Default is "postgres".
 #' @param postgres_password character: superuser password. Default is
 #' "postgres".
 #' @return Result of Docker command if it succeeded. Stops with an
@@ -165,16 +161,15 @@ sp_pg_docker_run <- function(container_name,
 #' @export sp_make_simple_pg
 #' @examples
 #' \dontrun{
-#' sp_make_simple_pg("livestock")
+#' run_log <- sp_make_simple_pg("livestock")
 #' sp_docker_images_tibble()
 #' sp_docker_containers_tibble()
 #' }
 
-sp_make_simple_pg <- function(container_name, postgres_user = "postgres",
+sp_make_simple_pg <- function(container_name,
                               postgres_password = "postgres") {
   result <- sp_pg_docker_run(container_name,
                              image_tag = "docker.io/postgres:10",
-                             postgres_user = postgres_user,
                              postgres_password = postgres_password)
 }
 
@@ -318,7 +313,26 @@ sp_docker_images_tibble <- function(list_all = FALSE) {
 #' @export sp_docker_remove_container
 
 sp_docker_remove_container <- function(docker_container) {
-  docker_command <- paste0("rm -f ", docker_container)
+  docker_command <- paste0("rm --force ", docker_container)
+  result <- system2(
+    "docker", docker_command, stdout = FALSE, stderr = FALSE
+  )
+  return(0)
+}
+
+#' @title Forcibly remove an image
+#' @name sp_docker_remove_image
+#' @description Forcibly removes a Docker image. If it doesn't exist you won't
+#'  get an error message. This is a blunt instrument!
+#' @param docker_image character: the name of the image to remove
+#' @return a numeric `0`
+#' @examples
+#' \dontrun{sp_docker_remove_image("docker.io/postgres:10")}
+#' @details Warning: this function removes the image you asked it to remove!
+#' @export sp_docker_remove_image
+
+sp_docker_remove_image <- function(docker_image) {
+  docker_command <- paste0("rmi --force ", docker_image)
   result <- system2(
     "docker", docker_command, stdout = FALSE, stderr = FALSE
   )

@@ -23,7 +23,7 @@ details.
 }
 \examples{
 \dontrun{
-print(sp_make_dvdrental_image("dvdrental:latest"))
+build_log <- sp_make_dvdrental_image("test-dvdrental:latest")
 sp_docker_images_tibble()
 }
 }
