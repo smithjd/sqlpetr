@@ -57,4 +57,9 @@ test_that("dvd_rental_runs", {
   # list the tables
   tables <- DBI::dbListTables(conn)
   expect_equal(tables, table_list)
+
+  # shut down and cleanup
+  DBI::dbDisconnect(conn)
+  sp_docker_remove_container(container_name)
+  sp_docker_remove_image(image_tag)
 })
