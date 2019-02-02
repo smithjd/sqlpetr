@@ -23,7 +23,7 @@ details.
 }
 \examples{
 \dontrun{
-sp_make_dvdrental_image("dvdrental")
+print(sp_make_dvdrental_image("dvdrental:latest"))
 sp_docker_images_tibble()
 }
 }

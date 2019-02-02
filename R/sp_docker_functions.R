@@ -52,7 +52,7 @@ sp_docker_build <- function(options, path) {
 #' @export sp_make_dvdrental_image
 #' @examples
 #' \dontrun{
-#' sp_make_dvdrental_image("dvdrental")
+#' print(sp_make_dvdrental_image("dvdrental:latest"))
 #' sp_docker_images_tibble()
 #' }
 #' @details See the vignette "Building the `dvdrental` Docker Image" for the
@@ -130,7 +130,7 @@ sp_docker_run <- function(image, options = "", command = "", args = "") {
 #' @export sp_pg_docker_run
 #' @examples
 #' \dontrun{
-#' sp_make_dvdrental_image("dvdrental:latest")
+#' print(sp_make_dvdrental_image("dvdrental:latest"))
 #' sp_pg_docker_run("dvdrental-pet", "dvdrental:latest")
 #' sp_docker_images_tibble()
 #' sp_docker_containers_tibble()

@@ -31,7 +31,7 @@ published to \code{localhost:5432}.
 }
 \examples{
 \dontrun{
-sp_make_dvdrental_image("dvdrental:latest")
+print(sp_make_dvdrental_image("dvdrental:latest"))
 sp_pg_docker_run("dvdrental-pet", "dvdrental:latest")
 sp_docker_images_tibble()
 sp_docker_containers_tibble()
