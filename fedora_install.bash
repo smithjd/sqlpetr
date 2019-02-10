@@ -6,7 +6,7 @@ sudo dnf install -y \
   libssh2-devel \
   libxml2-devel \
   openssl-devel \
-  postgresql-libs \
+  postgresql-devel \
   qpdf
 ./install_me_linux.R
 xdg-open docs/index.html
