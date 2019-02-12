@@ -123,6 +123,17 @@ sp_docker_run <- function(image_tag,
 #' run. Default is the base PostgreSQL 10 image, `docker.io/postgres:10`.
 #' @param postgres_password character: the `postgres` database superuser
 #' password. Default is "postgres".
+#' @param mount_here_as character: When the image runs, the directory where the
+#' function was called can be mounted into a path in the container, named
+#' `mount_here_as`, for **read/write**. Rules
+#' for the name:
+#' \itemize{
+#' \item If you don't want to mount into the container, specify `NULL`. This is
+#' the default!
+#' \item The name must start with a `/` and be a valid absolute path.
+#' \item The name should contain only slashes, letters, numbers and underscores.
+#' Other characters may or may not work. The `snakecase` package is your
+#' friend.}
 #' @return Result of Docker command if it succeeded. Stops with an error message
 #' if it failed.
 #' @importFrom glue glue
@@ -131,17 +142,29 @@ sp_docker_run <- function(image_tag,
 #' \dontrun{
 #' build_log <- sp_make_dvdrental_image("test-dvdrental:latest")
 #' sp_docker_images_tibble()
-#' sp_pg_docker_run("test-dvdrental", "test-dvdrental:latest")
+#' sp_pg_docker_run(
+#'  container_name = "test-dvdrental",
+#'  image_tag = "test-dvdrental:latest",
+#'  postgres_password = "postgres",
+#'  mount_here_as = "/petdir"
+#' )
 #' sp_docker_containers_tibble()
 #' }
 
 sp_pg_docker_run <- function(container_name,
                              image_tag = "docker.io/postgres:10",
-                             postgres_password = "postgres") {
+                             postgres_password = "postgres",
+                             mount_here_as = NULL) {
+  volume_path <- ifelse(
+    is.null(mount_here_as),
+      "",
+      glue::glue("--volume ", getwd(), ":", mount_here_as, " ", sep = "")
+    )
   run_options <- glue::glue(
     "--detach ", # run in the backgrouns
     "--name ", container_name, " ", # gives the container a name
     "--publish 5432:5432 ", # publish the default Postgres port
+    volume_path, # empty for NULL or the value of `mount_here_as`
     "--env POSTGRES_PASSWORD=", postgres_password # database superuser password
   )
   result <- sp_docker_run(image_tag = image_tag, options = run_options)
