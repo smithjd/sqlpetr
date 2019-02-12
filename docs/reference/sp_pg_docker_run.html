@@ -129,7 +129,7 @@ published to <code>localhost:5432</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sp_pg_docker_run</span>(<span class='no'>container_name</span>, <span class='kw'>image_tag</span> <span class='kw'>=</span> <span class='st'>"docker.io/postgres:10"</span>,
-  <span class='kw'>postgres_password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>)</pre>
+  <span class='kw'>postgres_password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>, <span class='kw'>mount_here_as</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,6 +148,20 @@ run. Default is the base PostgreSQL 10 image, <code>docker.io/postgres:10</code>
       <td><p>character: the <code>postgres</code> database superuser
 password. Default is "postgres".</p></td>
     </tr>
+    <tr>
+      <th>mount_here_as</th>
+      <td><p>character: When the image runs, the directory where the
+function was called can be mounted into a path in the container, named
+<code>mount_here_as</code>, for <strong>read/write</strong>. Rules
+for the name:</p><ul>
+<li><p>If you don't want to mount into the container, specify <code>NULL</code>. This is
+the default!</p></li>
+<li><p>The name must start with a <code>/</code> and be a valid absolute path.</p></li>
+<li><p>The name should contain only slashes, letters, numbers and underscores.
+Other characters may or may not work. The <code>snakecase</code> package is your
+friend.</p></li>
+</ul></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -160,7 +174,12 @@ if it failed.</p>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='no'>build_log</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sp_make_dvdrental_image.html'>sp_make_dvdrental_image</a></span>(<span class='st'>"test-dvdrental:latest"</span>)
 <span class='fu'><a href='sp_docker_images_tibble.html'>sp_docker_images_tibble</a></span>()
-<span class='fu'>sp_pg_docker_run</span>(<span class='st'>"test-dvdrental"</span>, <span class='st'>"test-dvdrental:latest"</span>)
+<span class='fu'>sp_pg_docker_run</span>(
+ <span class='kw'>container_name</span> <span class='kw'>=</span> <span class='st'>"test-dvdrental"</span>,
+ <span class='kw'>image_tag</span> <span class='kw'>=</span> <span class='st'>"test-dvdrental:latest"</span>,
+ <span class='kw'>postgres_password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>,
+ <span class='kw'>mount_here_as</span> <span class='kw'>=</span> <span class='st'>"/petdir"</span>
+)
 <span class='fu'><a href='sp_docker_containers_tibble.html'>sp_docker_containers_tibble</a></span>()
 <span class='co'># }</span></pre>
   </div>
