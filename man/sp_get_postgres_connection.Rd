@@ -2,26 +2,31 @@
 % Please edit documentation in R/sp_postgresql_functions.R
 \name{sp_get_postgres_connection}
 \alias{sp_get_postgres_connection}
-\title{Get a DBI connection string to a PostgreSQL database, waiting if it is not ready}
+\title{Connect to a PostgreSQL database}
 \usage{
 sp_get_postgres_connection(user, password, dbname, host = "localhost",
-  port = "5432", seconds_to_test = 10)
+  port = "5432", seconds_to_test = 30)
 }
 \arguments{
-\item{user}{Username for connecting to the database}
+\item{user}{character: Username for connecting to the database. There is no
+default. The user must exist and be authorized to connect.}
 
-\item{password}{Password that corresponds to the username}
+\item{password}{character: Password that corresponds to the username. There
+is no default. The password must be correct for the user.}
 
-\item{dbname}{The name of the database within the database server}
+\item{dbname}{character: The name of the database within the database server.
+The database must exist, and the user must be authorized to access it.}
 
-\item{host}{The IP address or host where postgreSQL is located,
+\item{host}{character: The IP address or host where postgreSQL is located,
 defaults to "localhost"}
 
-\item{port}{The port on the host that postgreSQL listens to, defaults
+\item{port}{integer: The port on the host that postgreSQL listens to, defaults
 to "5432"}
 
-\item{seconds_to_test}{The number of iterations to try while waiting
-for PostgreSQL service to be ready.}
+\item{seconds_to_test}{integer: The number of iterations to try while waiting
+for PostgreSQL service to be ready. The function sleeps one second between
+connection attempts, so a value of 10 would require approximately 10 seconds.
+The default is 30.}
 }
 \value{
 If successful: a connection object, which is an S4 object
@@ -30,9 +35,13 @@ database engine. If unsuccessful, the function terminates with an
 error message.
 }
 \description{
-This function connects to an instance of PostgreSQL.
+Attempts to connect to a PostgreSQL database. If the connection
+fails, it will retry a user-specified number of times.
 }
 \examples{
-\dontrun{con <- sp_get_postgres_connection("postgres", "postgres")}
-
+\dontrun{con <- sp_get_postgres_connection(
+  user = "postgres",
+  password = "postgres",
+  dbname = "postgres"
+)}
 }
