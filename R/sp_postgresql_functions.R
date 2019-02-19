@@ -67,30 +67,45 @@ sp_get_postgres_connection <- function(user, password, dbname,
   stop(paste("Database is not ready - reason:", attr(db_ready, "reason")))
 }
 
-#' @title List databases in a PostgreSQL cluster
-#' @name sp_pg_databases
-#' @description Connects to a PostgreSQL server and delivers a tibble with the
-#' names of the databases in the cluster the server is hosting
-#' @param connection A valid open connection to the server
-#' @return A tibble listing all the databases in the cluster. This is simply
-#' the PostgreSQL catalog `pg_database`. See
-#' <https://www.postgresql.org/docs/10/catalog-pg-database.html>
-#' for the documentation of the columns. `datname` is the database name, which
-#' is probably all you want.
+#' @title Fetch a PostgreSQL system catalog
+#' @name sp_pg_catalog
+#' @description PostgreSQL stores much of its metadata in system catalogs that
+#' are accessible to a connected user. This function takes a connection and
+#' a catalog name and returns the catalog as a tibble.
+#' @param connection A valid open `DBI` connection to a PostgreSQL database.
+#' @param catalog_name character: the name of the catalog to fetch. See
+#' <https://www.postgresql.org/docs/10/catalogs.html>
+#' for documentation of the system catalogs. The example lists some useful
+#' catalogs for the `dvdrental` database.
+#' @return A tibble with the contents of the catalog
 #' @importFrom DBI dbReadTable
 #' @importFrom tibble as_tibble
-#' @export sp_pg_databases
+#' @export sp_pg_catalog
 #' @examples
-#' \dontrun{connection <- sp_get_postgres_connection(
+#' \dontrun{
+#' library(sqlpetr)
+#' library(dplyr)
+#' connection <- sp_get_postgres_connection(
 #'   user = "postgres",
 #'   password = "postgres",
-#'   dbname = "postgres"
+#'   dbname = "dvdrental"
 #' )
-#' databases <- sp_pg_databases(connection)
+#' databases <- sp_pg_catalog(connection, "pg_database")
 #' print(databases)
-#'
+#' matviews <- sp_pg_catalog(connection, "pg_matviews") %>%
+#'   dplyr::filter(schemaname != "pg_catalog", schemaname != "information_schema")
+#' print(matviews)
+#' views <- sp_pg_catalog(connection, "pg_views") %>%
+#'   dplyr::filter(schemaname != "pg_catalog", schemaname != "information_schema")
+#' print(views)
+#' tables <- sp_pg_catalog(connection, "pg_tables") %>%
+#'   dplyr::filter(schemaname != "pg_catalog", schemaname != "information_schema")
+#' print(tables)
 #' }
+#' @details You probably only want lists of user-level tables, views and
+#' materialized views. The `dplyr::filter` invocation in the examples shows how
+#' to do this.
 
-sp_pg_databases <- function(connection) {
-  return(tibble::as_tibble(DBI::dbReadTable(connection, "pg_database")))
+sp_pg_catalog <- function(connection, catalog_name) {
+  return(tibble::as_tibble(DBI::dbReadTable(connection, catalog_name)))
 }
