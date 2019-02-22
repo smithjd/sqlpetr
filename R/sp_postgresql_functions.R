@@ -127,14 +127,14 @@ sp_pg_ListObjectTypes <- function() {
   )
 }
 
-sp_pg_listObjects <- function(connection, ...) {
+sp_pg_ListObjects <- function(connection, ...) {
   odbc::odbcListObjects(connection, ...)
 }
 
-sp_pg_listColumns <- function(connection, ...) {
+sp_pg_ListColumns <- function(connection, ...) {
   odbc::odbcListColumns(connection, ...)
 }
 
-sp_pg_previewObject <- function(connection, ...) {
-  odbc::odbcPreviewObject(connection, ...)
+sp_pg_previewObject <- function(connection, rowLimit, ...) {
+  odbc::odbcPreviewObject(connection, rowLimit, ...)
 }
