@@ -110,9 +110,17 @@ sp_pg_catalog <- function(connection, catalog_name) {
   return(tibble::as_tibble(DBI::dbReadTable(connection, catalog_name)))
 }
 
-# internal functions for connection contract
-# displays the data object hierarchy
-sp_pg_ListObjectTypes <- function() {
+# Function for the Connection Contract
+# See https://rstudio.github.io/rstudio-extensions/connections-contract.html
+# and https://github.com/r-dbi/odbc/blob/master/R/Viewer.R
+#
+# Package `odbc` exports some of the functions we need. The rest we copy and
+# paste.
+
+# displays the data object hierarchy. This is the same as the `odbc` package
+# would have for PostgreSQL, but they don't know about materialized views
+# (matviews). I should file an issue - I think I can patch it.
+.sp_pg_list_object_types <- function() {
   list(
     schema = list(
       contains = list(
@@ -127,14 +135,14 @@ sp_pg_ListObjectTypes <- function() {
   )
 }
 
-sp_pg_ListObjects <- function(connection, ...) {
+.sp_pg_list_objects <- function(connection, ...) {
   odbc::odbcListObjects(connection, ...)
 }
 
-sp_pg_ListColumns <- function(connection, ...) {
+.sp_pg_list_columns <- function(connection, ...) {
   odbc::odbcListColumns(connection, ...)
 }
 
-sp_pg_previewObject <- function(connection, rowLimit, ...) {
+sp_pg_preview_object <- function(connection, rowLimit, ...) {
   odbc::odbcPreviewObject(connection, rowLimit, ...)
 }
