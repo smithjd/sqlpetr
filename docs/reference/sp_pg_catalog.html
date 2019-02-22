@@ -151,7 +151,7 @@ catalogs for the <code>dvdrental</code> database.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>You probably only want lists of user-level tables, views and
-materialized views. The <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>dplyr::filter</a></code> invocation in the examples shows how
+materialized views. The <code><a href='https://www.rdocumentation.org/packages/dplyr/topics/filter'>dplyr::filter</a></code> invocation in the examples shows how
 to do this.</p>
     
 
@@ -167,13 +167,13 @@ to do this.</p>
 <span class='no'>databases</span> <span class='kw'>&lt;-</span> <span class='fu'>sp_pg_catalog</span>(<span class='no'>connection</span>, <span class='st'>"pg_database"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>databases</span>)
 <span class='no'>matviews</span> <span class='kw'>&lt;-</span> <span class='fu'>sp_pg_catalog</span>(<span class='no'>connection</span>, <span class='st'>"pg_matviews"</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>schemaname</span> <span class='kw'>!=</span> <span class='st'>"pg_catalog"</span>, <span class='no'>schemaname</span> <span class='kw'>!=</span> <span class='st'>"information_schema"</span>)
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/dplyr/topics/filter'>filter</a></span>(<span class='no'>schemaname</span> <span class='kw'>!=</span> <span class='st'>"pg_catalog"</span>, <span class='no'>schemaname</span> <span class='kw'>!=</span> <span class='st'>"information_schema"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>matviews</span>)
 <span class='no'>views</span> <span class='kw'>&lt;-</span> <span class='fu'>sp_pg_catalog</span>(<span class='no'>connection</span>, <span class='st'>"pg_views"</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>schemaname</span> <span class='kw'>!=</span> <span class='st'>"pg_catalog"</span>, <span class='no'>schemaname</span> <span class='kw'>!=</span> <span class='st'>"information_schema"</span>)
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/dplyr/topics/filter'>filter</a></span>(<span class='no'>schemaname</span> <span class='kw'>!=</span> <span class='st'>"pg_catalog"</span>, <span class='no'>schemaname</span> <span class='kw'>!=</span> <span class='st'>"information_schema"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>views</span>)
 <span class='no'>tables</span> <span class='kw'>&lt;-</span> <span class='fu'>sp_pg_catalog</span>(<span class='no'>connection</span>, <span class='st'>"pg_tables"</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>schemaname</span> <span class='kw'>!=</span> <span class='st'>"pg_catalog"</span>, <span class='no'>schemaname</span> <span class='kw'>!=</span> <span class='st'>"information_schema"</span>)
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/dplyr/topics/filter'>filter</a></span>(<span class='no'>schemaname</span> <span class='kw'>!=</span> <span class='st'>"pg_catalog"</span>, <span class='no'>schemaname</span> <span class='kw'>!=</span> <span class='st'>"information_schema"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>tables</span>)
 <span class='co'># }</span></pre>
   </div>

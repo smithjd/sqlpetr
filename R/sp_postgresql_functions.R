@@ -109,3 +109,32 @@ sp_get_postgres_connection <- function(user, password, dbname,
 sp_pg_catalog <- function(connection, catalog_name) {
   return(tibble::as_tibble(DBI::dbReadTable(connection, catalog_name)))
 }
+
+# internal functions for connection contract
+# displays the data object hierarchy
+sp_pg_ListObjectTypes <- function() {
+  list(
+    schema = list(
+      contains = list(
+        table = list(
+          contains = "data"),
+        matview = list(
+          contains = "data"),
+        view = list(
+          contains = "data")
+      )
+    )
+  )
+}
+
+sp_pg_listObjects <- function(connection, ...) {
+  odbc::odbcListObjects(connection, ...)
+}
+
+sp_pg_listColumns <- function(connection, ...) {
+  odbc::odbcListColumns(connection, ...)
+}
+
+sp_pg_previewObject <- function(connection, ...) {
+  odbc::odbcPreviewObject(connection, ...)
+}
