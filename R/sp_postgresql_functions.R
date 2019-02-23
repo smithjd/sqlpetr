@@ -67,19 +67,21 @@ sp_get_postgres_connection <- function(user, password, dbname,
   stop(paste("Database is not ready - reason:", attr(db_ready, "reason")))
 }
 
-#' @title Fetch a PostgreSQL system catalog
+#' @title Fetch a PostgreSQL database catalog
 #' @name sp_pg_catalog
 #' @description PostgreSQL stores much of its metadata in system catalogs that
 #' are accessible to a connected user. This function takes a connection and
-#' a catalog name and returns the catalog as a tibble.
+#' returns the database catalog as a data frame.
 #' @param connection A valid open `DBI` connection to a PostgreSQL database.
-#' @param catalog_name character: the name of the catalog to fetch. See
-#' <https://www.postgresql.org/docs/10/catalogs.html>
-#' for documentation of the system catalogs. The example lists some useful
-#' catalogs for the `dvdrental` database.
-#' @return A tibble with the contents of the catalog
+#' @return A data frame with the contents of the database catalog. The columns
+#' are `schemas`, `name`, and `type`, where `type` is "matview" (materialized
+#' view), "view" or "table".
 #' @importFrom DBI dbReadTable
-#' @importFrom tibble as_tibble
+#' @importFrom dplyr %>%
+#' @importFrom dplyr filter
+#' @importFrom dplyr select
+#' @importFrom dplyr mutate
+#' @importFrom dplyr bind_rows
 #' @export sp_pg_catalog
 #' @examples
 #' \dontrun{
@@ -90,24 +92,26 @@ sp_get_postgres_connection <- function(user, password, dbname,
 #'   password = "postgres",
 #'   dbname = "dvdrental"
 #' )
-#' databases <- sp_pg_catalog(connection, "pg_database")
-#' print(databases)
-#' matviews <- sp_pg_catalog(connection, "pg_matviews") %>%
-#'   dplyr::filter(schemaname != "pg_catalog", schemaname != "information_schema")
-#' print(matviews)
-#' views <- sp_pg_catalog(connection, "pg_views") %>%
-#'   dplyr::filter(schemaname != "pg_catalog", schemaname != "information_schema")
-#' print(views)
-#' tables <- sp_pg_catalog(connection, "pg_tables") %>%
-#'   dplyr::filter(schemaname != "pg_catalog", schemaname != "information_schema")
-#' print(tables)
+#' print(sp_pg_catalog(connection))
 #' }
-#' @details You probably only want lists of user-level tables, views and
-#' materialized views. The `dplyr::filter` invocation in the examples shows how
-#' to do this.
 
-sp_pg_catalog <- function(connection, catalog_name) {
-  return(tibble::as_tibble(DBI::dbReadTable(connection, catalog_name)))
+sp_pg_catalog <- function(connection) {
+
+  # get the raw data
+  matviews <- DBI::dbReadTable(connection, "pg_matviews") %>% dplyr::filter(
+    schemaname != "pg_catalog", schemaname != "information_schema") %>%
+    dplyr::select(schemas = schemaname, name = matviewname) %>%
+    dplyr::mutate(type = "matview")
+  views <- DBI::dbReadTable(connection, "pg_views") %>%  dplyr::filter(
+    schemaname != "pg_catalog", schemaname != "information_schema") %>%
+    dplyr::select(schemas = schemaname, name = viewname) %>%
+    dplyr::mutate(type = "view")
+  tables <- DBI::dbReadTable(connection, "pg_tables") %>% dplyr::filter(
+    schemaname != "pg_catalog", schemaname != "information_schema") %>%
+    dplyr::select(schemas = schemaname, name = tablename) %>%
+    dplyr::mutate(type = "table")
+  return(as.data.frame(
+    dplyr::bind_rows(matviews, views, tables), stringAsFactors = FALSE))
 }
 
 # Function for the Connection Contract
@@ -138,29 +142,15 @@ sp_pg_catalog <- function(connection, catalog_name) {
 .sp_pg_list_objects <- function(
   connection, catalog = NULL, schema = NULL, name = NULL, type = NULL, ...) {
 
-  # get the raw data
-  matviews <- sp_pg_catalog(connection, "pg_matviews") %>% dplyr::filter(
-    schemaname != "pg_catalog", schemaname != "information_schema") %>%
-    dplyr::select(schemas = schemaname, name = matviewname) %>%
-    dplyr::mutate(type = "matview")
-  views <- sp_pg_catalog(connection, "pg_views") %>%  dplyr::filter(
-    schemaname != "pg_catalog", schemaname != "information_schema") %>%
-    dplyr::select(schemas = schemaname, name = viewname) %>%
-    dplyr::mutate(type = "view")
-  tables <- sp_pg_catalog(connection, "pg_tables") %>% dplyr::filter(
-    schemaname != "pg_catalog", schemaname != "information_schema") %>%
-    dplyr::select(schemas = schemaname, name = tablename) %>%
-    dplyr::mutate(type = "table")
-  items <- as.data.frame(
-    dplyr::bind_rows(matviews, views, tables), stringAsFactors = FALSE)
+  database_structure <- sp_pg_catalog(connection)
 
   # schema is NULL - return list of schemas
   if (is.null(schema)) {
-    schemas <- items %>% dplyr::select(schemas) %>% unique() %>%
+    schemas <- database_structure %>% dplyr::select(schemas) %>% unique() %>%
       dplyr::mutate(type = "schema")
     return(as.data.frame(schemas, stringsAsFactors = FALSE))
   } else {
-    return(subset(items, select = name:type, subset = schemas == schema))
+    return(subset(database_structure, select = name:type, subset = schemas == schema))
   }
 }
 
@@ -171,3 +161,10 @@ sp_pg_catalog <- function(connection, catalog_name) {
 sp_pg_preview_object <- function(connection, rowLimit, ...) {
   odbc::odbcPreviewObject(connection, rowLimit, ...)
 }
+
+utils::globalVariables(c(
+  "matviewname",
+  "schemaname",
+  "tablename",
+  "viewname"
+))

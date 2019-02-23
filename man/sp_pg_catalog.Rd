@@ -2,30 +2,22 @@
 % Please edit documentation in R/sp_postgresql_functions.R
 \name{sp_pg_catalog}
 \alias{sp_pg_catalog}
-\title{Fetch a PostgreSQL system catalog}
+\title{Fetch a PostgreSQL database catalog}
 \usage{
-sp_pg_catalog(connection, catalog_name)
+sp_pg_catalog(connection)
 }
 \arguments{
 \item{connection}{A valid open \code{DBI} connection to a PostgreSQL database.}
-
-\item{catalog_name}{character: the name of the catalog to fetch. See
-\url{https://www.postgresql.org/docs/10/catalogs.html}
-for documentation of the system catalogs. The example lists some useful
-catalogs for the \code{dvdrental} database.}
 }
 \value{
-A tibble with the contents of the catalog
+A data frame with the contents of the database catalog. The columns
+are \code{schemas}, \code{name}, and \code{type}, where \code{type} is "matview" (materialized
+view), "view" or "table".
 }
 \description{
 PostgreSQL stores much of its metadata in system catalogs that
 are accessible to a connected user. This function takes a connection and
-a catalog name and returns the catalog as a tibble.
-}
-\details{
-You probably only want lists of user-level tables, views and
-materialized views. The \code{dplyr::filter} invocation in the examples shows how
-to do this.
+returns the database catalog as a data frame.
 }
 \examples{
 \dontrun{
@@ -36,16 +28,6 @@ connection <- sp_get_postgres_connection(
   password = "postgres",
   dbname = "dvdrental"
 )
-databases <- sp_pg_catalog(connection, "pg_database")
-print(databases)
-matviews <- sp_pg_catalog(connection, "pg_matviews") \%>\%
-  dplyr::filter(schemaname != "pg_catalog", schemaname != "information_schema")
-print(matviews)
-views <- sp_pg_catalog(connection, "pg_views") \%>\%
-  dplyr::filter(schemaname != "pg_catalog", schemaname != "information_schema")
-print(views)
-tables <- sp_pg_catalog(connection, "pg_tables") \%>\%
-  dplyr::filter(schemaname != "pg_catalog", schemaname != "information_schema")
-print(tables)
+print(sp_pg_catalog(connection))
 }
 }
