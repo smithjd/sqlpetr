@@ -1,8 +1,9 @@
 #! /bin/bash
 
 sudo pacman --sync --noconfirm --needed \
-  libpqxx \
   pgadmin4 \
   postgresql-libs \
-  qpdf
+  psqlodbc \
+  qpdf \
+  unixodbc
 ./install_me_linux.R
