@@ -135,8 +135,33 @@ sp_pg_catalog <- function(connection, catalog_name) {
   )
 }
 
-.sp_pg_list_objects <- function(connection, ...) {
-  odbc::odbcListObjects(connection, ...)
+.sp_pg_list_objects <- function(
+  connection, catalog = NULL, schema = NULL, name = NULL, type = NULL, ...) {
+
+  # get the raw data
+  matviews <- sp_pg_catalog(connection, "pg_matviews") %>% dplyr::filter(
+    schemaname != "pg_catalog", schemaname != "information_schema") %>%
+    dplyr::select(schemas = schemaname, name = matviewname) %>%
+    dplyr::mutate(type = "matview")
+  views <- sp_pg_catalog(connection, "pg_views") %>%  dplyr::filter(
+    schemaname != "pg_catalog", schemaname != "information_schema") %>%
+    dplyr::select(schemas = schemaname, name = viewname) %>%
+    dplyr::mutate(type = "view")
+  tables <- sp_pg_catalog(connection, "pg_tables") %>% dplyr::filter(
+    schemaname != "pg_catalog", schemaname != "information_schema") %>%
+    dplyr::select(schemas = schemaname, name = tablename) %>%
+    dplyr::mutate(type = "table")
+  items <- as.data.frame(
+    dplyr::bind_rows(matviews, views, tables), stringAsFactors = FALSE)
+
+  # schema is NULL - return list of schemas
+  if (is.null(schema)) {
+    schemas <- items %>% dplyr::select(schemas) %>% unique() %>%
+      dplyr::mutate(type = "schema")
+    return(as.data.frame(schemas, stringsAsFactors = FALSE))
+  } else {
+    return(subset(items, select = name:type, subset = schemas == schema))
+  }
 }
 
 .sp_pg_list_columns <- function(connection, ...) {
