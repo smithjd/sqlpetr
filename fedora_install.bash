@@ -6,15 +6,13 @@ sudo dnf install -y \
 echo "Installing pgAdmin4 and Linux dependencies"
 sudo dnf install -y \
   libcurl-devel \
-  libpqxx-devel \
   libssh2-devel \
   libxml2-devel \
   openssl-devel \
-  pgadmin4-desktop-gnome \
-  pgrouting_10 \
-  postgis25_10-devel \
+  postgresql10 \
   postgresql10-devel \
-  qpdf
+  qpdf \
+  unixODBC \
+  unixODBC-devel
 echo "Installing 'sqlpetr'"
 ./install_me_linux.R
-xdg-open docs/index.html
