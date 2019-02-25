@@ -203,7 +203,9 @@ sp_pg_catalog <- function(connection) {
 
 utils::globalVariables(c(
   "matviewname",
+  "name",
   "schemaname",
   "tablename",
+  "type",
   "viewname"
 ))
