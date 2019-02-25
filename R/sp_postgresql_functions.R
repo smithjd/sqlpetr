@@ -114,16 +114,14 @@ sp_pg_catalog <- function(connection) {
     dplyr::bind_rows(matviews, views, tables), stringAsFactors = FALSE))
 }
 
-# Function for the Connection Contract
+# Functions for the Connection Contract
 # See https://rstudio.github.io/rstudio-extensions/connections-contract.html
 # and https://github.com/r-dbi/odbc/blob/master/R/Viewer.R
-#
-# Package `odbc` exports some of the functions we need. The rest we copy and
-# paste.
 
-# displays the data object hierarchy. This is the same as the `odbc` package
-# would have for PostgreSQL, but they don't know about materialized views
-# (matviews). I should file an issue - I think I can patch it.
+# `sp_pg_list_object_types` displays the data object hierarchy. This is the
+# same as the `odbc` package would have for PostgreSQL, but they don't know
+# about materialized views (matviews). I should file an issue - I think I can
+# patch it.
 .sp_pg_list_object_types <- function() {
   list(
     schema = list(
@@ -215,14 +213,76 @@ sp_pg_catalog <- function(connection) {
     db_info[["dbname"]], db_info[["user"]], db_info[["host"]]))
 }
 
-.sp_pg_actions_list <- function(connection) {
+.sp_pg_actions_list <- function() {
   actions <- list(
     Help = list(
-      icon = icon = system.file("icons/help.png", package = "sqlpetr"),
+      icon = system.file("icons/help.png", package = "sqlpetr"),
       callback = function() {
         utils::browseURL("https://smithjd.github.io/sqlpetr")
       }
     )
+  )
+}
+
+.sp_pg_connection_code_string <- function() {
+  paste(
+    "library(sqlpetr)",
+    "connection <- sp_get_postgres_connection(",
+    "user=",
+    "password=",
+    "dbname=",
+    "host=",
+    "port=",
+    "seconds_to_test=",
+    ")",
+    sep = "\n"
+  )
+}
+
+#' @title Connections contract for opened connection
+#' @name sp_pg_connection_opened
+#' @description Registers an opened connection with the RStudio "Connections"
+#' tab via the "Connections contract".
+#' @param connection A valid open connection from `sp_get_postgres_connection`.
+#' @return not meaningful
+#' @details See
+#' <https://rstudio.github.io/rstudio-extensions/connections-contract.html> and
+#' <https://github.com/r-dbi/odbc/blob/master/R/Viewer.R>.
+#' @importFrom dplyr %>%
+#' @importFrom dplyr select
+#' @importFrom dplyr mutate
+#' @importFrom DBI dbSendQuery
+#' @importFrom DBI dbColumnInfo
+#' @importFrom DBI dbClearResult
+#' @importFrom DBI dbGetQuery
+#' @importFrom DBI dbGetInfo
+#' @importFrom DBI dbDisconnect
+#' @importFrom utils browseURL
+#' @export sp_pg_connection_opened
+sp_pg_connection_opened <- function(connection) {
+
+  # get the observer with silent return if there isn't one
+  observer <- getOption("connectionObserver")
+  if (is.null(observer)) {
+    return(invisible(NULL))
+  }
+
+  # call the observer
+  observer$connectionOpened(
+    type = "PostgreSQL",
+    displayName = .sp_pg_display_name(connection),
+    host = .sp_pg_host_name(connection),
+    icon = system.file("icons/postgresql.png", package = "sqlpetr"),
+    connectCode = .sp_pg_connection_code_string(),
+    disconnect = function() {DBI::dbDisconnect(connection)},
+    listObjectTypes = function () {.sp_pg_list_object_types()},
+    listObjects = function(...) {.sp_pg_list_objects(connection, ...)},
+    listColumns = function(...) {.sp_pg_list_columns(connection, ...)},
+    previewObject = function(rowLimit, ...) {
+      .sp_pg_preview_object(connection, rowLimit, ...)
+    },
+    actions = .sp_pg_actions_list(),
+    connectionObject = connection
   )
 }
 
