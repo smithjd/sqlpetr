@@ -215,6 +215,17 @@ sp_pg_catalog <- function(connection) {
     db_info[["dbname"]], db_info[["user"]], db_info[["host"]]))
 }
 
+.sp_pg_actions_list <- function(connection) {
+  actions <- list(
+    Help = list(
+      icon = icon = system.file("icons/help.png", package = "sqlpetr"),
+      callback = function() {
+        utils::browseURL("https://smithjd.github.io/sqlpetr")
+      }
+    )
+  )
+}
+
 utils::globalVariables(c(
   "matviewname",
   "name",
