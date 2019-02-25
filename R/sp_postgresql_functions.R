@@ -140,7 +140,8 @@ sp_pg_catalog <- function(connection) {
 }
 
 .sp_pg_list_objects <- function(
-  connection, catalog = NULL, schema = NULL, name = NULL, type = NULL, ...) {
+  connection,
+  catalog = NULL, schema = NULL, name = NULL, type = NULL, ...) {
 
   database_structure <- sp_pg_catalog(connection)
 
@@ -150,16 +151,54 @@ sp_pg_catalog <- function(connection) {
       dplyr::mutate(type = "schema")
     return(as.data.frame(schemas, stringsAsFactors = FALSE))
   } else {
-    return(subset(database_structure, select = name:type, subset = schemas == schema))
+    return(subset(
+      database_structure, select = name:type, subset = schemas == schema))
   }
 }
 
-.sp_pg_list_columns <- function(connection, ...) {
-  odbc::odbcListColumns(connection, ...)
+.sp_pg_list_columns <- function(
+  connection,
+  table = NULL, view = NULL, matview = NULL, catalog = NULL, schema = NULL, ...) {
+
+  # get item name
+  if (!is.null(table)) {
+    item <- table
+  } else if (!is.null(view)) {
+    item <- view
+  } else if (!is.null(matview)) {
+    item <- matview
+  } else {
+    stop("at least one data item - table, view or matview - must be specified")
+  }
+  item <- ifelse(is.null(schema), item, sprintf("%s.%s", schema, item))
+
+  # fetch the column info
+  rs <- DBI::dbSendQuery(connection, sprintf("SELECT * FROM %s LIMIT 1", item))
+  columns <- DBI::dbColumnInfo(rs) %>%
+    dplyr::select(name, type) %>% as.data.frame()
+  DBI::dbClearResult(rs)
+  return(columns)
 }
 
-sp_pg_preview_object <- function(connection, rowLimit, ...) {
-  odbc::odbcPreviewObject(connection, rowLimit, ...)
+.sp_pg_preview_object <- function(
+  connection, rowLimit,
+  table = NULL, view = NULL, matview = NULL, schema = NULL, catalog = NULL, ...) {
+
+  # get item name
+  if (!is.null(table)) {
+    item <- table
+  } else if (!is.null(view)) {
+    item <- view
+  } else if (!is.null(matview)) {
+    item <- matview
+  } else {
+    stop("at least one data item - table, view or matview - must be specified")
+  }
+  item <- ifelse(is.null(schema), item, sprintf("%s.%s", schema, item))
+
+  return(DBI::dbGetQuery(
+    connection, sprintf("SELECT * FROM %s", item), n = rowLimit
+  ))
 }
 
 utils::globalVariables(c(
