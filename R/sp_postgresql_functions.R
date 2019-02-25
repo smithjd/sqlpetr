@@ -201,6 +201,20 @@ sp_pg_catalog <- function(connection) {
   ))
 }
 
+.sp_pg_display_name <- function(connection) {
+  db_info <- DBI::dbGetInfo(connection)
+  return(sprintf(
+    "%s - %s@%s",
+    db_info[["dbname"]], db_info[["user"]], db_info[["host"]]))
+}
+
+.sp_pg_host_name <- function(connection) {
+  db_info <- DBI::dbGetInfo(connection)
+  return(sprintf(
+    "%s_%s_%s",
+    db_info[["dbname"]], db_info[["user"]], db_info[["host"]]))
+}
+
 utils::globalVariables(c(
   "matviewname",
   "name",
