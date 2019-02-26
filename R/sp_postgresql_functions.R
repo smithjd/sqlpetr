@@ -122,7 +122,7 @@ sp_pg_catalog <- function(connection) {
 # same as the `odbc` package would have for PostgreSQL, but they don't know
 # about materialized views (matviews). I should file an issue - I think I can
 # patch it.
-.sp_pg_list_object_types <- function() {
+.sp_pg_list_object_types <- function(connection) {
   list(
     schema = list(
       contains = list(
@@ -142,11 +142,13 @@ sp_pg_catalog <- function(connection) {
   catalog = NULL, schema = NULL, name = NULL, type = NULL, ...) {
 
   database_structure <- sp_pg_catalog(connection)
+  save(catalog, schema, name, type, file = "~/list_objects.Rdata")
 
   # schema is NULL - return list of schemas
   if (is.null(schema)) {
-    schemas <- database_structure %>% dplyr::select(schemas) %>% unique() %>%
-      dplyr::mutate(type = "schema")
+    schemas <- database_structure %>% dplyr::select(name = schemas) %>%
+      unique() %>% dplyr::mutate(type = "schema")
+    save(schemas, file = "~/schemas.Rdata")
     return(as.data.frame(schemas, stringsAsFactors = FALSE))
   } else {
     return(subset(
@@ -283,6 +285,27 @@ sp_pg_connection_opened <- function(connection) {
     },
     actions = .sp_pg_actions_list(),
     connectionObject = connection
+  )
+}
+
+#' @title Tell connections tab we closed the connection
+#' @name sp_pg_connection_closed
+#' @description Tells the connections tab observer that a connection was closed
+#' @param connection A valid open connection from `sp_get_postgres_connection`.
+#' @return not meaningful
+#' @export sp_pg_connection_closed
+sp_pg_connection_closed <- function(connection) {
+
+  # get the observer with silent return if there isn't one
+  observer <- getOption("connectionObserver")
+  if (is.null(observer)) {
+    return(invisible(NULL))
+  }
+
+  # call the observer
+  observer$connectionClosed(
+    type = "PostgreSQL",
+    host = .sp_pg_host_name(connection)
   )
 }
 
