@@ -16,6 +16,9 @@
 #' for PostgreSQL service to be ready. The function sleeps one second between
 #' connection attempts, so a value of 10 would require approximately 10 seconds.
 #' The default is 30.
+#' @param connection_tab logical: `sp_get_postgres_connection` can open a
+#' tab in the RStudio connections pane. `connection_tab = FALSE` is
+#' the default - call with `connection_tab = TRUE` to open the tab.
 #' @return If successful: a connection object, which is an S4 object
 #' that inherits from DBIConnection, used to communicate with the
 #' database engine. If unsuccessful, the function terminates with an
@@ -33,7 +36,8 @@
 sp_get_postgres_connection <- function(user, password, dbname,
                                        host = "localhost",
                                        port = "5432",
-                                       seconds_to_test = 30) {
+                                       seconds_to_test = 30,
+                                       connection_tab = FALSE) {
 
   n_iterations <- abs(seconds_to_test)
   for (iter in 1:n_iterations) {
@@ -57,8 +61,10 @@ sp_get_postgres_connection <- function(user, password, dbname,
         dbname = dbname
       )
 
-      # open a connection tab!
-      .sp_pg_connection_opened(conn)
+      # open a connection tab if wanted!
+      if (connection_tab) {
+        .sp_pg_connection_opened(conn)
+      }
 
       return(conn)
     }
@@ -245,7 +251,9 @@ sp_pg_catalog <- function(connection) {
     "library(sqlpetr)",
     "# fill in the parameters, test, then 'OK' to deploy connection",
     "connection <- sp_get_postgres_connection(",
-    "  user, password, dbname, host, port, seconds_to_test",
+    "user, password, dbname,",
+    "host = 'localhost', port = 5432, seconds_to_test = 30,",
+    "connection_tab = FALSE",
     ")",
     sep = "\n"
   )

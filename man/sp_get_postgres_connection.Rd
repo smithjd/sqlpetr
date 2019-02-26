@@ -5,7 +5,7 @@
 \title{Connect to a PostgreSQL database}
 \usage{
 sp_get_postgres_connection(user, password, dbname, host = "localhost",
-  port = "5432", seconds_to_test = 30)
+  port = "5432", seconds_to_test = 30, connection_tab = FALSE)
 }
 \arguments{
 \item{user}{character: Username for connecting to the database. There is no
@@ -27,6 +27,10 @@ to "5432"}
 for PostgreSQL service to be ready. The function sleeps one second between
 connection attempts, so a value of 10 would require approximately 10 seconds.
 The default is 30.}
+
+\item{connection_tab}{logical: \code{sp_get_postgres_connection} can open a
+tab in the RStudio connections pane. \code{connection_tab = FALSE} is
+the default - call with \code{connection_tab = TRUE} to open the tab.}
 }
 \value{
 If successful: a connection object, which is an S4 object
