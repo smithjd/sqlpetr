@@ -190,6 +190,7 @@ sp_pg_catalog <- function(connection) {
   return(columns)
 }
 
+#' @importFrom DBI dbGetQuery
 .sp_pg_preview_object <- function(
   connection, rowLimit,
   table = NULL, view = NULL, matview = NULL, schema = NULL, catalog = NULL, ...) {
@@ -207,7 +208,7 @@ sp_pg_catalog <- function(connection) {
   item <- ifelse(is.null(schema), item, sprintf("%s.%s", schema, item))
 
   return(DBI::dbGetQuery(
-    connection, sprintf("SELECT * FROM %s", item), n = rowLimit
+    connection, sprintf("SELECT * FROM %s", item), n = min(100, rowLimit)
   ))
 }
 
