@@ -56,6 +56,10 @@ sp_get_postgres_connection <- function(user, password, dbname,
         password = password,
         dbname = dbname
       )
+
+      # open a connection tab!
+      .sp_pg_connection_opened(conn)
+
       return(conn)
     }
 
@@ -137,6 +141,9 @@ sp_pg_catalog <- function(connection) {
   )
 }
 
+#' @importFrom dplyr %>%
+#' @importFrom dplyr select
+#' @importFrom dplyr mutate
 .sp_pg_list_objects <- function(
   connection,
   catalog = NULL, schema = NULL, name = NULL, type = NULL, ...) {
@@ -156,6 +163,9 @@ sp_pg_catalog <- function(connection) {
   }
 }
 
+#' @importFrom DBI dbSendQuery
+#' @importFrom DBI dbColumnInfo
+#' @importFrom DBI dbClearResult
 .sp_pg_list_columns <- function(
   connection,
   table = NULL, view = NULL, matview = NULL, catalog = NULL, schema = NULL, ...) {
@@ -201,6 +211,7 @@ sp_pg_catalog <- function(connection) {
   ))
 }
 
+#' @importFrom DBI dbGetInfo
 .sp_pg_display_name <- function(connection) {
   db_info <- DBI::dbGetInfo(connection)
   return(sprintf(
@@ -208,6 +219,7 @@ sp_pg_catalog <- function(connection) {
     db_info[["dbname"]], db_info[["user"]], db_info[["host"]]))
 }
 
+#' @importFrom DBI dbGetInfo
 .sp_pg_host_name <- function(connection) {
   db_info <- DBI::dbGetInfo(connection)
   return(sprintf(
@@ -215,6 +227,7 @@ sp_pg_catalog <- function(connection) {
     db_info[["dbname"]], db_info[["user"]], db_info[["host"]]))
 }
 
+#' @importFrom utils browseURL
 .sp_pg_actions_list <- function() {
   actions <- list(
     Help = list(
@@ -229,39 +242,15 @@ sp_pg_catalog <- function(connection) {
 .sp_pg_connection_code_string <- function() {
   paste(
     "library(sqlpetr)",
+    "# fill in the parameters, test, then 'OK' to deploy connection",
     "connection <- sp_get_postgres_connection(",
-    "user=",
-    "password=",
-    "dbname=",
-    "host=",
-    "port=",
-    "seconds_to_test=",
+    "  user, password, dbname, host, port, seconds_to_test",
     ")",
     sep = "\n"
   )
 }
 
-#' @title Connections contract for opened connection
-#' @name sp_pg_connection_opened
-#' @description Registers an opened connection with the RStudio "Connections"
-#' tab via the "Connections contract".
-#' @param connection A valid open connection from `sp_get_postgres_connection`.
-#' @return not meaningful
-#' @details See
-#' <https://rstudio.github.io/rstudio-extensions/connections-contract.html> and
-#' <https://github.com/r-dbi/odbc/blob/master/R/Viewer.R>.
-#' @importFrom dplyr %>%
-#' @importFrom dplyr select
-#' @importFrom dplyr mutate
-#' @importFrom DBI dbSendQuery
-#' @importFrom DBI dbColumnInfo
-#' @importFrom DBI dbClearResult
-#' @importFrom DBI dbGetQuery
-#' @importFrom DBI dbGetInfo
-#' @importFrom DBI dbDisconnect
-#' @importFrom utils browseURL
-#' @export sp_pg_connection_opened
-sp_pg_connection_opened <- function(connection) {
+.sp_pg_connection_opened <- function(connection) {
 
   # get the observer with silent return if there isn't one
   observer <- getOption("connectionObserver")
@@ -276,7 +265,7 @@ sp_pg_connection_opened <- function(connection) {
     host = .sp_pg_host_name(connection),
     icon = system.file("icons/postgresql.png", package = "sqlpetr"),
     connectCode = .sp_pg_connection_code_string(),
-    disconnect = function() {DBI::dbDisconnect(connection)},
+    disconnect = function() {sp_pg_close_connection(connection)},
     listObjectTypes = function () {.sp_pg_list_object_types()},
     listObjects = function(...) {.sp_pg_list_objects(connection, ...)},
     listColumns = function(...) {.sp_pg_list_columns(connection, ...)},
@@ -288,25 +277,25 @@ sp_pg_connection_opened <- function(connection) {
   )
 }
 
-#' @title Tell connections tab we closed the connection
-#' @name sp_pg_connection_closed
-#' @description Tells the connections tab observer that a connection was closed
+#' @title Notify observer and close connection
+#' @name sp_pg_close_connection
+#' @description Tells the connections tab observer that connection was closed
+#' and then closes it
 #' @param connection A valid open connection from `sp_get_postgres_connection`.
 #' @return not meaningful
-#' @export sp_pg_connection_closed
-sp_pg_connection_closed <- function(connection) {
+#' @importFrom DBI dbDisconnect
+#' @export sp_pg_close_connection
+sp_pg_close_connection <- function(connection) {
 
-  # get the observer with silent return if there isn't one
   observer <- getOption("connectionObserver")
-  if (is.null(observer)) {
-    return(invisible(NULL))
+  if (!is.null(observer)) {
+    observer$connectionClosed(
+      type = "PostgreSQL",
+      host = .sp_pg_host_name(connection)
+    )
   }
+  DBI::dbDisconnect(connection)
 
-  # call the observer
-  observer$connectionClosed(
-    type = "PostgreSQL",
-    host = .sp_pg_host_name(connection)
-  )
 }
 
 utils::globalVariables(c(
