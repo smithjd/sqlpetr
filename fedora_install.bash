@@ -6,6 +6,7 @@ sudo dnf install -y \
 echo "Installing Linux dependencies"
 sudo dnf install -y \
   libcurl-devel \
+  libicu-devel \
   libssh2-devel \
   libxml2-devel \
   openssl-devel \
