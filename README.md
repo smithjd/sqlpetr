@@ -32,7 +32,7 @@ You will need the following software:
       - For MacOS, see
         <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>
         for the options.
-4.  RStudio Preview 1.2.1186 or later
+4.  RStudio Preview 1.2.1260 or later
     (<https://www.rstudio.com/products/rstudio/download/preview/>).
 5.  Docker:
       - For Windows 10 Pro, use Docker for Windows
@@ -63,9 +63,10 @@ Arch Linux.
 
 3.  Install `devtools` if you haven’t already.
 
-4.  In an R console, type
+4.  In an R console,
+        type
     
-        devtools::install_github("smithjd/sqlpetr", force = TRUE)
+        remotes::install_github("smithjd/sqlpetr", force = TRUE, build = TRUE, build_opts = "", quiet = TRUE)
 
 ## Developer workflow
 
@@ -122,7 +123,7 @@ happens, but your system will still work.
 As with Windows and MacOS, you’ll need
 
   - R 3.5.1 or later, including all the package development tools,
-  - RStudio Preview 1.2.1186 or later,
+  - RStudio Preview 1.2.1260 or later,
   - `git`, and
   - Docker. You’ll need to use Docker Community Edition
     (<https://store.docker.com/search?q=docker%20ce&type=edition&offering=community>)

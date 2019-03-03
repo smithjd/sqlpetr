@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">sqlpetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.9999</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@
 <li>For MacOS, see <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" class="uri">https://git-scm.com/book/en/v2/Getting-Started-Installing-Git</a> for the options.</li>
 </ul>
 </li>
-<li>RStudio Preview 1.2.1186 or later (<a href="https://www.rstudio.com/products/rstudio/download/preview/" class="uri">https://www.rstudio.com/products/rstudio/download/preview/</a>).</li>
+<li>RStudio Preview 1.2.1260 or later (<a href="https://www.rstudio.com/products/rstudio/download/preview/" class="uri">https://www.rstudio.com/products/rstudio/download/preview/</a>).</li>
 <li>Docker:
 <ul>
 <li>For Windows 10 Pro, use Docker for Windows (<a href="https://docs.docker.com/docker-for-windows/install/" class="uri">https://docs.docker.com/docker-for-windows/install/</a>).</li>
@@ -136,7 +136,7 @@
 <li>Install <code>devtools</code> if you haven’t already.</li>
 <li>
 <p>In an R console, type</p>
-<pre><code><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github("smithjd/sqlpetr", force = TRUE)</a></code></pre>
+<pre><code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github("smithjd/sqlpetr", force = TRUE, build = TRUE, build_opts = "", quiet = TRUE)</a></code></pre>
 </li>
 </ol>
 </div>
@@ -178,7 +178,7 @@
 <p>As with Windows and MacOS, you’ll need</p>
 <ul>
 <li>R 3.5.1 or later, including all the package development tools,</li>
-<li>RStudio Preview 1.2.1186 or later,</li>
+<li>RStudio Preview 1.2.1260 or later,</li>
 <li>
 <code>git</code>, and</li>
 <li>Docker. You’ll need to use Docker Community Edition (<a href="https://store.docker.com/search?q=docker%20ce&amp;type=edition&amp;offering=community" class="uri">https://store.docker.com/search?q=docker%20ce&amp;type=edition&amp;offering=community</a>) rather than the Docker that is packaged in the distro.</li>

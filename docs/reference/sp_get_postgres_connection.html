@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get a DBI connection string to a PostgreSQL database, waiting if it is not ready — sp_get_postgres_connection • sqlpetr</title>
+<title>Connect to a PostgreSQL database — sp_get_postgres_connection • sqlpetr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Get a DBI connection string to a PostgreSQL database, waiting if it is not ready — sp_get_postgres_connection" />
+<meta property="og:title" content="Connect to a PostgreSQL database — sp_get_postgres_connection" />
 
-<meta property="og:description" content="This function connects to an instance of PostgreSQL." />
+<meta property="og:description" content="Attempts to connect to a PostgreSQL database. If the connection
+fails, it will retry a user-specified number of times." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sqlpetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.9999</span>
       </span>
     </div>
 
@@ -111,49 +112,61 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get a DBI connection string to a PostgreSQL database, waiting if it is not ready</h1>
-    <small class="dont-index">Source: <a href='https://github.com/smithjd/sqlpetr/blob/master/R/sp_get_postgres_connection.R'><code>R/sp_get_postgres_connection.R</code></a></small>
+    <h1>Connect to a PostgreSQL database</h1>
+    <small class="dont-index">Source: <a href='https://github.com/smithjd/sqlpetr/blob/master/R/sp_postgresql_functions.R'><code>R/sp_postgresql_functions.R</code></a></small>
     <div class="hidden name"><code>sp_get_postgres_connection.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function connects to an instance of PostgreSQL.</p>
+    <p>Attempts to connect to a PostgreSQL database. If the connection
+fails, it will retry a user-specified number of times.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>sp_get_postgres_connection</span>(<span class='no'>user</span>, <span class='no'>password</span>, <span class='no'>dbname</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"localhost"</span>,
-  <span class='kw'>port</span> <span class='kw'>=</span> <span class='st'>"5432"</span>, <span class='kw'>seconds_to_test</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
+  <span class='kw'>port</span> <span class='kw'>=</span> <span class='st'>"5432"</span>, <span class='kw'>seconds_to_test</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>connection_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>user</th>
-      <td><p>Username for connecting to the database</p></td>
+      <td><p>character: Username for connecting to the database. There is no
+default. The user must exist and be authorized to connect.</p></td>
     </tr>
     <tr>
       <th>password</th>
-      <td><p>Password that corresponds to the username</p></td>
+      <td><p>character: Password that corresponds to the username. There
+is no default. The password must be correct for the user.</p></td>
     </tr>
     <tr>
       <th>dbname</th>
-      <td><p>The name of the database within the database server</p></td>
+      <td><p>character: The name of the database within the database server.
+The database must exist, and the user must be authorized to access it.</p></td>
     </tr>
     <tr>
       <th>host</th>
-      <td><p>The IP address or host where postgreSQL is located,
+      <td><p>character: The IP address or host where postgreSQL is located,
 defaults to "localhost"</p></td>
     </tr>
     <tr>
       <th>port</th>
-      <td><p>The port on the host that postgreSQL listens to, defaults
+      <td><p>integer: The port on the host that postgreSQL listens to, defaults
 to "5432"</p></td>
     </tr>
     <tr>
       <th>seconds_to_test</th>
-      <td><p>The number of iterations to try while waiting
-for PostgreSQL service to be ready.</p></td>
+      <td><p>integer: The number of iterations to try while waiting
+for PostgreSQL service to be ready. The function sleeps one second between
+connection attempts, so a value of 10 would require approximately 10 seconds.
+The default is 30.</p></td>
+    </tr>
+    <tr>
+      <th>connection_tab</th>
+      <td><p>logical: <code>sp_get_postgres_connection</code> can open a
+tab in the RStudio connections pane. <code>connection_tab = FALSE</code> is
+the default - call with <code>connection_tab = TRUE</code> to open the tab.</p></td>
     </tr>
     </table>
     
@@ -167,9 +180,12 @@ error message.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>con</span> <span class='kw'>&lt;-</span> <span class='fu'>sp_get_postgres_connection</span>(<span class='st'>"postgres"</span>, <span class='st'>"postgres"</span>)
-<span class='co'># }</span><div class='input'>
-</div></pre>
+<span class='no'>con</span> <span class='kw'>&lt;-</span> <span class='fu'>sp_get_postgres_connection</span>(
+  <span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>,
+  <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>,
+  <span class='kw'>dbname</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>
+)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
