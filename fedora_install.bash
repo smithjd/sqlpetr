@@ -13,10 +13,7 @@ sudo dnf install -y \
   pgadmin4-desktop-gnome \
   postgresql10 \
   postgresql10-devel \
-  postgresql10-odbc \
-  qpdf \
-  unixODBC \
-  unixODBC-devel
+  qpdf
 echo "Installing 'sqlpetr'"
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/pgsql-10/lib/pkgconfig
 ./install_me_linux.R
