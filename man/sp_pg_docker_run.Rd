@@ -45,8 +45,7 @@ sp_docker_images_tibble()
 sp_pg_docker_run(
  container_name = "test-dvdrental",
  image_tag = "test-dvdrental:latest",
- postgres_password = "postgres",
- mount_here_as = "/petdir"
+ postgres_password = "postgres"
 )
 sp_docker_containers_tibble()
 }

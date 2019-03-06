@@ -48,4 +48,23 @@ fails, it will retry a user-specified number of times.
   password = "postgres",
   dbname = "postgres"
 )}
+\dontrun{
+build_log <- sp_make_dvdrental_image("test-dvdrental:latest")
+sp_docker_images_tibble()
+sp_pg_docker_run(
+  container_name = "test-dvdrental",
+  image_tag = "test-dvdrental:latest",
+  postgres_password = "postgres"
+)
+sp_docker_containers_tibble()
+connection <- sp_get_postgres_connection(
+  user = "postgres",
+  password = "postgres",
+  dbname = "dvdrental",
+  host = "localhost",
+  port = 5432,
+  seconds_to_test = 30,
+  connection_tab = TRUE
+)
+}
 }
