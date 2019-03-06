@@ -17,7 +17,7 @@ sqlpetr
 
 You will need the following software:
 
-1.  R 3.5.1 or later:
+1.  R 3.5.0 or later:
       - For Windows, go to <https://cran.rstudio.com/bin/windows/base/>.
       - For MacOS, go to <https://cran.rstudio.com/bin/macosx/>.
 2.  R source package development tools:
@@ -32,7 +32,7 @@ You will need the following software:
       - For MacOS, see
         <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>
         for the options.
-4.  RStudio Preview 1.2.1260 or later
+4.  RStudio Preview 1.2.1303 or later
     (<https://www.rstudio.com/products/rstudio/download/preview/>).
 5.  Docker:
       - For Windows 10 Pro, use Docker for Windows
@@ -54,8 +54,8 @@ user.
 If you are working through the code in the book, you will need to
 install this package first. Note that these instructions assume Windows
 or MacOS. For Linux, you will need to install some Linux packages. See
-below for the details on Ubuntu “Bionic Beaver”, Debian “stretch” or
-Arch Linux.
+below for the details on Ubuntu “Bionic Beaver”, Debian “stretch”,
+Fedora 29 or Arch Linux.
 
 1.  Make sure you have a writeable personal library.
 
@@ -88,7 +88,7 @@ need to install more dependencies. To do that:
 For more details on R package development, see [R
 Packages](http://r-pkgs.had.co.nz/).
 
-## Pkgdown
+### Pkgdown
 
 This package uses `pkgdown` to build a package documentation site on
 GitHub Pages. The site is hosted at <https://smithjd.github.io/sqlpetr>.
@@ -98,7 +98,7 @@ browser. The `install_me.R` script rebuilds the site after installing.
 
 For more detail on `pkgdown`, see <https://pkgdown.r-lib.org/>.
 
-## `webshot` and `phantomjs`
+### `webshot` and `phantomjs`
 
 The `webshot` CRAN package converts `htmlwidgets` widgets to HTML or PDF
 in the `bookdown` rendering process. See
@@ -106,7 +106,7 @@ in the `bookdown` rendering process. See
 the “headless browser” `phantomjs` to do this. You do not need to do
 anything; they’re installed when you run `install_me.R`.
 
-## `TinyTex`
+### `TinyTeX`
 
 CRAN package `tinytex` (<https://yihui.name/tinytex/>) is a relatively
 new tool for dealing with LaTeX packages. It is a standard package in
@@ -122,21 +122,34 @@ happens, but your system will still work.
 
 As with Windows and MacOS, you’ll need
 
-  - R 3.5.1 or later, including all the package development tools,
-  - RStudio Preview 1.2.1260 or later,
+  - R 3.5.0 or later, including all the package development tools,
+  - RStudio Preview 1.2.1303 or later,
   - `git`, and
   - Docker. You’ll need to use Docker Community Edition
     (<https://store.docker.com/search?q=docker%20ce&type=edition&offering=community>)
     rather than the Docker that is packaged in the distro.
 
 Once you have the prerequisites installed, make sure your user ID is
-allowed to execute the `sudo` operation. Then, clone this repo, `cd`
-into it, and type
+allowed to execute the `sudo` operation. Also, add yourself to the
+`docker` group.
+
+Then, clone this repo, `cd` into it, and type
 
   - Debian 9.6 “stretch” or Ubuntu 18.04 LTS “Bionic Beaver”:
     `./debian_ubuntu_install.bash`,
-  - Arch Linux (requires Arch User Repository and `yaourt`):
+  - Fedora Linux 29: `./fedora_install.bash`, or
+  - Arch Linux (requires Arch User Repository and `yay`):
     `./arch_install.bash`.
+
+Notes:
+
+1.  The scripts will install the GUI application `pgadmin4`. See
+    <https://www.pgadmin.org/docs/> for the documentation.
+2.  On Debian, Ubuntu and Fedora, the scripts add the PostgreSQL Global
+    Development Group (PGDG) repository that hosts PostgreSQL 10 for the
+    distro. This is where the PostgreSQL 10 client libraries live. On
+    Arch Linux the script installs the PostgreSQL 10 client libraries
+    from the Arch User Repository (AUR).
 
 If you want to use another distro (supported by Docker CE, please - we
 don’t have the bandwidth to support other Docker versions) open an issue
