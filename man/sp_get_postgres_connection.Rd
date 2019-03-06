@@ -5,7 +5,7 @@
 \title{Connect to a PostgreSQL database}
 \usage{
 sp_get_postgres_connection(user, password, dbname, host = "localhost",
-  port = "5432", seconds_to_test = 30, connection_tab = FALSE)
+  port = 5432, seconds_to_test = 30, connection_tab = FALSE)
 }
 \arguments{
 \item{user}{character: Username for connecting to the database. There is no

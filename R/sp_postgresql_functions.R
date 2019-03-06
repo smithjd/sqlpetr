@@ -54,7 +54,7 @@
 
 sp_get_postgres_connection <- function(user, password, dbname,
                                        host = "localhost",
-                                       port = "5432",
+                                       port = 5432,
                                        seconds_to_test = 30,
                                        connection_tab = FALSE) {
 
