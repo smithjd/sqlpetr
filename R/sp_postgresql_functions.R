@@ -111,6 +111,7 @@ sp_get_postgres_connection <- function(user, password, dbname,
 #' @importFrom dplyr select
 #' @importFrom dplyr mutate
 #' @importFrom dplyr bind_rows
+#' @importFrom readr read_file
 #' @export sp_pg_catalog
 #' @examples
 #' \dontrun{
@@ -266,20 +267,8 @@ sp_pg_catalog <- function(connection) {
 }
 
 .sp_pg_connection_code_string <- function() {
-  paste(
-    'library(sqlpetr)',
-    '# defaults for the "sql-pet" container with "dvdrental" database',
-    '# change the parameter values for your own database configuration',
-    'connection <- sp_get_postgres_connection(',
-    '  user = "postgres",',
-    '  password = "postgres",',
-    '  dbname = "dvdrental",',
-    '  host = "localhost",',
-    '  port = 5432,',
-    '  seconds_to_test = 30,',
-    '  connection_tab = TRUE',
-    ')',
-    sep = "\n"
+  readr::read_file(
+    system.file("rstudio/connections/sqlpetr.R", package = "sqlpetr")
   )
 }
 
