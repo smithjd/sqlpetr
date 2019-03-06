@@ -185,6 +185,24 @@ error message.</p>
   <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>,
   <span class='kw'>dbname</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>
 )
+<span class='co'># }</span><span class='co'># NOT RUN {</span>
+<span class='no'>build_log</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sp_make_dvdrental_image.html'>sp_make_dvdrental_image</a></span>(<span class='st'>"test-dvdrental:latest"</span>)
+<span class='fu'><a href='sp_docker_images_tibble.html'>sp_docker_images_tibble</a></span>()
+<span class='fu'><a href='sp_pg_docker_run.html'>sp_pg_docker_run</a></span>(
+  <span class='kw'>container_name</span> <span class='kw'>=</span> <span class='st'>"test-dvdrental"</span>,
+  <span class='kw'>image_tag</span> <span class='kw'>=</span> <span class='st'>"test-dvdrental:latest"</span>,
+  <span class='kw'>postgres_password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>
+)
+<span class='fu'><a href='sp_docker_containers_tibble.html'>sp_docker_containers_tibble</a></span>()
+<span class='no'>connection</span> <span class='kw'>&lt;-</span> <span class='fu'>sp_get_postgres_connection</span>(
+  <span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>,
+  <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>,
+  <span class='kw'>dbname</span> <span class='kw'>=</span> <span class='st'>"dvdrental"</span>,
+  <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"localhost"</span>,
+  <span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>5432</span>,
+  <span class='kw'>seconds_to_test</span> <span class='kw'>=</span> <span class='fl'>30</span>,
+  <span class='kw'>connection_tab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
