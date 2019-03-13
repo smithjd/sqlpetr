@@ -5,7 +5,8 @@
 \title{Connect to a PostgreSQL database}
 \usage{
 sp_get_postgres_connection(user, password, dbname, host = "localhost",
-  port = 5432, seconds_to_test = 30, connection_tab = FALSE)
+  port = 5432, seconds_to_test = 30, connection_tab = FALSE,
+  rowLimit = 1000)
 }
 \arguments{
 \item{user}{character: Username for connecting to the database. There is no
@@ -31,6 +32,10 @@ The default is 30.}
 \item{connection_tab}{logical: \code{sp_get_postgres_connection} can open a
 tab in the RStudio connections pane. \code{connection_tab = FALSE} is
 the default - call with \code{connection_tab = TRUE} to open the tab.}
+
+\item{rowLimit}{integer: number of rows to return when viewing a database
+object in the connection tab. If \code{connection_tab} is \code{FALSE} this is
+ignored. The default is 1000.}
 }
 \value{
 If successful: a connection object, which is an S4 object

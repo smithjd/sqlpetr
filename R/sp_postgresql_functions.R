@@ -19,6 +19,9 @@
 #' @param connection_tab logical: `sp_get_postgres_connection` can open a
 #' tab in the RStudio connections pane. `connection_tab = FALSE` is
 #' the default - call with `connection_tab = TRUE` to open the tab.
+#' @param rowLimit integer: number of rows to return when viewing a database
+#' object in the connection tab. If `connection_tab` is `FALSE` this is
+#' ignored. The default is 1000.
 #' @return If successful: a connection object, which is an S4 object
 #' that inherits from DBIConnection, used to communicate with the
 #' database engine. If unsuccessful, the function terminates with an
@@ -56,7 +59,8 @@ sp_get_postgres_connection <- function(user, password, dbname,
                                        host = "localhost",
                                        port = 5432,
                                        seconds_to_test = 30,
-                                       connection_tab = FALSE) {
+                                       connection_tab = FALSE,
+                                       rowLimit = 1000) {
 
   n_iterations <- abs(seconds_to_test)
   for (iter in 1:n_iterations) {
@@ -82,7 +86,7 @@ sp_get_postgres_connection <- function(user, password, dbname,
 
       # open a connection tab if wanted!
       if (connection_tab) {
-        .sp_pg_connection_opened(conn)
+        .sp_pg_connection_opened(conn, rowLimit)
       }
 
       return(conn)
@@ -234,8 +238,8 @@ sp_pg_catalog <- function(connection) {
   item <- ifelse(is.null(schema), item, sprintf("%s.%s", schema, item))
 
   return(DBI::dbGetQuery(
-    connection, sprintf("SELECT * FROM %s", item), n = min(100, rowLimit)
-  ))
+    connection, sprintf("SELECT * FROM %s", item), n = rowLimit)
+  )
 }
 
 #' @importFrom DBI dbGetInfo
@@ -272,7 +276,7 @@ sp_pg_catalog <- function(connection) {
   )
 }
 
-.sp_pg_connection_opened <- function(connection) {
+.sp_pg_connection_opened <- function(connection, rowLimit) {
 
   # get the observer with silent return if there isn't one
   observer <- getOption("connectionObserver")
