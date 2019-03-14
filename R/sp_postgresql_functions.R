@@ -2,12 +2,13 @@
 #' @name sp_get_postgres_connection
 #' @description Attempts to connect to a PostgreSQL database. If the connection
 #' fails, it will retry a user-specified number of times.
-#' @param user character: Username for connecting to the database. There is no
-#' default. The user must exist and be authorized to connect.
-#' @param password character: Password that corresponds to the username. There
-#' is no default. The password must be correct for the user.
+#' @param user character: Username for connecting to the database. The user
+#' must exist and be authorized to connect. The default is "postgres".
+#' @param password character: Password that corresponds to the username. The
+#' password must be correct for the user. The default is "postgres".
 #' @param dbname character: The name of the database within the database server.
 #' The database must exist, and the user must be authorized to access it.
+#' The default is "dvdrental".
 #' @param host character: The IP address or host where postgreSQL is located,
 #' defaults to "localhost"
 #' @param port integer: The port on the host that postgreSQL listens to, defaults
@@ -55,7 +56,9 @@
 #' )
 #' }
 
-sp_get_postgres_connection <- function(user, password, dbname,
+sp_get_postgres_connection <- function(user = "postgres",
+                                       password = "postgres",
+                                       dbname = "dvdrental",
                                        host = "localhost",
                                        port = 5432,
                                        seconds_to_test = 30,

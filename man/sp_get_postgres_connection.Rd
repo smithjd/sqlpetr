@@ -4,19 +4,20 @@
 \alias{sp_get_postgres_connection}
 \title{Connect to a PostgreSQL database}
 \usage{
-sp_get_postgres_connection(user, password, dbname, host = "localhost",
-  port = 5432, seconds_to_test = 30, connection_tab = FALSE,
-  rowLimit = 1000)
+sp_get_postgres_connection(user = "postgres", password = "postgres",
+  dbname = "dvdrental", host = "localhost", port = 5432,
+  seconds_to_test = 30, connection_tab = FALSE, rowLimit = 1000)
 }
 \arguments{
-\item{user}{character: Username for connecting to the database. There is no
-default. The user must exist and be authorized to connect.}
+\item{user}{character: Username for connecting to the database. The user
+must exist and be authorized to connect. The default is "postgres".}
 
-\item{password}{character: Password that corresponds to the username. There
-is no default. The password must be correct for the user.}
+\item{password}{character: Password that corresponds to the username. The
+password must be correct for the user. The default is "postgres".}
 
 \item{dbname}{character: The name of the database within the database server.
-The database must exist, and the user must be authorized to access it.}
+The database must exist, and the user must be authorized to access it.
+The default is "dvdrental".}
 
 \item{host}{character: The IP address or host where postgreSQL is located,
 defaults to "localhost"}
