@@ -8,6 +8,5 @@ connection <- sp_get_postgres_connection(
   host = "localhost",
   port = 5432,
   seconds_to_test = 30,
-  connection_tab = TRUE,
-  rowLimit = 1000
+  connection_tab = TRUE
 )
