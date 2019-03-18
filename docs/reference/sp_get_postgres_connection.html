@@ -124,26 +124,28 @@ fails, it will retry a user-specified number of times.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sp_get_postgres_connection</span>(<span class='no'>user</span>, <span class='no'>password</span>, <span class='no'>dbname</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"localhost"</span>,
-  <span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>5432</span>, <span class='kw'>seconds_to_test</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>connection_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sp_get_postgres_connection</span>(<span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>, <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>,
+  <span class='kw'>dbname</span> <span class='kw'>=</span> <span class='st'>"dvdrental"</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"localhost"</span>, <span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>5432</span>,
+  <span class='kw'>seconds_to_test</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>connection_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>user</th>
-      <td><p>character: Username for connecting to the database. There is no
-default. The user must exist and be authorized to connect.</p></td>
+      <td><p>character: Username for connecting to the database. The user
+must exist and be authorized to connect. The default is "postgres".</p></td>
     </tr>
     <tr>
       <th>password</th>
-      <td><p>character: Password that corresponds to the username. There
-is no default. The password must be correct for the user.</p></td>
+      <td><p>character: Password that corresponds to the username. The
+password must be correct for the user. The default is "postgres".</p></td>
     </tr>
     <tr>
       <th>dbname</th>
       <td><p>character: The name of the database within the database server.
-The database must exist, and the user must be authorized to access it.</p></td>
+The database must exist, and the user must be authorized to access it.
+The default is "dvdrental".</p></td>
     </tr>
     <tr>
       <th>host</th>
