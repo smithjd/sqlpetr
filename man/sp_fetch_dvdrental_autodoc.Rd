@@ -15,8 +15,8 @@ should be an absolute path so you know where to find it, and the filename
 should end in \code{.html} so the browser can open it. There is no default.}
 }
 \value{
-If successful: a logical \code{TRUE}. If unsuccessful, the function
-terminates with an error message.
+If successful: a character value of lenght 0. If unsuccessful, the
+function terminates with an error message.
 }
 \description{
 When \code{sp_make_dvdrental_image} builds the Docker image, it

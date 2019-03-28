@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Prerequisites
 You will need the following software:
 
-1. R 3.5.0 or later:
+1. R 3.4.0 or later:
     * For Windows, go to <https://cran.rstudio.com/bin/windows/base/>.
     * For MacOS, go to <https://cran.rstudio.com/bin/macosx/>.
 2. RStudio Preview 1.2.1330 or later (<https://www.rstudio.com/products/rstudio/download/preview/>).
@@ -31,7 +31,7 @@ You will need the following software:
 See below for the details if you're a Linux desktop user.
 
 ## Installing this package for users of <https://smithjd.github.io/sql-pet>
-If you are working through the code in the book, you will need to install this package first. Note that these instructions assume Windows or MacOS. For Linux, you will need to install some Linux packages. See below for the details on Ubuntu "Bionic Beaver", Fedora 29 or Arch Linux.
+If you are working through the code in the book, you will need to install this package first. Note that these instructions assume Windows or MacOS. For Linux, you will need to install some Linux packages. See below for the details on Ubuntu, Fedora or Arch Linux.
 
 1. Make sure you have a writeable personal library.
 2. Update all your packages with `update.packages()`.
@@ -43,34 +43,16 @@ If you are working through the code in the book, you will need to install this p
     ```
 
 ## Linux desktop
-As with Windows and MacOS, you'll need
+We support Ubuntu Linux 18.04 LTS ("Bionic Beaver") or later, Fedora 28 or later and Arch Linux. You will need to install RStudio yourself, but we provide scripts to install all the other Linux dependencies including R and Docker.
 
-* R 3.5.0 or later, 
-* RStudio Preview 1.2.1330 or later, and
-* Docker. On Ubuntu and Fedora, you'll need to use Docker Community Edition (<https://store.docker.com/search?q=docker%20ce&type=edition&offering=community>) rather than the Docker that is packaged in the distro. On Arch Linux, the packaged `docker` is fine.
+1. Install Linux - any desktop should work.
+2. Browse to <https://github.com/smithjd/sqlpetr/tree/master/inst/linux>. You will find install scripts for Ubuntu, Fedora and Arch. Download the one for your distro, make it executable and run it. The script will install R and the Linux dependencies for `sqlpetr`, install Docker, add you to the `docker` group and enable/start the Docker service.
+3. Now do
 
-Once you have the prerequisites installed, make sure your user ID is allowed to execute the `sudo` operation. Also, add yourself to the `docker` group.
-
-### Ubuntu Linux dependencies
-You will need to run the following:
-
-```
-
-```
-
-### Fedora Linux dependencies
-You will need to run the following:
-
-```
-
-```
-
-### Arch Linux dependencies
-You will need to run the following:
-
-```
-
-```
-
-### Other distros
-If you want to use another distro (supported by Docker CE, please - we don't have the bandwidth to support other Docker versions) open an issue at <https://github.com/smithjd/sqlpetr/issues/new>.
+    ```
+    remotes::install_github("smithjd/sqlpetr", force = TRUE, build = FALSE, quiet = TRUE)
+    ```
+    
+    to install `sqlpetr`.
+    
+Note that you will need to log out back to the display manager prompt and log back in for Docker commands to work without `sudo`.

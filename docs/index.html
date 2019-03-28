@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">sqlpetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8.9999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
       </span>
     </div>
 
@@ -95,7 +95,7 @@
 <a href="#prerequisites" class="anchor"></a>Prerequisites</h2>
 <p>You will need the following software:</p>
 <ol style="list-style-type: decimal">
-<li>R 3.5.0 or later:
+<li>R 3.4.0 or later:
 <ul>
 <li>For Windows, go to <a href="https://cran.rstudio.com/bin/windows/base/" class="uri">https://cran.rstudio.com/bin/windows/base/</a>.</li>
 <li>For MacOS, go to <a href="https://cran.rstudio.com/bin/macosx/" class="uri">https://cran.rstudio.com/bin/macosx/</a>.</li>
@@ -117,7 +117,7 @@
 <h2 class="hasAnchor">
 <a href="#installing-this-package-for-users-of-httpssmithjd-github-iosql-pet" class="anchor"></a>Installing this package for users of <a href="https://smithjd.github.io/sql-pet" class="uri">https://smithjd.github.io/sql-pet</a>
 </h2>
-<p>If you are working through the code in the book, you will need to install this package first. Note that these instructions assume Windows or MacOS. For Linux, you will need to install some Linux packages. See below for the details on Ubuntu “Bionic Beaver”, Fedora 29 or Arch Linux.</p>
+<p>If you are working through the code in the book, you will need to install this package first. Note that these instructions assume Windows or MacOS. For Linux, you will need to install some Linux packages. See below for the details on Ubuntu, Fedora or Arch Linux.</p>
 <ol style="list-style-type: decimal">
 <li>Make sure you have a writeable personal library.</li>
 <li>Update all your packages with <code><a href="https://www.rdocumentation.org/packages/utils/topics/update.packages">update.packages()</a></code>.</li>
@@ -131,36 +131,17 @@
 <div id="linux-desktop" class="section level2">
 <h2 class="hasAnchor">
 <a href="#linux-desktop" class="anchor"></a>Linux desktop</h2>
-<p>As with Windows and MacOS, you’ll need</p>
-<ul>
-<li>R 3.5.0 or later,</li>
-<li>RStudio Preview 1.2.1330 or later, and</li>
-<li>Docker. On Ubuntu and Fedora, you’ll need to use Docker Community Edition (<a href="https://store.docker.com/search?q=docker%20ce&amp;type=edition&amp;offering=community" class="uri">https://store.docker.com/search?q=docker%20ce&amp;type=edition&amp;offering=community</a>) rather than the Docker that is packaged in the distro. On Arch Linux, the packaged <code>docker</code> is fine.</li>
-</ul>
-<p>Once you have the prerequisites installed, make sure your user ID is allowed to execute the <code>sudo</code> operation. Also, add yourself to the <code>docker</code> group.</p>
-<div id="ubuntu-linux-dependencies" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ubuntu-linux-dependencies" class="anchor"></a>Ubuntu Linux dependencies</h3>
-<p>You will need to run the following:</p>
-<pre><code></code></pre>
-</div>
-<div id="fedora-linux-dependencies" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fedora-linux-dependencies" class="anchor"></a>Fedora Linux dependencies</h3>
-<p>You will need to run the following:</p>
-<pre><code></code></pre>
-</div>
-<div id="arch-linux-dependencies" class="section level3">
-<h3 class="hasAnchor">
-<a href="#arch-linux-dependencies" class="anchor"></a>Arch Linux dependencies</h3>
-<p>You will need to run the following:</p>
-<pre><code></code></pre>
-</div>
-<div id="other-distros" class="section level3">
-<h3 class="hasAnchor">
-<a href="#other-distros" class="anchor"></a>Other distros</h3>
-<p>If you want to use another distro (supported by Docker CE, please - we don’t have the bandwidth to support other Docker versions) open an issue at <a href="https://github.com/smithjd/sqlpetr/issues/new" class="uri">https://github.com/smithjd/sqlpetr/issues/new</a>.</p>
-</div>
+<p>We support Ubuntu Linux 18.04 LTS (“Bionic Beaver”) or later, Fedora 28 or later and Arch Linux. You will need to install RStudio yourself, but we provide scripts to install all the other Linux dependencies including R and Docker.</p>
+<ol style="list-style-type: decimal">
+<li>Install Linux - any desktop should work.</li>
+<li>Browse to <a href="https://github.com/smithjd/sqlpetr/tree/master/inst/linux" class="uri">https://github.com/smithjd/sqlpetr/tree/master/inst/linux</a>. You will find install scripts for Ubuntu, Fedora and Arch. Download the one for your distro, make it executable and run it. The script will install R and the Linux dependencies for <code>sqlpetr</code>, install Docker, add you to the <code>docker</code> group and enable/start the Docker service.</li>
+<li>
+<p>Now do</p>
+<pre><code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github("smithjd/sqlpetr", force = TRUE, build = FALSE, quiet = TRUE)</a></code></pre>
+<p>to install <code>sqlpetr</code>.</p>
+</li>
+</ol>
+<p>Note that you will need to log out back to the display manager prompt and log back in for Docker commands to work without <code>sudo</code>.</p>
 </div>
   </div>
 
