@@ -23,6 +23,7 @@ Imports:
     DBI,
     dbplyr,
     dplyr,
+    DiagrammeR,
     DT,
     glue,
     here,
@@ -42,7 +43,6 @@ Imports:
 Suggests: 
     bookdown,
     devtools,
-    DiagrammeR,
     formatR,
     ggplot2,
     miniUI,
