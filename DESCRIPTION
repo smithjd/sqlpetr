@@ -20,10 +20,8 @@ Roxygen: list(markdown = TRUE)
 URL: https://github.com/smithjd/sqlpetr
 BugReports: https://github.com/smithjd/sqlpetr/issues
 Imports:
-    bookdown,
     DBI,
     dbplyr,
-    DiagrammeR,
     dplyr,
     DT,
     glue,
@@ -35,22 +33,24 @@ Imports:
     RPostgres,
     RSQLite,
     skimr,
+    snakecase,
     stringr,
     tibble,
     tidyverse,
     utils,
-    webshot,
-    readr,
-    snakecase,
-    formatR
+    readr
 Suggests: 
+    bookdown,
     devtools,
+    DiagrammeR,
+    formatR,
     ggplot2,
     miniUI,
     pkgdown,
-    rlang,
+    qpdf,
     roxygen2,
     testthat,
     usethis,
+    webshot,
     xfun
 VignetteBuilder: knitr
