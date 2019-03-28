@@ -4,6 +4,7 @@ LABEL maintainer="M. Edward (Ed) Borasky <znmeb@znmeb.net>"
 # Install apt packages
 RUN apt-get update \
   && apt-get install -qqy --no-install-recommends \
+    postgresql-autodoc \
     unzip \
   && apt-get clean
 

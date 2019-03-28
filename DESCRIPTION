@@ -1,6 +1,6 @@
 Package: sqlpetr
 Title: Companion Package for R-Docker-Databases Book
-Version: 0.9.8.9999
+Version: 0.9.9
 Authors@R: c(
   person("M. Edward (Ed)", "Borasky", role = c("aut", "cre"), email = "znmeb@znmeb.net"),
   person("John David", "Smith", role = "aut", email = "john.smith@learningalliances.net"),
@@ -20,11 +20,10 @@ Roxygen: list(markdown = TRUE)
 URL: https://github.com/smithjd/sqlpetr
 BugReports: https://github.com/smithjd/sqlpetr/issues
 Imports:
-    bookdown,
     DBI,
     dbplyr,
-    DiagrammeR,
     dplyr,
+    DiagrammeR,
     DT,
     glue,
     here,
@@ -35,22 +34,23 @@ Imports:
     RPostgres,
     RSQLite,
     skimr,
+    snakecase,
     stringr,
     tibble,
     tidyverse,
     utils,
-    webshot,
-    readr,
-    snakecase,
-    formatR
+    readr
 Suggests: 
+    bookdown,
     devtools,
+    formatR,
     ggplot2,
     miniUI,
     pkgdown,
-    rlang,
+    qpdf,
     roxygen2,
     testthat,
     usethis,
+    webshot,
     xfun
 VignetteBuilder: knitr

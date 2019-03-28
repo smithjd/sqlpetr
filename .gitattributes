@@ -1,8 +1,6 @@
 # Linux scripts - they need to have Linux line endings or Docker barfs
 *.bash text eol=lf
 *.sh text eol=lf
-# can't build vignettes when this has DOS line endings
-DESCRIPTION text eol=lf
 
 *.html binary
 *.png binary

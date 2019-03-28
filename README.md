@@ -17,24 +17,12 @@ sqlpetr
 
 You will need the following software:
 
-1.  R 3.5.0 or later:
+1.  R 3.4.0 or later:
       - For Windows, go to <https://cran.rstudio.com/bin/windows/base/>.
       - For MacOS, go to <https://cran.rstudio.com/bin/macosx/>.
-2.  R source package development tools:
-      - For Windows, go to
-        <https://cran.rstudio.com/bin/windows/Rtools/> and install
-        `Rtools35.exe`.
-      - For MacOS, go to <https://cran.rstudio.com/bin/macosx/tools/>
-        and install the packages for your MacOS version.
-3.  Git:
-      - For Windows, use Git for Windows
-        (<https://git-scm.com/download/win>).
-      - For MacOS, see
-        <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>
-        for the options.
-4.  RStudio Preview 1.2.1303 or later
+2.  RStudio Preview 1.2.1330 or later
     (<https://www.rstudio.com/products/rstudio/download/preview/>).
-5.  Docker:
+3.  Docker:
       - For Windows 10 Pro, use Docker for Windows
         (<https://docs.docker.com/docker-for-windows/install/>).
       - For other versions of Windows, use Docker Toolbox
@@ -54,103 +42,41 @@ user.
 If you are working through the code in the book, you will need to
 install this package first. Note that these instructions assume Windows
 or MacOS. For Linux, you will need to install some Linux packages. See
-below for the details on Ubuntu “Bionic Beaver”, Debian “stretch”,
-Fedora 29 or Arch Linux.
+below for the details on Ubuntu, Fedora or Arch Linux.
 
 1.  Make sure you have a writeable personal library.
 
 2.  Update all your packages with `update.packages()`.
 
-3.  Install `devtools` if you haven’t already.
+3.  Install `remotes` if you haven’t already.
 
 4.  In an R console,
         type
     
-        remotes::install_github("smithjd/sqlpetr", force = TRUE, build = TRUE, build_opts = "", quiet = TRUE)
+        remotes::install_github("smithjd/sqlpetr", force = TRUE, build = FALSE, quiet = TRUE)
 
-## Developer workflow
+## Linux desktop
 
-If you’re working as a developer of this package or the book, you’ll
-need to install more dependencies. To do that:
+We support Ubuntu Linux 18.04 LTS (“Bionic Beaver”) or later, Fedora 28
+or later and Arch Linux. You will need to install RStudio yourself, but
+we provide scripts to install all the other Linux dependencies including
+R and Docker.
 
-1.  Clone this repository and open the project file `sqlpetr.Rproj` in
-    RStudio.
+1.  Install Linux - any desktop should work.
 
-2.  On Windows or MacOS, open the file `install_me.R` and `source` it.
-    This will install all the dependencies and rebuild the `pkgdown`
-    site for the package.
+2.  Browse to
+    <https://github.com/smithjd/sqlpetr/tree/master/inst/linux>. You
+    will find install scripts for Ubuntu, Fedora and Arch. Download the
+    one for your distro, make it executable and run it. The script will
+    install R and the Linux dependencies for `sqlpetr`, install Docker,
+    add you to the `docker` group and enable/start the Docker service.
+
+3.  Now
+        do
     
-    On Windows, you may get a dialog box asking you if you want to use a
-    personal library. If you do, press the `Yes` button. If you get a
-    dialog box asking if you want to install source packages, press the
-    `Yes` button.
+        remotes::install_github("smithjd/sqlpetr", force = TRUE, build = FALSE, quiet = TRUE)
+    
+    to install `sqlpetr`.
 
-For more details on R package development, see [R
-Packages](http://r-pkgs.had.co.nz/).
-
-### Pkgdown
-
-This package uses `pkgdown` to build a package documentation site on
-GitHub Pages. The site is hosted at <https://smithjd.github.io/sqlpetr>.
-Once you’ve added a function, go to the RStudio Addins dropdown and
-select “Build pkgdown”. This will render the site and open it in your
-browser. The `install_me.R` script rebuilds the site after installing.
-
-For more detail on `pkgdown`, see <https://pkgdown.r-lib.org/>.
-
-### `webshot` and `phantomjs`
-
-The `webshot` CRAN package converts `htmlwidgets` widgets to HTML or PDF
-in the `bookdown` rendering process. See
-<https://bookdown.org/yihui/bookdown/html-widgets.html>. `webshot` uses
-the “headless browser” `phantomjs` to do this. You do not need to do
-anything; they’re installed when you run `install_me.R`.
-
-### `TinyTeX`
-
-CRAN package `tinytex` (<https://yihui.name/tinytex/>) is a relatively
-new tool for dealing with LaTeX packages. It is a standard package in
-the Tidyverse, so if you have the Tidyverse, you have `tinytex`.
-`install_me.R` will install the run-time components via
-`tinytex::install_tinytex()` if you haven’t installed it already.
-
-Note that if you already have a system-wide LaTeX install, `tinytex`
-will not override it by default. You’ll see an error message if that
-happens, but your system will still work.
-
-## Developing and testing on Linux
-
-As with Windows and MacOS, you’ll need
-
-  - R 3.5.0 or later, including all the package development tools,
-  - RStudio Preview 1.2.1303 or later,
-  - `git`, and
-  - Docker. You’ll need to use Docker Community Edition
-    (<https://store.docker.com/search?q=docker%20ce&type=edition&offering=community>)
-    rather than the Docker that is packaged in the distro.
-
-Once you have the prerequisites installed, make sure your user ID is
-allowed to execute the `sudo` operation. Also, add yourself to the
-`docker` group.
-
-Then, clone this repo, `cd` into it, and type
-
-  - Debian 9.6 “stretch” or Ubuntu 18.04 LTS “Bionic Beaver”:
-    `./debian_ubuntu_install.bash`,
-  - Fedora Linux 29: `./fedora_install.bash`, or
-  - Arch Linux (requires Arch User Repository and `yay`):
-    `./arch_install.bash`.
-
-Notes:
-
-1.  The scripts will install the GUI application `pgadmin4`. See
-    <https://www.pgadmin.org/docs/> for the documentation.
-2.  On Debian, Ubuntu and Fedora, the scripts add the PostgreSQL Global
-    Development Group (PGDG) repository that hosts PostgreSQL 10 for the
-    distro. This is where the PostgreSQL 10 client libraries live. On
-    Arch Linux the script installs the PostgreSQL 10 client libraries
-    from the Arch User Repository (AUR).
-
-If you want to use another distro (supported by Docker CE, please - we
-don’t have the bandwidth to support other Docker versions) open an issue
-at <https://github.com/smithjd/sqlpetr/issues/new>.
+Note that you will need to log out back to the display manager prompt
+and log back in for Docker commands to work without `sudo`.
