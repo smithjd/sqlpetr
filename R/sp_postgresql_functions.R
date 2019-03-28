@@ -331,3 +331,31 @@ utils::globalVariables(c(
   "type",
   "viewname"
 ))
+
+#' @title Fetch `dvdrental` autodoc
+#' @name sp_fetch_dvdrental_autodoc
+#' @description When `sp_make_dvdrental_image` builds the Docker image, it
+#' installs a utility called
+#' [`postgresql-autodoc`](https://github.com/cbbrowne/autodoc). After restoring
+#' the `dvdrental` database, it runs the utilily and creates an HTML file with
+#' the database documentation on the image at
+#' `/var/lib/postgresql/dvdrental.html`. This function fetches that file to a
+#' file on the Docker host.
+#' @param container_name character: The container name where the `dvdrental`
+#' database is running. The default is "sql-pet".
+#' @param file_path character: A valid file path to receive the HTML file. It
+#' should be an absolute path so you know where to find it, and the filename
+#' should end in `.html` so the browser can open it. There is no default.
+#' @return If successful: a character value of lenght 0. If unsuccessful, the
+#' function terminates with an error message.
+#' @importFrom glue glue
+#' @export sp_fetch_dvdrental_autodoc
+
+sp_fetch_dvdrental_autodoc <- function(container_name = "sql-pet", file_path) {
+  docker_cmd <- glue::glue(
+    "cp ", # docker copy
+    container_name, ":/var/lib/postgresql/dvdrental.html ",
+    file_path
+  )
+  result <- .system2_to_docker(docker_cmd)
+}
