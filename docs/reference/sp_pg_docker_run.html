@@ -66,7 +66,7 @@ published to localhost:5432." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sqlpetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.9999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8.9999</span>
       </span>
     </div>
 
@@ -129,7 +129,7 @@ published to <code>localhost:5432</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sp_pg_docker_run</span>(<span class='no'>container_name</span>, <span class='kw'>image_tag</span> <span class='kw'>=</span> <span class='st'>"docker.io/postgres:10"</span>,
-  <span class='kw'>postgres_password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>, <span class='kw'>mount_here_as</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>postgres_password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,20 +147,6 @@ run. Default is the base PostgreSQL 10 image, <code>docker.io/postgres:10</code>
       <th>postgres_password</th>
       <td><p>character: the <code>postgres</code> database superuser
 password. Default is "postgres".</p></td>
-    </tr>
-    <tr>
-      <th>mount_here_as</th>
-      <td><p>character: When the image runs, the directory where the
-function was called can be mounted into a path in the container, named
-<code>mount_here_as</code>, for <strong>read/write</strong>. Rules
-for the name:</p><ul>
-<li><p>If you don't want to mount into the container, specify <code>NULL</code>. This is
-the default!</p></li>
-<li><p>The name must start with a <code>/</code> and be a valid absolute path.</p></li>
-<li><p>The name should contain only slashes, letters, numbers and underscores.
-Other characters may or may not work. The <code>snakecase</code> package is your
-friend.</p></li>
-</ul></td>
     </tr>
     </table>
     
