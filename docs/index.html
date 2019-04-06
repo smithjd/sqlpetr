@@ -119,9 +119,9 @@
 </h2>
 <p>If you are working through the code in the book, you will need to install this package first. Note that these instructions assume Windows or MacOS. For Linux, you will need to install some Linux packages. See below for the details on Ubuntu, Fedora or Arch Linux.</p>
 <ol style="list-style-type: decimal">
-<li>Make sure you have a writeable personal library.</li>
-<li>Update all your packages with <code><a href="https://www.rdocumentation.org/packages/utils/topics/update.packages">update.packages()</a></code>.</li>
-<li>Install <code>remotes</code> if you haven’t already.</li>
+<li><p>Make sure you have a writeable personal library.</p></li>
+<li><p>Update all your packages with <code><a href="https://www.rdocumentation.org/packages/utils/topics/update.packages">update.packages()</a></code>.</p></li>
+<li><p>Install <code>remotes</code> if you haven’t already.</p></li>
 <li>
 <p>In an R console, type</p>
 <pre><code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github("smithjd/sqlpetr", force = TRUE, build = FALSE, quiet = TRUE)</a></code></pre>
@@ -133,8 +133,8 @@
 <a href="#linux-desktop" class="anchor"></a>Linux desktop</h2>
 <p>We support Ubuntu Linux 18.04 LTS (“Bionic Beaver”) or later, Fedora 28 or later and Arch Linux. You will need to install RStudio yourself, but we provide scripts to install all the other Linux dependencies including R and Docker.</p>
 <ol style="list-style-type: decimal">
-<li>Install Linux - any desktop should work.</li>
-<li>Browse to <a href="https://github.com/smithjd/sqlpetr/tree/master/inst/linux" class="uri">https://github.com/smithjd/sqlpetr/tree/master/inst/linux</a>. You will find install scripts for Ubuntu, Fedora and Arch. Download the one for your distro, make it executable and run it. The script will install R and the Linux dependencies for <code>sqlpetr</code>, install Docker, add you to the <code>docker</code> group and enable/start the Docker service.</li>
+<li><p>Install Linux - any desktop should work.</p></li>
+<li><p>Browse to <a href="https://github.com/smithjd/sqlpetr/tree/master/inst/linux" class="uri">https://github.com/smithjd/sqlpetr/tree/master/inst/linux</a>. You will find install scripts for Ubuntu, Fedora and Arch. Download the one for your distro, make it executable and run it. The script will install R and the Linux dependencies for <code>sqlpetr</code>, install Docker, add you to the <code>docker</code> group and enable/start the Docker service.</p></li>
 <li>
 <p>Now do</p>
 <pre><code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github("smithjd/sqlpetr", force = TRUE, build = FALSE, quiet = TRUE)</a></code></pre>
