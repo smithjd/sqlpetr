@@ -22,10 +22,11 @@ The default is "dvdrental".}
 \item{host}{character: The IP address or host where postgreSQL is located,
 defaults to "localhost"}
 
-\item{port}{integer: The port on the host that postgreSQL listens to, defaults
-to 5439! Note that this is \emph{not} the default PostgreSQL port! We use port
-5439 because if PostgreSQL is installed on the host, it probably has claimed
-the default, 5432, and the container won't be able to use it.}
+\item{port}{integer: The port on the host that PostgreSQL listens on, defaults
+to \emph{5439}. Note that this is \emph{not} the PostgreSQL default port, 5432! Why? If
+PostgreSQL is running on the host or in another container, it probably has
+claimed port 5432, since that's its default, and our container won't work!
+So we need to use a different port for \emph{our} PostgreSQL container.}
 
 \item{seconds_to_test}{integer: The number of iterations to try while waiting
 for PostgreSQL service to be ready. The function sleeps one second between
