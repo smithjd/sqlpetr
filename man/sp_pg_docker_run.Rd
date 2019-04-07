@@ -23,8 +23,11 @@ if it failed.
 \description{
 Creates a container and runs an image in it. The image
 must be based on the \code{docker.io/postgres:10} image. It will run in the
-background (\code{--detach}) and the default PostgreSQL port 5432 will be
-published to \code{localhost:5432}.
+background (\code{--detach}) and the container PostgreSQL port 5439 will be
+published to \code{localhost:5439}. Note that we use port 5439 instead of the
+PostgreSQL default, 5432, because if PostgreSQL is installed on the host,
+it probably will have claimed port 5432 and the container will be unable
+to use that port.
 }
 \examples{
 \dontrun{

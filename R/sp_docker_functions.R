@@ -116,8 +116,11 @@ sp_docker_run <- function(image_tag,
 #' @name sp_pg_docker_run
 #' @description Creates a container and runs an image in it. The image
 #' must be based on the `docker.io/postgres:10` image. It will run in the
-#' background (`--detach`) and the default PostgreSQL port 5432 will be
-#' published to `localhost:5432`.
+#' background (`--detach`) and the container PostgreSQL port 5439 will be
+#' published to `localhost:5439`. Note that we use port 5439 instead of the
+#' PostgreSQL default, 5432, because if PostgreSQL is installed on the host,
+#' it probably will have claimed port 5432 and the container will be unable
+#' to use that port.
 #' @param container_name character: a valid container name for the container
 #' @param image_tag character: a valid image tag (name) for the docker image to
 #' run. Default is the base PostgreSQL 10 image, `docker.io/postgres:10`.
@@ -146,7 +149,8 @@ sp_pg_docker_run <- function(container_name,
   run_options <- glue::glue(
     "--detach ", # run in the backgrouns
     "--name ", container_name, " ", # gives the container a name
-    "--publish 5432:5432 ", # publish the default Postgres port
+    "--env PGPORT=5439 ", # set port via environment variablecd
+    "--publish 5439:5439 ", # publish the container Postgres port
     "--env POSTGRES_PASSWORD=", postgres_password # database superuser password
   )
   result <- sp_docker_run(image_tag = image_tag, options = run_options)

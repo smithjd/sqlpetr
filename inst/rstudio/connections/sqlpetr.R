@@ -6,7 +6,7 @@ connection <- sp_get_postgres_connection(
   password = "postgres",
   dbname = "dvdrental",
   host = "localhost",
-  port = 5432,
+  port = 5439,
   seconds_to_test = 30,
   connection_tab = TRUE
 )
