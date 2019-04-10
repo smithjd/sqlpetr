@@ -23,8 +23,12 @@ has claimed port 5432, since that's its default, and our container won't work!
 So we need to use a different port for \emph{our} PostgreSQL container.}
 }
 \value{
-Result of Docker command if it succeeded. Stops with an error message
-if it failed.
+If the Docker command fails, \code{sp_pg_docker_run} will stop with an
+error message. If the Docker command succeeds, \code{sp_pg_docker_run} will wait
+30 seconds for the database to come up with \code{sp_get_postgres_connection}.
+If that fails, \code{sp_get_postgres_connection} will stop with an error message.
+If it succeeds, \code{sp_pg_docker_run} will close the connection and return the
+\emph{Docker} result.
 }
 \description{
 Creates a container and runs an image in it. The image

@@ -128,8 +128,12 @@ sp_docker_run <- function(image_tag,
 #' Why? If PostgreSQL is running on the host or in another container, it probably
 #' has claimed port 5432, since that's its default, and our container won't work!
 #' So we need to use a different port for *our* PostgreSQL container.
-#' @return Result of Docker command if it succeeded. Stops with an error message
-#' if it failed.
+#' @return If the Docker command fails, `sp_pg_docker_run` will stop with an
+#' error message. If the Docker command succeeds, `sp_pg_docker_run` will wait
+#' 30 seconds for the database to come up with `sp_get_postgres_connection`.
+#' If that fails, `sp_get_postgres_connection` will stop with an error message.
+#' If it succeeds, `sp_pg_docker_run` will close the connection and return the
+#' *Docker* result.
 #' @importFrom glue glue
 #' @export sp_pg_docker_run
 #' @examples
@@ -157,6 +161,21 @@ sp_pg_docker_run <- function(container_name,
     "--env POSTGRES_PASSWORD=", postgres_password # database superuser password
   )
   result <- sp_docker_run(image_tag = image_tag, options = run_options)
+
+  # wait 30 seconds for database
+  dummy_connection <- sp_get_postgres_connection(
+    user = "postgres",
+    password = postgres_password,
+    dbname = "postgres",
+    host = "localhost",
+    port = postgres_port,
+    seconds_to_test = 30,
+    connection_tab = FALSE
+  )
+
+  # if we get here the connection worked - close it and return
+  DBI::dbDisconnect(dummy_connection)
+  return(result)
 }
 
 #' @title Make simple PostgreSQL container
