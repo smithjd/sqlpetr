@@ -34,8 +34,8 @@
 
 <meta property="og:description" content="Creates a container and runs an image in it. The image
 must be based on the docker.io/postgres:10 image. It will run in the
-background (--detach) and the default PostgreSQL port 5432 will be
-published to localhost:5432." />
+background (--detach) and the container PostgreSQL port will be
+published to localhost." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -66,7 +66,7 @@ published to localhost:5432." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sqlpetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -96,12 +96,7 @@ published to localhost:5432." />
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/smithjd/sqlpetr">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -115,7 +110,7 @@ published to localhost:5432." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Run a PostgreSQL Docker image in a container</h1>
-    <small class="dont-index">Source: <a href='https://github.com/smithjd/sqlpetr/blob/master/R/sp_docker_functions.R'><code>R/sp_docker_functions.R</code></a></small>
+    
     <div class="hidden name"><code>sp_pg_docker_run.Rd</code></div>
     </div>
 
@@ -123,13 +118,13 @@ published to localhost:5432." />
     
     <p>Creates a container and runs an image in it. The image
 must be based on the <code>docker.io/postgres:10</code> image. It will run in the
-background (<code>--detach</code>) and the default PostgreSQL port 5432 will be
-published to <code>localhost:5432</code>.</p>
+background (<code>--detach</code>) and the container PostgreSQL port will be
+published to <code>localhost</code>.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>sp_pg_docker_run</span>(<span class='no'>container_name</span>, <span class='kw'>image_tag</span> <span class='kw'>=</span> <span class='st'>"docker.io/postgres:10"</span>,
-  <span class='kw'>postgres_password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>)</pre>
+  <span class='kw'>postgres_password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>, <span class='kw'>postgres_port</span> <span class='kw'>=</span> <span class='fl'>5439</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,6 +142,14 @@ run. Default is the base PostgreSQL 10 image, <code>docker.io/postgres:10</code>
       <th>postgres_password</th>
       <td><p>character: the <code>postgres</code> database superuser
 password. Default is "postgres".</p></td>
+    </tr>
+    <tr>
+      <th>postgres_port</th>
+      <td><p>integer: the PostgreSQL port. The default is <em>5439</em>.
+Note that the default is 5439 instead of the usual PostgreSQL default, 5432.
+Why? If PostgreSQL is running on the host or in another container, it probably
+has claimed port 5432, since that's its default, and our container won't work!
+So we need to use a different port for <em>our</em> PostgreSQL container.</p></td>
     </tr>
     </table>
     

@@ -11,8 +11,11 @@
 #' The default is "dvdrental".
 #' @param host character: The IP address or host where postgreSQL is located,
 #' defaults to "localhost"
-#' @param port integer: The port on the host that postgreSQL listens to, defaults
-#' to "5432"
+#' @param port integer: The port on the host that PostgreSQL listens on, defaults
+#' to *5439*. Note that this is *not* the PostgreSQL default port, 5432! Why? If
+#' PostgreSQL is running on the host or in another container, it probably has
+#' claimed port 5432, since that's its default, and our container won't work!
+#' So we need to use a different port for *our* PostgreSQL container.
 #' @param seconds_to_test integer: The number of iterations to try while waiting
 #' for PostgreSQL service to be ready. The function sleeps one second between
 #' connection attempts, so a value of 10 would require approximately 10 seconds.
@@ -47,7 +50,7 @@
 #'   password = "postgres",
 #'   dbname = "dvdrental",
 #'   host = "localhost",
-#'   port = 5432,
+#'   port = 5439,
 #'   seconds_to_test = 30,
 #'   connection_tab = TRUE
 #' )
@@ -57,7 +60,7 @@ sp_get_postgres_connection <- function(user = "postgres",
                                        password = "postgres",
                                        dbname = "dvdrental",
                                        host = "localhost",
-                                       port = 5432,
+                                       port = 5439,
                                        seconds_to_test = 30,
                                        connection_tab = FALSE) {
 

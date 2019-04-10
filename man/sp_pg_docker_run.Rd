@@ -5,7 +5,7 @@
 \title{Run a PostgreSQL Docker image in a container}
 \usage{
 sp_pg_docker_run(container_name, image_tag = "docker.io/postgres:10",
-  postgres_password = "postgres")
+  postgres_password = "postgres", postgres_port = 5439)
 }
 \arguments{
 \item{container_name}{character: a valid container name for the container}
@@ -15,6 +15,12 @@ run. Default is the base PostgreSQL 10 image, \code{docker.io/postgres:10}.}
 
 \item{postgres_password}{character: the \code{postgres} database superuser
 password. Default is "postgres".}
+
+\item{postgres_port}{integer: the PostgreSQL port. The default is \emph{5439}.
+Note that the default is 5439 instead of the usual PostgreSQL default, 5432.
+Why? If PostgreSQL is running on the host or in another container, it probably
+has claimed port 5432, since that's its default, and our container won't work!
+So we need to use a different port for \emph{our} PostgreSQL container.}
 }
 \value{
 Result of Docker command if it succeeded. Stops with an error message
@@ -23,8 +29,8 @@ if it failed.
 \description{
 Creates a container and runs an image in it. The image
 must be based on the \code{docker.io/postgres:10} image. It will run in the
-background (\code{--detach}) and the default PostgreSQL port 5432 will be
-published to \code{localhost:5432}.
+background (\code{--detach}) and the container PostgreSQL port will be
+published to \code{localhost}.
 }
 \examples{
 \dontrun{

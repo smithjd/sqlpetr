@@ -64,7 +64,7 @@ fails, it will retry a user-specified number of times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sqlpetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -94,12 +94,7 @@ fails, it will retry a user-specified number of times." />
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/smithjd/sqlpetr">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -113,7 +108,7 @@ fails, it will retry a user-specified number of times." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Connect to a PostgreSQL database</h1>
-    <small class="dont-index">Source: <a href='https://github.com/smithjd/sqlpetr/blob/master/R/sp_postgresql_functions.R'><code>R/sp_postgresql_functions.R</code></a></small>
+    
     <div class="hidden name"><code>sp_get_postgres_connection.Rd</code></div>
     </div>
 
@@ -125,7 +120,7 @@ fails, it will retry a user-specified number of times.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sp_get_postgres_connection</span>(<span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>, <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>,
-  <span class='kw'>dbname</span> <span class='kw'>=</span> <span class='st'>"dvdrental"</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"localhost"</span>, <span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>5432</span>,
+  <span class='kw'>dbname</span> <span class='kw'>=</span> <span class='st'>"dvdrental"</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"localhost"</span>, <span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>5439</span>,
   <span class='kw'>seconds_to_test</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>connection_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -154,8 +149,11 @@ defaults to "localhost"</p></td>
     </tr>
     <tr>
       <th>port</th>
-      <td><p>integer: The port on the host that postgreSQL listens to, defaults
-to "5432"</p></td>
+      <td><p>integer: The port on the host that PostgreSQL listens on, defaults
+to <em>5439</em>. Note that this is <em>not</em> the PostgreSQL default port, 5432! Why? If
+PostgreSQL is running on the host or in another container, it probably has
+claimed port 5432, since that's its default, and our container won't work!
+So we need to use a different port for <em>our</em> PostgreSQL container.</p></td>
     </tr>
     <tr>
       <th>seconds_to_test</th>
@@ -201,7 +199,7 @@ error message.</p>
   <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>,
   <span class='kw'>dbname</span> <span class='kw'>=</span> <span class='st'>"dvdrental"</span>,
   <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"localhost"</span>,
-  <span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>5432</span>,
+  <span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>5439</span>,
   <span class='kw'>seconds_to_test</span> <span class='kw'>=</span> <span class='fl'>30</span>,
   <span class='kw'>connection_tab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )

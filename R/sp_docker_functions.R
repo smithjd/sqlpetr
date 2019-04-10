@@ -116,13 +116,18 @@ sp_docker_run <- function(image_tag,
 #' @name sp_pg_docker_run
 #' @description Creates a container and runs an image in it. The image
 #' must be based on the `docker.io/postgres:10` image. It will run in the
-#' background (`--detach`) and the default PostgreSQL port 5432 will be
-#' published to `localhost:5432`.
+#' background (`--detach`) and the container PostgreSQL port will be
+#' published to `localhost`.
 #' @param container_name character: a valid container name for the container
 #' @param image_tag character: a valid image tag (name) for the docker image to
 #' run. Default is the base PostgreSQL 10 image, `docker.io/postgres:10`.
 #' @param postgres_password character: the `postgres` database superuser
 #' password. Default is "postgres".
+#' @param postgres_port integer: the PostgreSQL port. The default is *5439*.
+#' Note that the default is 5439 instead of the usual PostgreSQL default, 5432.
+#' Why? If PostgreSQL is running on the host or in another container, it probably
+#' has claimed port 5432, since that's its default, and our container won't work!
+#' So we need to use a different port for *our* PostgreSQL container.
 #' @return Result of Docker command if it succeeded. Stops with an error message
 #' if it failed.
 #' @importFrom glue glue
@@ -141,12 +146,14 @@ sp_docker_run <- function(image_tag,
 
 sp_pg_docker_run <- function(container_name,
                              image_tag = "docker.io/postgres:10",
-                             postgres_password = "postgres"
+                             postgres_password = "postgres",
+                             postgres_port = 5439
                     ) {
   run_options <- glue::glue(
     "--detach ", # run in the backgrouns
     "--name ", container_name, " ", # gives the container a name
-    "--publish 5432:5432 ", # publish the default Postgres port
+    "--env PGPORT=", postgres_port, " ", # set port via environment variable
+    "--publish ", postgres_port, ":", postgres_port, " ", # publish port
     "--env POSTGRES_PASSWORD=", postgres_password # database superuser password
   )
   result <- sp_docker_run(image_tag = image_tag, options = run_options)

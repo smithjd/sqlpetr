@@ -5,7 +5,7 @@
 \title{Connect to a PostgreSQL database}
 \usage{
 sp_get_postgres_connection(user = "postgres", password = "postgres",
-  dbname = "dvdrental", host = "localhost", port = 5432,
+  dbname = "dvdrental", host = "localhost", port = 5439,
   seconds_to_test = 30, connection_tab = FALSE)
 }
 \arguments{
@@ -22,8 +22,11 @@ The default is "dvdrental".}
 \item{host}{character: The IP address or host where postgreSQL is located,
 defaults to "localhost"}
 
-\item{port}{integer: The port on the host that postgreSQL listens to, defaults
-to "5432"}
+\item{port}{integer: The port on the host that PostgreSQL listens on, defaults
+to \emph{5439}. Note that this is \emph{not} the PostgreSQL default port, 5432! Why? If
+PostgreSQL is running on the host or in another container, it probably has
+claimed port 5432, since that's its default, and our container won't work!
+So we need to use a different port for \emph{our} PostgreSQL container.}
 
 \item{seconds_to_test}{integer: The number of iterations to try while waiting
 for PostgreSQL service to be ready. The function sleeps one second between
@@ -64,7 +67,7 @@ connection <- sp_get_postgres_connection(
   password = "postgres",
   dbname = "dvdrental",
   host = "localhost",
-  port = 5432,
+  port = 5439,
   seconds_to_test = 30,
   connection_tab = TRUE
 )
