@@ -5,7 +5,8 @@
 \title{Run a PostgreSQL Docker image in a container}
 \usage{
 sp_pg_docker_run(container_name, image_tag = "docker.io/postgres:10",
-  postgres_password = "postgres", postgres_port = 5439)
+  postgres_password = "postgres", postgres_port = 5439,
+  docker_network = "sql-pet")
 }
 \arguments{
 \item{container_name}{character: a valid container name for the container}
@@ -21,6 +22,9 @@ Note that the default is 5439 instead of the usual PostgreSQL default, 5432.
 Why? If PostgreSQL is running on the host or in another container, it probably
 has claimed port 5432, since that's its default, and our container won't work!
 So we need to use a different port for \emph{our} PostgreSQL container.}
+
+\item{docker_network}{character: the Docker network to host the container.
+The default is "sql-pet". The network will be created if it does not exist.}
 }
 \value{
 If the Docker command fails, \code{sp_pg_docker_run} will stop with an

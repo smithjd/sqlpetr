@@ -128,6 +128,8 @@ sp_docker_run <- function(image_tag,
 #' Why? If PostgreSQL is running on the host or in another container, it probably
 #' has claimed port 5432, since that's its default, and our container won't work!
 #' So we need to use a different port for *our* PostgreSQL container.
+#' @param docker_network character: the Docker network to host the container.
+#' The default is "sql-pet". The network will be created if it does not exist.
 #' @return If the Docker command fails, `sp_pg_docker_run` will stop with an
 #' error message. If the Docker command succeeds, `sp_pg_docker_run` will wait
 #' 30 seconds for the database to come up with `sp_get_postgres_connection`.
@@ -135,6 +137,8 @@ sp_docker_run <- function(image_tag,
 #' If it succeeds, `sp_pg_docker_run` will close the connection and return the
 #' *Docker* result.
 #' @importFrom glue glue
+#' @importFrom dplyr filter
+#' @importFrom dplyr %>%
 #' @export sp_pg_docker_run
 #' @examples
 #' \dontrun{
@@ -151,10 +155,17 @@ sp_docker_run <- function(image_tag,
 sp_pg_docker_run <- function(container_name,
                              image_tag = "docker.io/postgres:10",
                              postgres_password = "postgres",
-                             postgres_port = 5439
+                             postgres_port = 5439,
+                             docker_network = "sql-pet"
                     ) {
+  if (sp_docker_networks_tibble() %>%
+      dplyr::filter(name == docker_network) %>%
+      nrow() == 0) {
+    sp_docker_network_create(docker_network)
+  }
   run_options <- glue::glue(
-    "--detach ", # run in the backgrouns
+    "--detach ", # run in the background
+    "--network ", docker_network, " ", # Docker network name
     "--name ", container_name, " ", # gives the container a name
     "--env PGPORT=", postgres_port, " ", # set port via environment variable
     "--publish ", postgres_port, ":", postgres_port, " ", # publish port
