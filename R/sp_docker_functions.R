@@ -330,6 +330,65 @@ sp_docker_images_tibble <- function(list_all = FALSE) {
   return(tibble::tibble())
 }
 
+#' @title List networks into a tibble
+#' @name sp_docker_networks_tibble
+#' @description Creates a tibble of networks using `docker network`
+#' @return A tibble listing the networks
+#' @importFrom readr read_delim
+#' @importFrom readr cols
+#' @importFrom readr col_character
+#' @importFrom dplyr %>%
+#' @importFrom snakecase to_snake_case
+#' @importFrom tibble tibble
+#' @export sp_docker_networks_tibble
+#' @examples
+#' \dontrun{
+#' docker_networks <- sp_docker_networks_tibble()
+#' View(docker_networks)
+#' }
+
+sp_docker_networks_tibble <- function() {
+
+  # everything Docker knows about an network - see
+  # https://docs.docker.com/engine/reference/commandline/network_ls/
+  prettyprint_format <- paste(
+    "table {{.ID}}",
+    "{{.Name}}",
+    "{{.Driver}}",
+    "{{.Scope}}",
+    "{{.IPv6}}",
+    "{{.Internal}}",
+    "{{.Labels}}",
+    "{{.CreatedAt}}",
+    sep = "|"
+  )
+  docker_cmd <- paste(
+    "network ls --format ",
+    '"',
+    prettyprint_format,
+    '"',
+    sep = ""
+  )
+  listing <- system2(
+    "docker", docker_cmd, stdout = TRUE, stderr = FALSE
+  )
+
+  # are there any data rows?
+  if (length(listing) > 1) {
+    networks <- listing %>%
+      readr::read_delim(
+        delim = "|",
+        col_types = readr::cols(.default = readr::col_character())
+      )
+    colnames(networks) <- colnames(networks) %>%
+      snakecase::to_snake_case()
+    return(networks)
+  }
+
+  # no networks - return an empty tibble
+  return(tibble::tibble())
+}
+
 #' @title Forcibly remove a container
 #' @name sp_docker_remove_container
 #' @description Forcibly removes a Docker container. If it is running it will be
@@ -402,6 +461,24 @@ sp_docker_stop <- function(container_name) {
   docker_cmd <- glue::glue(
     "stop ", # Docker command.
     container_name # gives the container a name
+  )
+  result <- .system2_to_docker(docker_cmd)
+}
+
+#' @title Create a Docker network
+#' @name sp_docker_network_create
+#' @description Creates a Docker network with name `network_name`.
+#' @param network_name character: network to create. The default is `sql-pet`.
+#' @return Result of Docker command if it succeeded. Stops with an
+#' error message if it failed.
+#' @importFrom glue glue
+#' @export sp_docker_network_create
+#' @examples
+#' \dontrun{sp_docker_network_create("sql-pet")}
+sp_docker_network_create <- function(network_name = "sql-pet") {
+  docker_cmd <- glue::glue(
+    "network create ", # Docker command.
+    network_name # gives the network a name
   )
   result <- .system2_to_docker(docker_cmd)
 }
