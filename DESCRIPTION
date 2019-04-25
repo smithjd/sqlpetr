@@ -1,6 +1,7 @@
 Package: sqlpetr
 Title: Companion Package for R-Docker-Databases Book
-Version: 0.9.9
+Version: 1.1.0
+Date: 2019-04-24
 Authors@R: c(
   person("M. Edward (Ed)", "Borasky", role = c("aut", "cre"), email = "znmeb@znmeb.net"),
   person("John David", "Smith", role = "aut", email = "john.smith@learningalliances.net"),
@@ -17,7 +18,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/smithjd/sqlpetr
+URL: https://smithjd.github.io/sqlpetr
 BugReports: https://github.com/smithjd/sqlpetr/issues
 Imports:
     DBI,

@@ -66,7 +66,7 @@ published to localhost." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sqlpetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -124,7 +124,8 @@ published to <code>localhost</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sp_pg_docker_run</span>(<span class='no'>container_name</span>, <span class='kw'>image_tag</span> <span class='kw'>=</span> <span class='st'>"docker.io/postgres:10"</span>,
-  <span class='kw'>postgres_password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>, <span class='kw'>postgres_port</span> <span class='kw'>=</span> <span class='fl'>5439</span>)</pre>
+  <span class='kw'>postgres_password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>, <span class='kw'>postgres_port</span> <span class='kw'>=</span> <span class='fl'>5439</span>,
+  <span class='kw'>docker_network</span> <span class='kw'>=</span> <span class='st'>"sql-pet"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,12 +152,21 @@ Why? If PostgreSQL is running on the host or in another container, it probably
 has claimed port 5432, since that's its default, and our container won't work!
 So we need to use a different port for <em>our</em> PostgreSQL container.</p></td>
     </tr>
+    <tr>
+      <th>docker_network</th>
+      <td><p>character: the Docker network to host the container.
+The default is "sql-pet". The network will be created if it does not exist.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Result of Docker command if it succeeded. Stops with an error message
-if it failed.</p>
+    <p>If the Docker command fails, <code>sp_pg_docker_run</code> will stop with an
+error message. If the Docker command succeeds, <code>sp_pg_docker_run</code> will wait
+30 seconds for the database to come up with <code>sp_get_postgres_connection</code>.
+If that fails, <code>sp_get_postgres_connection</code> will stop with an error message.
+If it succeeds, <code>sp_pg_docker_run</code> will close the connection and return the
+<em>Docker</em> result.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

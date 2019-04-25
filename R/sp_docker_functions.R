@@ -128,9 +128,17 @@ sp_docker_run <- function(image_tag,
 #' Why? If PostgreSQL is running on the host or in another container, it probably
 #' has claimed port 5432, since that's its default, and our container won't work!
 #' So we need to use a different port for *our* PostgreSQL container.
-#' @return Result of Docker command if it succeeded. Stops with an error message
-#' if it failed.
+#' @param docker_network character: the Docker network to host the container.
+#' The default is "sql-pet". The network will be created if it does not exist.
+#' @return If the Docker command fails, `sp_pg_docker_run` will stop with an
+#' error message. If the Docker command succeeds, `sp_pg_docker_run` will wait
+#' 30 seconds for the database to come up with `sp_get_postgres_connection`.
+#' If that fails, `sp_get_postgres_connection` will stop with an error message.
+#' If it succeeds, `sp_pg_docker_run` will close the connection and return the
+#' *Docker* result.
 #' @importFrom glue glue
+#' @importFrom dplyr filter
+#' @importFrom dplyr %>%
 #' @export sp_pg_docker_run
 #' @examples
 #' \dontrun{
@@ -147,16 +155,38 @@ sp_docker_run <- function(image_tag,
 sp_pg_docker_run <- function(container_name,
                              image_tag = "docker.io/postgres:10",
                              postgres_password = "postgres",
-                             postgres_port = 5439
+                             postgres_port = 5439,
+                             docker_network = "sql-pet"
                     ) {
+  if (sp_docker_networks_tibble() %>%
+      dplyr::filter(name == docker_network) %>%
+      nrow() == 0) {
+    sp_docker_network_create(docker_network)
+  }
   run_options <- glue::glue(
-    "--detach ", # run in the backgrouns
+    "--detach ", # run in the background
+    "--network ", docker_network, " ", # Docker network name
     "--name ", container_name, " ", # gives the container a name
     "--env PGPORT=", postgres_port, " ", # set port via environment variable
     "--publish ", postgres_port, ":", postgres_port, " ", # publish port
     "--env POSTGRES_PASSWORD=", postgres_password # database superuser password
   )
   result <- sp_docker_run(image_tag = image_tag, options = run_options)
+
+  # wait 30 seconds for database
+  dummy_connection <- sp_get_postgres_connection(
+    user = "postgres",
+    password = postgres_password,
+    dbname = "postgres",
+    host = "localhost",
+    port = postgres_port,
+    seconds_to_test = 30,
+    connection_tab = FALSE
+  )
+
+  # if we get here the connection worked - close it and return
+  DBI::dbDisconnect(dummy_connection)
+  return(result)
 }
 
 #' @title Make simple PostgreSQL container
@@ -311,6 +341,65 @@ sp_docker_images_tibble <- function(list_all = FALSE) {
   return(tibble::tibble())
 }
 
+#' @title List networks into a tibble
+#' @name sp_docker_networks_tibble
+#' @description Creates a tibble of networks using `docker network`
+#' @return A tibble listing the networks
+#' @importFrom readr read_delim
+#' @importFrom readr cols
+#' @importFrom readr col_character
+#' @importFrom dplyr %>%
+#' @importFrom snakecase to_snake_case
+#' @importFrom tibble tibble
+#' @export sp_docker_networks_tibble
+#' @examples
+#' \dontrun{
+#' docker_networks <- sp_docker_networks_tibble()
+#' View(docker_networks)
+#' }
+
+sp_docker_networks_tibble <- function() {
+
+  # everything Docker knows about an network - see
+  # https://docs.docker.com/engine/reference/commandline/network_ls/
+  prettyprint_format <- paste(
+    "table {{.ID}}",
+    "{{.Name}}",
+    "{{.Driver}}",
+    "{{.Scope}}",
+    "{{.IPv6}}",
+    "{{.Internal}}",
+    "{{.Labels}}",
+    "{{.CreatedAt}}",
+    sep = "|"
+  )
+  docker_cmd <- paste(
+    "network ls --format ",
+    '"',
+    prettyprint_format,
+    '"',
+    sep = ""
+  )
+  listing <- system2(
+    "docker", docker_cmd, stdout = TRUE, stderr = FALSE
+  )
+
+  # are there any data rows?
+  if (length(listing) > 1) {
+    networks <- listing %>%
+      readr::read_delim(
+        delim = "|",
+        col_types = readr::cols(.default = readr::col_character())
+      )
+    colnames(networks) <- colnames(networks) %>%
+      snakecase::to_snake_case()
+    return(networks)
+  }
+
+  # no networks - return an empty tibble
+  return(tibble::tibble())
+}
+
 #' @title Forcibly remove a container
 #' @name sp_docker_remove_container
 #' @description Forcibly removes a Docker container. If it is running it will be
@@ -383,6 +472,24 @@ sp_docker_stop <- function(container_name) {
   docker_cmd <- glue::glue(
     "stop ", # Docker command.
     container_name # gives the container a name
+  )
+  result <- .system2_to_docker(docker_cmd)
+}
+
+#' @title Create a Docker network
+#' @name sp_docker_network_create
+#' @description Creates a Docker network with name `network_name`.
+#' @param network_name character: network to create. The default is `sql-pet`.
+#' @return Result of Docker command if it succeeded. Stops with an
+#' error message if it failed.
+#' @importFrom glue glue
+#' @export sp_docker_network_create
+#' @examples
+#' \dontrun{sp_docker_network_create("sql-pet")}
+sp_docker_network_create <- function(network_name = "sql-pet") {
+  docker_cmd <- glue::glue(
+    "network create ", # Docker command.
+    network_name # gives the network a name
   )
   result <- .system2_to_docker(docker_cmd)
 }
