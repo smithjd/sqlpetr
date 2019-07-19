@@ -28,6 +28,7 @@ Imports:
     DT,
     glue,
     here,
+    inspectdf,
     knitr,
     lubridate,
     purrr,
