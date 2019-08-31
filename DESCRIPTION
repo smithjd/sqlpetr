@@ -1,6 +1,6 @@
 Package: sqlpetr
 Title: Companion Package for R-Docker-Databases Book
-Version: 1.1.0
+Version: 1.1.0.9999
 Date: 2019-04-24
 Authors@R: c(
   person("M. Edward (Ed)", "Borasky", role = c("aut", "cre"), email = "znmeb@znmeb.net"),
