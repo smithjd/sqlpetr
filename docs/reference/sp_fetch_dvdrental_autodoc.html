@@ -8,11 +8,13 @@
 
 <title>Fetch <code>dvdrental</code> autodoc — sp_fetch_dvdrental_autodoc • sqlpetr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -30,8 +32,8 @@
 
 
 
-<meta property="og:title" content="Fetch <code>dvdrental</code> autodoc — sp_fetch_dvdrental_autodoc" />
 
+<meta property="og:title" content="Fetch <code>dvdrental</code> autodoc — sp_fetch_dvdrental_autodoc" />
 <meta property="og:description" content="When sp_make_dvdrental_image builds the Docker image, it
 installs a utility called
 postgresql-autodoc. After restoring
@@ -40,6 +42,7 @@ the database documentation on the image at
 /var/lib/postgresql/dvdrental.html. This function fetches that file to a
 file on the Docker host." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -84,20 +87,7 @@ file on the Docker host." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/building-the-dvdrental-docker-image.html">Building the `dvdrental` Docker Image</a>
-    </li>
-  </ul>
-</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -118,7 +108,6 @@ file on the Docker host." />
     </div>
 
     <div class="ref-description">
-    
     <p>When <code>sp_make_dvdrental_image</code> builds the Docker image, it
 installs a utility called
 <a href='https://github.com/cbbrowne/autodoc'>postgresql-autodoc</a>. After restoring
@@ -126,11 +115,10 @@ the <code>dvdrental</code> database, it runs the utilily and creates an HTML fil
 the database documentation on the image at
 <code>/var/lib/postgresql/dvdrental.html</code>. This function fetches that file to a
 file on the Docker host.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>sp_fetch_dvdrental_autodoc</span>(<span class='kw'>container_name</span> <span class='kw'>=</span> <span class='st'>"sql-pet"</span>, <span class='no'>file_path</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -146,21 +134,19 @@ should be an absolute path so you know where to find it, and the filename
 should end in <code>.html</code> so the browser can open it. There is no default.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>If successful: a character value of lenght 0. If unsuccessful, the
 function terminates with an error message.</p>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-          </ul>
+    </ul>
 
   </div>
 </div>

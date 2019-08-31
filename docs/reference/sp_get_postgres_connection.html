@@ -8,11 +8,13 @@
 
 <title>Connect to a PostgreSQL database — sp_get_postgres_connection • sqlpetr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -30,11 +32,12 @@
 
 
 
-<meta property="og:title" content="Connect to a PostgreSQL database — sp_get_postgres_connection" />
 
+<meta property="og:title" content="Connect to a PostgreSQL database — sp_get_postgres_connection" />
 <meta property="og:description" content="Attempts to connect to a PostgreSQL database. If the connection
 fails, it will retry a user-specified number of times." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -79,20 +82,7 @@ fails, it will retry a user-specified number of times." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/building-the-dvdrental-docker-image.html">Building the `dvdrental` Docker Image</a>
-    </li>
-  </ul>
-</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -113,16 +103,14 @@ fails, it will retry a user-specified number of times." />
     </div>
 
     <div class="ref-description">
-    
     <p>Attempts to connect to a PostgreSQL database. If the connection
 fails, it will retry a user-specified number of times.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>sp_get_postgres_connection</span>(<span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>, <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>,
   <span class='kw'>dbname</span> <span class='kw'>=</span> <span class='st'>"dvdrental"</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"localhost"</span>, <span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>5439</span>,
   <span class='kw'>seconds_to_test</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>connection_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -169,14 +157,13 @@ tab in the RStudio connections pane. <code>connection_tab = FALSE</code> is
 the default - call with <code>connection_tab = TRUE</code> to open the tab.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>If successful: a connection object, which is an S4 object
 that inherits from DBIConnection, used to communicate with the
 database engine. If unsuccessful, the function terminates with an
 error message.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
@@ -209,9 +196,7 @@ error message.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
