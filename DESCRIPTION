@@ -28,6 +28,7 @@ Imports:
     DiagrammeR,
     DT,
     glue,
+    gt,
     here,
     inspectdf,
     knitr,
