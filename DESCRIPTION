@@ -43,7 +43,10 @@ Imports:
     tibble,
     tidyverse,
     utils,
-    readr
+    readr,
+    tsibble,
+    fable,
+    zoo
 Suggests: 
     bookdown,
     devtools,
