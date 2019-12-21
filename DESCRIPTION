@@ -46,7 +46,8 @@ Imports:
     readr,
     tsibble,
     fable,
-    zoo
+    zoo,
+    connections
 Suggests: 
     bookdown,
     devtools,
