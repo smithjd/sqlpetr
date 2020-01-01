@@ -21,9 +21,9 @@ function terminates with an error message.
 \description{
 When \code{sp_make_dvdrental_image} builds the Docker image, it
 installs a utility called
-\href{https://github.com/cbbrowne/autodoc}{postgresql-autodoc}. After restoring
+\href{https://github.com/cbbrowne/autodoc}{\code{postgresql-autodoc}}. After restoring
 the \code{dvdrental} database, it runs the utilily and creates an HTML file with
 the database documentation on the image at
-\code{/var/lib/postgresql/dvdrental.html}. This function fetches that file to a
+\verb{/var/lib/postgresql/dvdrental.html}. This function fetches that file to a
 file on the Docker host.
 }

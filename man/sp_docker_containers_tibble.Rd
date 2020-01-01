@@ -15,7 +15,7 @@ A tibble listing the containers. If there are none,
 returns an empty (0x0) tibble.
 }
 \description{
-Creates a tibble of containers using \code{docker ps}
+Creates a tibble of containers using \verb{docker ps}
 }
 \examples{
 \dontrun{

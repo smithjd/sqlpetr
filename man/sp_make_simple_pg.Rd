@@ -18,8 +18,8 @@ Result of Docker command if it succeeded. Stops with an
 error message if it failed.
 }
 \description{
-Creates a container and runs the PostgreSQL 10 image
-(\code{docker.io/postgres:10}) in it. The image will be downloaded if it doesn't
+Creates a container and runs the PostgreSQL 11 image
+(\code{docker.io/postgres:11}) in it. The image will be downloaded if it doesn't
 exist locally.
 }
 \examples{

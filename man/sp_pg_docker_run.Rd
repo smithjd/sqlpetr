@@ -4,15 +4,19 @@
 \alias{sp_pg_docker_run}
 \title{Run a PostgreSQL Docker image in a container}
 \usage{
-sp_pg_docker_run(container_name, image_tag = "docker.io/postgres:10",
-  postgres_password = "postgres", postgres_port = 5439,
-  docker_network = "sql-pet")
+sp_pg_docker_run(
+  container_name,
+  image_tag = "docker.io/postgres:11",
+  postgres_password = "postgres",
+  postgres_port = 5439,
+  docker_network = "sql-pet"
+)
 }
 \arguments{
 \item{container_name}{character: a valid container name for the container}
 
 \item{image_tag}{character: a valid image tag (name) for the docker image to
-run. Default is the base PostgreSQL 10 image, \code{docker.io/postgres:10}.}
+run. Default is the base PostgreSQL 11 image, \code{docker.io/postgres:11}.}
 
 \item{postgres_password}{character: the \code{postgres} database superuser
 password. Default is "postgres".}
@@ -36,7 +40,7 @@ If it succeeds, \code{sp_pg_docker_run} will close the connection and return the
 }
 \description{
 Creates a container and runs an image in it. The image
-must be based on the \code{docker.io/postgres:10} image. It will run in the
+must be based on the \code{docker.io/postgres:11} image. It will run in the
 background (\code{--detach}) and the container PostgreSQL port will be
 published to \code{localhost}.
 }

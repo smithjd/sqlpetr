@@ -56,7 +56,7 @@ test_that("dvd_rental_runs", {
 
   # list the tables
   tables <- DBI::dbListTables(conn)
-  expect_equal(tables, table_list)
+  expect_equal(sort(tables), sort(table_list))
 
   # shut down and cleanup
   DBI::dbDisconnect(conn)

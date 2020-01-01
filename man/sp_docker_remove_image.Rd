@@ -20,5 +20,5 @@ get an error message. This is a blunt instrument!
 Warning: this function removes the image you asked it to remove!
 }
 \examples{
-\dontrun{sp_docker_remove_image("docker.io/postgres:10")}
+\dontrun{sp_docker_remove_image("docker.io/postgres:11")}
 }

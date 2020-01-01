@@ -8,7 +8,7 @@ sp_docker_build(build_options, build_context_path)
 }
 \arguments{
 \item{build_options}{character: the build options. There are many; do
-\code{docker build --help} at a command prompt to see them. You will need at least
+\verb{docker build --help} at a command prompt to see them. You will need at least
 the \code{--tag} option to give the built image a tag (name).}
 
 \item{build_context_path}{character: the build context path}

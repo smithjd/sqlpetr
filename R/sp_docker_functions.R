@@ -59,7 +59,7 @@ sp_make_dvdrental_image <- function(image_tag) {
   # compute path to Docker build context
   build_context_path <- paste(
     system.file(package = "sqlpetr"),
-    "/extdata/docker",
+    "/extdata/dvdrental-image",
     sep = "/"
   )
 
@@ -77,7 +77,7 @@ sp_make_dvdrental_image <- function(image_tag) {
 #' download then fails, the function will stop with an error message.
 #'
 #' Note that the full syntax of an image tag is `<repository>/<name>:<tag>`. For
-#' example, the PostgreSQL 10 image we use is `docker.io/postgres:10`.
+#' example, the PostgreSQL 11 image we use is `docker.io/postgres:11`.
 #' @param options character: the options to use when running the image. Default
 #' is the empty string. You will usually need at least the `--name` option to
 #' give the container a name.
@@ -115,12 +115,12 @@ sp_docker_run <- function(image_tag,
 #' @title Run a PostgreSQL Docker image in a container
 #' @name sp_pg_docker_run
 #' @description Creates a container and runs an image in it. The image
-#' must be based on the `docker.io/postgres:10` image. It will run in the
+#' must be based on the `docker.io/postgres:11` image. It will run in the
 #' background (`--detach`) and the container PostgreSQL port will be
 #' published to `localhost`.
 #' @param container_name character: a valid container name for the container
 #' @param image_tag character: a valid image tag (name) for the docker image to
-#' run. Default is the base PostgreSQL 10 image, `docker.io/postgres:10`.
+#' run. Default is the base PostgreSQL 11 image, `docker.io/postgres:11`.
 #' @param postgres_password character: the `postgres` database superuser
 #' password. Default is "postgres".
 #' @param postgres_port integer: the PostgreSQL port. The default is *5439*.
@@ -153,7 +153,7 @@ sp_docker_run <- function(image_tag,
 #' }
 
 sp_pg_docker_run <- function(container_name,
-                             image_tag = "docker.io/postgres:10",
+                             image_tag = "docker.io/postgres:11",
                              postgres_password = "postgres",
                              postgres_port = 5439,
                              docker_network = "sql-pet"
@@ -191,8 +191,8 @@ sp_pg_docker_run <- function(container_name,
 
 #' @title Make simple PostgreSQL container
 #' @name sp_make_simple_pg
-#' @description Creates a container and runs the PostgreSQL 10 image
-#' (`docker.io/postgres:10`) in it. The image will be downloaded if it doesn't
+#' @description Creates a container and runs the PostgreSQL 11 image
+#' (`docker.io/postgres:11`) in it. The image will be downloaded if it doesn't
 #' exist locally.
 #' @param container_name character: a valid container name for the
 #' container
@@ -211,7 +211,7 @@ sp_pg_docker_run <- function(container_name,
 sp_make_simple_pg <- function(container_name,
                               postgres_password = "postgres") {
   result <- sp_pg_docker_run(container_name,
-                             image_tag = "docker.io/postgres:10",
+                             image_tag = "docker.io/postgres:11",
                              postgres_password = postgres_password)
 }
 
@@ -428,7 +428,7 @@ sp_docker_remove_container <- function(docker_container) {
 #' @param docker_image character: the name of the image to remove
 #' @return a numeric `0`
 #' @examples
-#' \dontrun{sp_docker_remove_image("docker.io/postgres:10")}
+#' \dontrun{sp_docker_remove_image("docker.io/postgres:11")}
 #' @details Warning: this function removes the image you asked it to remove!
 #' @export sp_docker_remove_image
 
