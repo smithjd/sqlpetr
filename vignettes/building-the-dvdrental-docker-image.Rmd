@@ -4,7 +4,7 @@ author: "M. Edward (Ed) Borasky, Ian Frantz"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette:
-      self_contained: false
+      self_contained: true
 bibliography: vignettes.bib
 vignette: >
   %\VignetteIndexEntry{Building the `dvdrental` Docker Image}
