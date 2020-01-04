@@ -6,8 +6,10 @@ sudo pacman --sync --noconfirm --needed \
   base-devel \
   docker \
   gcc-fortran \
+  libiodbc \
   postgresql-libs \
-  r
+  r \
+  unixodbc
 echo "Adding you to the 'docker' group"
 sudo usermod -aG docker ${USER}
 echo "Enabling and starting the Docker service"
