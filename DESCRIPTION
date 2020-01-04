@@ -33,6 +33,7 @@ Imports:
     inspectdf,
     knitr,
     lubridate,
+    odbc,
     purrr,
     rmarkdown,
     RPostgres,
