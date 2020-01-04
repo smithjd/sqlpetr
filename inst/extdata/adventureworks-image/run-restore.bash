@@ -8,7 +8,7 @@ docker build -t mssql:latest -f Dockerfile.mssql .
 docker run \
   -e 'ACCEPT_EULA=Y' \
   -e 'MSSQL_SA_PASSWORD=sit-d0wn-COMIC' \
-  --name mssql -p 1439:1433 \
+  --name mssql -p 1433:1433 \
   --hostname mssql \
   --network adventureworks \
   -d mssql
