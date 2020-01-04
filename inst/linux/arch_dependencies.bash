@@ -10,6 +10,8 @@ sudo pacman --sync --noconfirm --needed \
   postgresql-libs \
   r \
   unixodbc
+yay --sync --noconfirm --needed \
+  msodbcsql
 echo "Adding you to the 'docker' group"
 sudo usermod -aG docker ${USER}
 echo "Enabling and starting the Docker service"
