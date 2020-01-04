@@ -1,0 +1,41 @@
+FROM docker.io/postgres:9.6
+LABEL maintainer="M. Edward (Ed) Borasky <znmeb@znmeb.net>"
+
+# Install apt packages
+RUN \
+  echo 'deb http://ftp.debian.org/debian stretch-backports main' >> /etc/apt/sources.list \
+  && apt-get update \
+  && apt-get install -qqy --no-install-recommends \
+    apt-file \
+    build-essential \
+    ca-certificates \
+    curl \
+    freetds-bin \
+    freetds-common \
+    freetds-dev \
+    git \
+    git-lfs \
+    libsybdb5 \
+    man-db \
+    mlocate \
+    postgresql-server-dev-9.6 \
+    vim-nox \
+    wget \
+  && apt-get clean \
+  && mandb -c \
+  && apt-file update \
+  && updatedb
+
+# Install tds_fdw
+RUN mkdir -p /usr/local/src/tds_fdw \
+  && cd /usr/local/src/tds_fdw \
+  && TDS_FDW_VERSION=2.0.1 \
+  && export TDS_FDW_VERSION \
+  && wget https://github.com/tds-fdw/tds_fdw/archive/v${TDS_FDW_VERSION}.tar.gz \
+  && tar -xvzf v${TDS_FDW_VERSION}.tar.gz \
+  && cd tds_fdw-${TDS_FDW_VERSION}/ \
+  && make USE_PGXS=1 \
+  && make USE_PGXS=1 install
+
+# load the database creation script into the "magic pocket"
+COPY create-adventureworks.sh /docker-entrypoint-initdb.d/
