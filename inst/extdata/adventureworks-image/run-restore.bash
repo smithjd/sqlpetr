@@ -12,7 +12,7 @@ docker run \
   --hostname mssql \
   --network adventureworks \
   -d mssql
-docker exec -it adventureworks-mssql  /var/opt/mssql/backup/restore.bash
+docker exec -it mssql  /var/opt/mssql/backup/restore.bash
 docker build -t postgres9:latest -f Dockerfile.postgres9 .
 docker run \
   -e 'POSTGRES_PASSWORD=sit-d0wn-COMIC' \
