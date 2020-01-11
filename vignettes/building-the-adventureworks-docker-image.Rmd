@@ -84,8 +84,87 @@ mssql_con <- DBI::dbConnect(
 ```
 
 ## Building the PostgreSQL image
+```{r}
+sqlpetr::sp_docker_remove_container("postgresql")
+sqlpetr::sp_pg_docker_run(container_name = "postgresql", docker_network = "bridge")
+postgresql_con <- sqlpetr::sp_get_postgres_connection(
+  user = "postgres",
+  password = "postgres",
+  dbname = "postgres",
+  host = "localhost",
+  port = 5439,
+  seconds_to_test = 30,
+  connection_tab = FALSE
+)
+DBI::dbExecute(postgresql_con, "CREATE DATABASE adventureworks")
+DBI::dbDisconnect(postgresql_con)
+postgresql_con <- sqlpetr::sp_get_postgres_connection(
+  user = "postgres",
+  password = "postgres",
+  dbname = "adventureworks",
+  host = "localhost",
+  port = 5439,
+  seconds_to_test = 30,
+  connection_tab = FALSE
+)
+
+```
+
 
 ## Copying the data
+```{r}
+library(dplyr)
+
+# list the source tables
+source_tables <- DBI::dbGetQuery(
+  mssql_con,
+  'SELECT * FROM "AdventureWorks2017"."INFORMATION_SCHEMA"."TABLES"'
+) %>% dplyr::filter(
+  TABLE_TYPE == "BASE TABLE",
+  TABLE_SCHEMA != "dbo",
+  TABLE_NAME != "ProductDocument",
+  TABLE_NAME != "ProductPhoto",
+  TABLE_NAME != "Address",
+  TABLE_NAME != "Document",
+  TABLE_NAME != "Employee"
+)
+
+# create the destination schemata
+destination_schemata <- source_tables$TABLE_SCHEMA %>%
+  tolower() %>% unique()
+for (schema in destination_schemata) {
+  DBI::dbExecute(
+    postgresql_con,
+    paste0("CREATE SCHEMA IF NOT EXISTS ", schema, ";")
+  )
+}
+
+# copy the base tables - we are ignoring the views!
+print(nrow(source_tables))
+for (irow in 1:nrow(source_tables)) {
+  
+  # fetch source table
+  catalog <- source_tables$TABLE_CATALOG[irow]
+  schema <- source_tables$TABLE_SCHEMA[irow]
+  tname <- source_tables$TABLE_NAME[irow]
+  print(c(irow, catalog, schema, tname))
+  source_query <- paste0(
+    'SELECT * FROM "', catalog, '"."', schema, '"."', tname, '";'
+  )
+  work <- DBI::dbGetQuery(mssql_con, source_query)
+  names(work) <- tolower(names(work))
+  
+  # write to correct destination schema
+  DBI::dbExecute(
+    postgresql_con,
+    paste0("SET search_path TO ", tolower(schema), ";")
+  )
+  DBI::dbWriteTable(
+    postgresql_con, tolower(tname), work, overwrite = TRUE)
+}
+
+```
 
 ## Creating the backup file
+
 ## References
