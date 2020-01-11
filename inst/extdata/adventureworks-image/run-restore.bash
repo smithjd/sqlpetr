@@ -4,7 +4,7 @@
 ## Restore to SQL Server
 docker rm -f `docker ps -aq`
 docker network create adventureworks
-docker build -t mssql:latest -f Dockerfile.mssql .
+docker build -t mssql:latest -f Dockerfile .
 docker run \
   -e 'ACCEPT_EULA=Y' \
   -e 'MSSQL_SA_PASSWORD=sit-d0wn-COMIC' \
