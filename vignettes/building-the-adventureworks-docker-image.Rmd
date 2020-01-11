@@ -1,0 +1,91 @@
+---
+title: "Building the `adventureworks` Docker Image"
+author: "M. Edward (Ed) Borasky, John Smith"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+      self_contained: true
+bibliography: vignettes.bib
+vignette: >
+  %\VignetteIndexEntry{Building the `adventureworks` Docker Image}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+In the _R, Databases and Docker_ eBook [@Smith2019], we use Docker containers to provide PostgreSQL database services. We use two containers:
+
+1. `cattle`: A container with just PostgreSQL 11, and
+2. `sql-pet`: A PostgreSQL 11 container with the `adventureworks` database [@Microsoft2018] pre-loaded.
+
+Creating `cattle` is straightforward; we simply fetch the PostgreSQL 11 image [@Docker2018] and run it in a container. We do this in function `sqlpetr::sp_make_simple_pg`. However, the construction of the image used for `sql-pet` requires some more effort. The rest of this vignette describes the process.
+
+## Converting a SQL Server backup to a PostgreSQL backup
+The AdventureWorks2017 database is distributed in two forms - as a SQL Server backup file (`.bak` format) and as a zip archive containing CSV files with the data and a SQL Server script to create the database. Either way,
+the end result will be a Microsoft SQL Server database containing the data.
+
+So how do we get to a PostgreSQL backup? It's a four-step process:
+
+1. Build / run a SQL Server Docker container with the AdventureWorks database restored to it.
+2. Build / run a PostgreSQL Docker container.
+3. Connect to the containers with R code and copy the relevant schemas from
+SQL Server to PostgreSQL.
+4. Create a backup file in the PostgreSQL container and retrieve it with `docker cp`.
+
+## Building the SQL Server Docker container
+The following code is based on [@Microsoft2019]
+
+```{r}
+# build the image
+sqlpetr::sp_make_adventureworks_mssql_image(image_tag = "mssql")
+sqlpetr::sp_docker_images_tibble()
+
+# run the image in the container
+sqlpetr::sp_docker_remove_container("mssql")
+sqlpetr::sp_docker_run(
+  image_tag = "mssql",
+  options = paste(
+    "-e 'ACCEPT_EULA=Y'",
+    "-e 'MSSQL_SA_PASSWORD=sit-d0wn-COMIC'",
+    "--name mssql",
+    " --publish 1433:1433",
+    "--detach",
+    sep = " "
+  )
+)
+
+# execute the restore script
+sqlpetr::sp_docker_exec(
+  container_name = "mssql",
+  command = "/var/opt/mssql/backup/restore.bash"
+)
+
+# connect via ODBC
+mssql_con <- DBI::dbConnect(
+  odbc::odbc(),
+  .connection_string = paste(
+    "Driver={ODBC Driver 17 for SQL Server}",
+    "Server=localhost",
+    "Database=AdventureWorks2017",
+    "UID=sa",
+    "PWD=sit-d0wn-COMIC",
+    sep = ";"
+  ),
+  timeout = 10
+)
+
+```
+
+## Building the PostgreSQL image
+
+## Copying the data
+
+## Creating the backup file
+## References
