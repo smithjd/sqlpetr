@@ -69,6 +69,38 @@ sp_make_dvdrental_image <- function(image_tag) {
   result <- sp_docker_build(build_options, build_context_path)
 }
 
+#' @title Make `adventureworks_mssql` Docker image
+#' @name sp_make_adventureworks_mssql_image
+#' @description Creates a Docker image with Microsoft SQL Server (mssql)
+#' and the `AdventureWorks2017` database
+#' @param image_tag character: a valid image tag (name) for the docker image
+#' @return Result of Docker command if it succeeded. Stops with an error
+#' message if it failed.
+#' @importFrom glue glue
+#' @export sp_make_adventureworks_mssql_image
+#' @examples
+#' \dontrun{
+#' build_log <- sp_make_adventureworks_mssql_image(
+#'   "adventureworks-mssql:latest"
+#' )
+#' sp_docker_images_tibble()
+#' }
+
+sp_make_adventureworks_mssql_image <- function(image_tag) {
+
+  # compute path to Docker build context
+  build_context_path <- paste(
+    system.file(package = "sqlpetr"),
+    "/extdata/adventureworks-image",
+    sep = "/"
+  )
+
+  build_options <- glue::glue(
+    "--tag ", image_tag # gives the image a name
+  )
+  result <- sp_docker_build(build_options, build_context_path)
+}
+
 #' @title Run a Docker image
 #' @name sp_docker_run
 #' @description Creates a container and runs an image in it.
