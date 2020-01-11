@@ -1,6 +1,6 @@
 ---
 title: "Building the `adventureworks` Docker Image"
-author: "M. Edward (Ed) Borasky, John Smith"
+author: "M. Edward (Ed) Borasky, John David Smith"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette:
