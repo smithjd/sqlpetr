@@ -144,6 +144,35 @@ sp_docker_run <- function(image_tag,
   result <- .system2_to_docker(docker_cmd)
 }
 
+#' @title Execute a command in a Docker container
+#' @name sp_docker_exec
+#' @description Executes a command in a running Docker container.
+#' @param container_name character: a valid container name. If
+#' the container doesn't exist, the function will stop with an error
+#' message.
+#' @param options character: the options to use. Default is the empty
+#' string.
+#' @param command character: the command to run. There is no default; you
+#' must supply a valid command.
+#' @details Do `docker exec --help` in a command prompt to see all the options,
+#' of which there are many.
+#' @return Result of Docker command if it succeeded. Stops with an error message
+#' if it failed.
+#' @importFrom glue glue
+#' @export sp_docker_exec
+
+sp_docker_exec <- function(container_name,
+                          options = "",
+                          command) {
+  docker_cmd <- glue::glue(
+    "exec ", # the Docker command.
+    options, " ",
+    container_name, " ",
+    command
+  )
+  result <- .system2_to_docker(docker_cmd)
+}
+
 #' @title Run a PostgreSQL Docker image in a container
 #' @name sp_pg_docker_run
 #' @description Creates a container and runs an image in it. The image
