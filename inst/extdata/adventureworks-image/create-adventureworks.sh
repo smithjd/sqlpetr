@@ -1,2 +1,2 @@
 createdb adventureworks
-psql -d adventureworks -c 'CREATE EXTENSION "tds_fdw";'
+psql -d adventureworks -c 'CREATE EXTENSION "uuid-ossp";'
