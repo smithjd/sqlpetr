@@ -115,6 +115,13 @@ postgresql_con <- sqlpetr::sp_get_postgres_connection(
 ```{r}
 library(dplyr)
 
+# list the source columns
+source_columns <- DBI::dbGetQuery(
+  mssql_con,
+  'SELECT * FROM "AdventureWorks2017"."INFORMATION_SCHEMA"."COLUMNS"'
+)
+column_types <- source_columns$DATA_TYPE %>% unique()
+
 # list the source tables
 source_tables <- DBI::dbGetQuery(
   mssql_con,
