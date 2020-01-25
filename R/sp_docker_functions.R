@@ -37,38 +37,6 @@ sp_docker_build <- function(build_options, build_context_path) {
   result <- .system2_to_docker(docker_cmd)
 }
 
-#' @title Make `dvdrental` Docker image
-#' @name sp_make_dvdrental_image
-#' @description Creates a Docker image with PostgreSQL and the `dvdrental`
-#' database
-#' @param image_tag character: a valid image tag (name) for the docker image
-#' @return Result of Docker command if it succeeded. Stops with an error message
-#' if it failed.
-#' @importFrom glue glue
-#' @export sp_make_dvdrental_image
-#' @examples
-#' \dontrun{
-#' build_log <- sp_make_dvdrental_image("test-dvdrental:latest")
-#' sp_docker_images_tibble()
-#' }
-#' @details See the vignette "Building the `dvdrental` Docker Image" for the
-#' details.
-
-sp_make_dvdrental_image <- function(image_tag) {
-
-  # compute path to Docker build context
-  build_context_path <- paste(
-    system.file(package = "sqlpetr"),
-    "/extdata/dvdrental-image",
-    sep = "/"
-  )
-
-  build_options <- glue::glue(
-    "--tag ", image_tag # gives the image a name
-  )
-  result <- sp_docker_build(build_options, build_context_path)
-}
-
 #' @title Make `adventureworks_mssql` Docker image
 #' @name sp_make_adventureworks_mssql_image
 #' @description Creates a Docker image with Microsoft SQL Server (mssql)

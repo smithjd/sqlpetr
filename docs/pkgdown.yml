@@ -1,7 +1,5 @@
 pandoc: '2.8'
 pkgdown: 1.4.1
 pkgdown_sha: ~
-articles:
-  building-the-adventureworks-docker-image: building-the-adventureworks-docker-image.html
-  building-the-dvdrental-docker-image: building-the-dvdrental-docker-image.html
+articles: {}
 
