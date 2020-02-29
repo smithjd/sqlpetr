@@ -115,9 +115,13 @@ background (<code>--detach</code>) and the container PostgreSQL port will be
 published to <code>localhost</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sp_pg_docker_run</span>(<span class='no'>container_name</span>, <span class='kw'>image_tag</span> <span class='kw'>=</span> <span class='st'>"docker.io/postgres:10"</span>,
-  <span class='kw'>postgres_password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>, <span class='kw'>postgres_port</span> <span class='kw'>=</span> <span class='fl'>5439</span>,
-  <span class='kw'>docker_network</span> <span class='kw'>=</span> <span class='st'>"sql-pet"</span>)</pre>
+    <pre class="usage"><span class='fu'>sp_pg_docker_run</span>(
+  <span class='no'>container_name</span>,
+  <span class='kw'>image_tag</span> <span class='kw'>=</span> <span class='st'>"docker.io/postgres:10"</span>,
+  <span class='kw'>postgres_password</span> <span class='kw'>=</span> <span class='st'>"postgres"</span>,
+  <span class='kw'>postgres_port</span> <span class='kw'>=</span> <span class='fl'>5439</span>,
+  <span class='kw'>docker_network</span> <span class='kw'>=</span> <span class='st'>"sql-pet"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

@@ -14,7 +14,7 @@ sp_docker_images_tibble(list_all = FALSE)
 A tibble listing the images
 }
 \description{
-Creates a tibble of images using \code{docker images}
+Creates a tibble of images using \verb{docker images}
 }
 \examples{
 \dontrun{

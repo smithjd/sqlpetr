@@ -4,9 +4,15 @@
 \alias{sp_get_postgres_connection}
 \title{Connect to a PostgreSQL database}
 \usage{
-sp_get_postgres_connection(user = "postgres", password = "postgres",
-  dbname = "dvdrental", host = "localhost", port = 5439,
-  seconds_to_test = 30, connection_tab = FALSE)
+sp_get_postgres_connection(
+  user = "postgres",
+  password = "postgres",
+  dbname = "dvdrental",
+  host = "localhost",
+  port = 5439,
+  seconds_to_test = 30,
+  connection_tab = FALSE
+)
 }
 \arguments{
 \item{user}{character: Username for connecting to the database. The user

@@ -8,10 +8,10 @@ sp_docker_run(image_tag, options = "", command = "", args = "")
 }
 \arguments{
 \item{image_tag}{character: a valid image tag (name) for the docker image. If
-it doesn't exist locally, \code{docker run} will try to download it. If the
+it doesn't exist locally, \verb{docker run} will try to download it. If the
 download then fails, the function will stop with an error message.
 
-Note that the full syntax of an image tag is \code{<repository>/<name>:<tag>}. For
+Note that the full syntax of an image tag is \verb{<repository>/<name>:<tag>}. For
 example, the PostgreSQL 10 image we use is \code{docker.io/postgres:10}.}
 
 \item{options}{character: the options to use when running the image. Default
@@ -33,7 +33,7 @@ if it failed.
 Creates a container and runs an image in it.
 }
 \details{
-Do \code{docker run --help} in a command prompt to see all the options,
+Do \verb{docker run --help} in a command prompt to see all the options,
 of which there are many.
 }
 \examples{

@@ -10,7 +10,7 @@ sp_docker_networks_tibble()
 A tibble listing the networks
 }
 \description{
-Creates a tibble of networks using \code{docker network}
+Creates a tibble of networks using \verb{docker network}
 }
 \examples{
 \dontrun{

@@ -4,9 +4,13 @@
 \alias{sp_pg_docker_run}
 \title{Run a PostgreSQL Docker image in a container}
 \usage{
-sp_pg_docker_run(container_name, image_tag = "docker.io/postgres:10",
-  postgres_password = "postgres", postgres_port = 5439,
-  docker_network = "sql-pet")
+sp_pg_docker_run(
+  container_name,
+  image_tag = "docker.io/postgres:10",
+  postgres_password = "postgres",
+  postgres_port = 5439,
+  docker_network = "sql-pet"
+)
 }
 \arguments{
 \item{container_name}{character: a valid container name for the container}
